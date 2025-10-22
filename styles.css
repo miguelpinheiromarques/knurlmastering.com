@@ -108,6 +108,8 @@ header {
 	fill: #181818
 }
 
+.heading picture{padding-top:40px;border:1px solid red}
+
 a {
 	color: #EDA40E;
 	transition: all .2s linear;
