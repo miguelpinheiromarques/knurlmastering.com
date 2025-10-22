@@ -49,7 +49,6 @@ header,
 footer,
 section:not(.credits) {
 	padding: 0 1rem;
-
 	@media screen and (min-width: 48em) {
 		padding: 0 1.5rem;
 	}
@@ -68,7 +67,7 @@ h3 {
 header {
 	text-align: left;
 	padding-top: 50px;
-	padding-bottom: 40px;
+	padding-bottom: 0;
 	background-color: #f7f7f7;
 	color: #181818;
 }
@@ -321,7 +320,7 @@ a:hover {
 	outline: 0;
 	padding: 0 0 0 10px;
 	color:#181818;
-	border:1px solid #e0e0e0;
+	border:1px solid #eee;
 	font-size: clamp(0.95rem, 1.095rem + -0.227vw, 1.05rem);
 	letter-spacing: 0;
 	font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -342,7 +341,7 @@ a:hover {
 	resize: none;
 	padding: 10px 0 0 10px;
 	color:#181818;
-	border:1px solid #e0e0e0;
+	border:1px solid #eee;
 	font-size: clamp(0.95rem, 1.095rem + -0.227vw, 1.05rem);
 	letter-spacing: 0;
 	font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -350,7 +349,6 @@ a:hover {
 }
 
 @supports (-webkit-touch-callout: none) {
-
 	.contact input,
 	.contact textarea {
 		font-size: 16px;
@@ -583,6 +581,7 @@ p.knoll {
 	.contact input,
 	.contact textarea {
 		background-color: #181818;
+		border-color: #282828;
 		color: #f0f0f0
 	}
 
