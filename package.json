@@ -1,0 +1,20 @@
+{
+  "name": "knurl-mastering",
+  "version": "1.0.0",
+  "description": "A static portfolio site built with 11ty",
+  "main": ".eleventy.js",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "keywords": [
+    "eleventy",
+    "static",
+    "portfolio"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.0"
+  }
+}
