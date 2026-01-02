@@ -1,0 +1,16 @@
+{
+  "en": {
+	"nav_home": "Home",
+	"nav_contact": "Contact",
+	"section_miguel": "Miguel's Work",
+	"section_clara": "Clara's Work",
+	"footer_text": "All rights reserved."
+  },
+  "pt": {
+	"nav_home": "Início",
+	"nav_contact": "Contacto",
+	"section_miguel": "Trabalhos do Miguel",
+	"section_clara": "Trabalhos da Clara",
+	"footer_text": "Todos os direitos reservados."
+  }
+}

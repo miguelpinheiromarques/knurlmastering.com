@@ -1,0 +1,19 @@
+---
+layout: base.njk
+title: My Portfolio
+locale: en
+---
+
+<section id="miguel">
+  <h2>{{ site.en.section_miguel }}</h2>
+  {% set creditList = miguel %}
+  {% include "partials/credit-grid.njk" %}
+</section>
+
+<hr>
+
+<section id="clara">
+  <h2>{{ site.en.section_clara }}</h2>
+  {% set creditList = clara %}
+  {% include "partials/credit-grid.njk" %}
+</section>

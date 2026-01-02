@@ -1,0 +1,16 @@
+<div class="credits-grid">
+  {% for item in creditList %}
+    <div class="credit-card">
+      <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">
+        <img src="{{ item.image }}" alt="{{ item.title }}">
+      </a>
+      
+      <div class="credit-info">
+        <h3>{{ item.title }}</h3>
+        <p class="sub1">{{ item.sub1 }}</p>
+        <p class="sub2">{{ item.sub2 }}</p>
+        <p class="sub3">{{ item.sub3 }}</p>
+      </div>
+    </div>
+  {% endfor %}
+</div>

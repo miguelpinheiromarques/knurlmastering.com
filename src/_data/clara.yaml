@@ -1,0 +1,13 @@
+- title: "Project 1"
+  sub1: "Director"
+  sub2: "2023"
+  sub3: "Fiction"
+  image: "https://via.placeholder.com/300"
+  link: "https://google.com"
+
+- title: "Project 2"
+  sub1: "Editor"
+  sub2: "2024"
+  sub3: "Documentary"
+  image: "https://via.placeholder.com/300"
+  link: "https://bing.com"
