@@ -63,11 +63,15 @@ footer {
   header,
   .studio,
   .faq,
-  .contact,
-  footer {
+  .contact {
     width: 48em;
     margin: 0 auto;
     padding: 0 1.5rem; /* Desktop Padding */
+  }
+  footer {
+    width: 48em;
+    margin: 0 auto;
+    padding: 0; /* Footer Padding */
   }
 }
 
