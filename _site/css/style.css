@@ -64,6 +64,8 @@ footer {
   }
 }
 
+footer {margin-top:80px;border-top:4px solid #ddd}
+
 h2 {
   font-size: 1.1rem;
   font-optical-sizing: auto;
@@ -145,7 +147,7 @@ a:hover {
 /* Main Container */
 .credits {
   margin: 0;
-  padding:20px 0;
+  padding:20px 0 0 0;
   background-color:#f0f0f0;
 }
 @media screen and (min-width: 48em) {
@@ -154,6 +156,7 @@ a:hover {
 .credits .innercredits {
   background-image: linear-gradient(to right, #383838, #363636, #353535, #333333, #323232);
   border-top: 4px solid #EDA40E;
+  border-radius: 0 0 25px 25px;
 }
 
 /* Section Title */
@@ -210,8 +213,37 @@ a:hover {
     border:none;
   }
 }
+.scroll {position:absolute;margin-top:-40px;margin-left:20px;}
+.scroll svg{float:right;animation: swipe-pause 3s ease-in-out infinite;height:20px;width:20px;}
+.scroll svg path{fill:#666;}
+@keyframes swipe-pause {
+  /* --- First Swipe --- */
+  0% {
+    transform: translateX(0);
+    opacity: 0.5; /* Optional: fade out when still */
+  }
+  10% {
+    transform: translateX(10px); /* Move Right */
+    opacity: 1;
+  }
+  20% {
+    transform: translateX(0);    /* Move Back */
+  }
 
-.credits h3 span{float:right;}
+  /* --- Second Swipe --- */
+  30% {
+    transform: translateX(10px); /* Move Right */
+  }
+  40% {
+    transform: translateX(0);    /* Move Back */
+  }
+
+  /* --- The Pause (40% to 100%) --- */
+  100% {
+    transform: translateX(0);    /* Stay still */
+    opacity: 0.5;
+  }
+}
 
 /* THE SCROLL GRID */
 .credits .artwork {
@@ -238,7 +270,7 @@ a:hover {
   width: 100%;
   height: auto; /* Allow height to grow to fit 3 rows */
   margin: 0;
-  padding: 30px 20px; /* Add side padding so items don't touch edge */
+  padding: 30px 20px 60px; /* Add side padding so items don't touch edge */
   background-color: #242424;
   box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.15) inset, 0px -10px 10px -10px rgba(0, 0, 0, 0.25) inset;
   color: #fff;
@@ -484,7 +516,7 @@ a.threads:hover svg path {
 }
 
 .language p {
-  margin: 80px 0 0 0;
+  margin: 0 0 0 0;
   font-weight: 600;
   background-color: #f2f2f2;
   border-radius: 2px;
@@ -614,7 +646,7 @@ p.knoll {
   body,
   .studio,
   header {
-    background-color: #000000;
+    background-color: #121212;
     color: #f0f0f0
   }
 
@@ -626,14 +658,16 @@ p.knoll {
     color: #f0f0f0
   }
 
+  footer {border-top:4px solid #282828}
+  
   .language p {
-    border: 1px solid #101010;
-    background-color: #101010;
+    border: 1px solid #181818;
+    background-color: #181818;
   }
 
   .language p:hover {
-    background-color: #181818;
-    border: 1px solid #181818
+    background-color: #101010;
+    border: 1px solid #101010;
   }
 
   .language a {
@@ -646,13 +680,13 @@ p.knoll {
 
   .heading .logo svg path {
     stroke: #f0f0f0;
-    stroke-width: 3;
+    stroke-width: 2;
     fill: #f0f0f0;
   }
 
   .heading .logo svg circle {
     stroke: #f0f0f0;
-    stroke-width: 10;
+    stroke-width: 5;
     fill: none
   }
 
@@ -661,7 +695,7 @@ p.knoll {
   }
 
   .contact {
-    background-color: #000;
+    background-color: #121212;
     color: #f0f0f0;
   }
 
