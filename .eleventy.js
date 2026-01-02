@@ -11,25 +11,30 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/knurlmastering-og.jpg");
 
   // 2. Define the Image Optimization Shortcode
-eleventyConfig.addNunjucksAsyncShortcode("image", async function(src, alt, sizes, cls = "") {
+// In your .eleventy.js config
+eleventyConfig.addShortcode("image", async function(src, alt, sizes, className, loading) {
+  
+  // 1. Define the default if no argument is provided
+  // If 'loading' is undefined, we use "lazy".
+  let loadingStrategy = loading || "lazy"; 
+
   let metadata = await Image(src, {
-    widths: [450, 600, 900, 1200], 
+    widths: [450, 600, 900, 1200], // (Your existing widths)
     formats: ["webp", "jpeg"],
-    urlPath: "/img/",
-    outputDir: "./_site/img/"
+    outputDir: "./_site/img/",
+    urlPath: "/img/"
   });
 
   let imageAttributes = {
-    alt,
-    sizes,
-    class: cls, // <--- This adds your custom class to the <img> tag
-    loading: "lazy",
+    class: className,
+    sizes: sizes,
+    loading: loadingStrategy, // <--- Add this line!
     decoding: "async",
+    alt: alt
   };
-  
-    // Generates the <picture> tag automatically
-    return Image.generateHTML(metadata, imageAttributes);
-  });
+
+  return Image.generateHTML(metadata, imageAttributes);
+});
 
   return {
     dir: {
