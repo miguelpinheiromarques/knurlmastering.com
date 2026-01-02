@@ -49,17 +49,17 @@ body {
   background: #EDA40E;
 }
 
-.heading,
-.contact div,
-.studio div,
-.faq div,
+header,
+.studio,
+.faq,
+.contact,
 footer {
   width: 100%;
   margin: 0;
   padding: 0 1rem;
 }
   @media screen and (min-width: 768px) {
-    width: 100%;     /* Keep width flexible to fit inside padding */
+    width: 100%;
     margin: 0 auto;
 	padding: 0 1.5rem;	  
   }
