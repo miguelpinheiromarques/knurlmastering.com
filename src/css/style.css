@@ -770,8 +770,8 @@ p.knoll {
     color: #f0f0f0
   }
 
-  p.social svg {
-    filter: invert(100%)
+  p.social svg path{
+    fill:#f0f0f0;
   }
   .tab__label, .tab__content p, .tab__content ul, .tab__content li{color:#f0f0f0}
 }
