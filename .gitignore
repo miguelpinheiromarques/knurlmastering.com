@@ -1,0 +1,11 @@
+# Ignore the built website
+_site/
+
+# Ignore heavy dependency folders (Never upload this!)
+node_modules/
+
+# Ignore Mac system files
+.DS_Store
+
+# Ignore environment variables (Safety)
+.env
