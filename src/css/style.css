@@ -107,14 +107,14 @@ header {
   fill: #181818
 }
 
-a {
+a,.intro span {
   color: #EDA40E;
   transition: all .2s linear;
   text-decoration: none;
   font-weight: 600;
 }
 
-a:hover {
+a:hover, .intro span:hover {
   color: #E6C16A;
 }
 
