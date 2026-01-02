@@ -1,4 +1,5 @@
-<div class="credits-grid">
+<div class="innercredits">
+  <div class="artwork">
   {% for item in creditList %}
     <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">
         <img decoding="async" src="/{{ item.image }}" loading="lazy" alt="{{ item.artist }} - {{ item.work }}" />
@@ -7,4 +8,5 @@
         <p>{{ item.service }}<span>{{ item.date }}</span></p>
     </a>
   {% endfor %}
+  </div>
 </div>

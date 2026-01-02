@@ -72,8 +72,9 @@
 
 <body>
   
+  {% include "partials/hero.njk" %}
   {% include "partials/nav.njk" %}
-
+  
   <main>
     {{ content | safe }}
   </main>

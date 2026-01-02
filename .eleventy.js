@@ -1,12 +1,31 @@
+const Image = require("@11ty/eleventy-img");
+
 module.exports = function(eleventyConfig) {
-  // Pass CSS through
+  
+  // 1. Pass CSS and Covers through (Keep your existing settings)
   eleventyConfig.addPassthroughCopy("./src/css");
-  
-  // NEW: Pass the covers folder through
   eleventyConfig.addPassthroughCopy("./src/covers");
-  
-  // Watch for changes
   eleventyConfig.addWatchTarget("./src/css/");
+
+  // 2. Define the Image Optimization Shortcode
+  eleventyConfig.addNunjucksAsyncShortcode("image", async function(src, alt, sizes) {
+    let metadata = await Image(src, {
+      widths: [300, 600, "auto"], // Resize to these widths
+      formats: ["webp", "jpeg"],  // specific formats
+      urlPath: "/img/",           // Path in the URL
+      outputDir: "./_site/img/"   // Where to save files on disk
+    });
+
+    let imageAttributes = {
+      alt,
+      sizes,
+      loading: "lazy",
+      decoding: "async",
+    };
+
+    // Generates the <picture> tag automatically
+    return Image.generateHTML(metadata, imageAttributes);
+  });
 
   return {
     dir: {

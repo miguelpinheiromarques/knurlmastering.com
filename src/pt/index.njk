@@ -6,16 +6,8 @@ alt_locale: en
 site_url: "https://your-domain.com"
 ---
 
-<div id="top"></div>
+<div id="credits" class="split-container credits">
 
-<section class="intro">
-  <div class="logo-placeholder"></div>
-  <h1>{{ site.pt.intro_title }}</h1>
-  <p>{{ site.pt.intro_text }}</p>
-</section>
-
-<div id="credits" class="split-container">
-  
   <div class="split-col">
     <img src="https://via.placeholder.com/600x400?text=Miguel" alt="Miguel" class="profile-pic">
     {% set creditList = miguel %}
@@ -30,25 +22,120 @@ site_url: "https://your-domain.com"
 
 </div>
 
-<hr>
-
-<section id="faq" class="full-section">
-  <h2>{{ site.pt.faq_title }}</h2>
-  <div class="faq-content">
-    <details>
-      <summary>Estão disponíveis para novos projetos?</summary>
-      <p>Sim, estamos a aceitar novos trabalhos.</p>
-    </details>
-    <details>
-      <summary>Onde estão baseados?</summary>
-      <p>Estamos baseados em Lisboa, Portugal.</p>
-    </details>
+<section class="studio">
+  <div>
+    <h2>{{ site.en.about_title }}</h2>
+    <p>Our name is inspired by the crisp, crosshatched knurls formed through metalworking on a lathe and the
+      organic, unpredictable beauty of wood grain in a natural knurl. One is engineered with precision; the
+      other, shaped by nature. This balance between technical accuracy and aesthetic sensibility guides our
+      practice, bridging the science and the art in mastering.</p>
+    <p>From the coastal mountains of northern Portugal, we collaborate with artists both near and far, across
+      genres and labels, from independent to major. Our studio setup combines analog precision with sonic
+      flexibility, allowing us to create unique signal chains for each record and bring out the best in every
+      album and song we work on.</p>
+    <p>We've mastered countless records for vinyl and we're on Apple's list of certified partners for the Apple
+      Digital Masters
+      program. Whether your music is headed to turntables or the latest digital streaming platforms, we'll
+      deliver the right masters for each and guide you through the entire process.</p>
+    <br />
   </div>
 </section>
 
-<hr>
+<section class="faq">
+  <div>
+    <h2>{{ site.en.faq_title }}</h2>
+    <div class="accordion accordion--checkbox">
+      <div class="tab">
+        <input type="checkbox" id="cb1">
+        <label for="cb1" class="tab__label">How much does it cost?</label>
+        <div class="tab__content">
+          <p>Our mastering rates typically range from €50 to €80 per track (or $60 to $100 USD), depending
+            on the length of the record and the engineer working on the record.</p>
+          <p>All standard deliverables (high-resolution files, DDP for CD, vinyl pre-masters, etc.) are
+            included in the price, we do not charge extra for different formats.</p>
+          <p>Feel free to get in touch with your project details, and we'll be happy to send you a precise
+            quote.</p>
+        </div>
+      </div>
+
+      <div class="tab">
+        <input type="checkbox" id="cb2">
+        <label for="cb2" class="tab__label">What formats do you accept? What are the deliverables?</label>
+        <div class="tab__content">
+          <p>We accept all standard audio formats up to 768kHz and 32-bit, including native playback of
+            DSD files. Whether you're working with WAV, AIFF, FLAC, or DSD, we've got you covered. Ideally, <u>send your mixes at the sample rate they were mixed at</u>, don't convert anything to send up to mastering.</p>
+          <p>Our standard deliverables include:
+          <ul>
+            <li>High-resolution masters at 96kHz/24bit for digital distribution</li>
+            <li>Audio for video at 48kHz/24bit</li>
+            <li>DDP image files for CD manufacturing</li>
+            <li>Vinyl pre-master files tailored to your pressing plant's specifications</li>
+          </ul>
+          </p>
+          <p>Other formats or custom deliverables can be provided upon request, just let us know what you
+            need.</p>
+        </div>
+      </div>
+
+      <div class="tab">
+        <input type="checkbox" id="cb3">
+        <label for="cb3" class="tab__label">What's the turnaround time?</label>
+        <div class="tab__content">
+          <p>We typically deliver the first version of your mastered track or record within 2-3 business
+            days after receiving all the necessary files.</p>
+          <p>If revisions are needed, we usually turn those around in 1-2 business days, depending on the
+            scope of the changes. We'll keep working closely with you until you're fully satisfied and
+            the final masters are approved.</p>
+          <p>If you're on a tight deadline, just let us know and we'll do our best to accommodate.</p>
+        </div>
+      </div>
+
+      <div class="tab">
+        <input type="checkbox" id="cb4">
+        <label for="cb4" class="tab__label">Can I attend a session?</label>
+        <div class="tab__content">
+          <p>Absolutely! While most of our sessions are handled remotely (clients send us their files, and we deliver the masters for review) we're happy to have you attend the session in person, as long as it's booked in advance.</p>
+          <p>Just let us know your preference when scheduling, and we'll make the necessary arrangements.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+</section>
 
 <section id="contact" class="full-section">
-  <h2>{{ site.pt.contact_title }}</h2>
-  <p>Envie email para: <a href="mailto:hello@example.com">hello@example.com</a></p>
+  <div>
+    <h2>{{ site.en.contact_title }}</h2>
+    <p>You might have a project in mind or simply be looking for more info, either way we'd be happy to hear
+      from you. If you'd like details on pricing, availability, or lead times, feel free to reach out.</p>
+    <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+
+      <input type="hidden" name="access_key" value="778e917c-c0da-4467-bc1d-9dfc0bdf938e" />
+      <input type="hidden" name="subject" value="Website Contact Form" />
+      <input type="hidden" name="from_name" value="knurlmastering.com" />
+      <input type="hidden" name="redirect" value="https://knurlmastering.com/index.html#thankyou">
+
+      <div class="form-group-container">
+        <div class="form-group">
+          <input id="name" name="name" class="form-input" placeholder="Your name" type="text" required />
+        </div>
+        <div class="form-group">
+          <input id="email" name="email" class="form-input second" placeholder="Your email" type="email" required />
+        </div>
+        <div class="form-group">
+          <textarea class="form-textarea" id="message" name="message" placeholder="Your message" required></textarea>
+        </div>
+      </div>
+      <button class="form-submit" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1f1f1f" viewBox="0 -960 960 960">
+          <path d="M480-440 160-640v400h360v80H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v280h-80v-200L480-440Zm0-80 320-200H160l320 200ZM760-40l-56-56 63-64H600v-80h167l-64-64 57-56 160 160L760-40ZM160-640v440-240 3-283 80Z" />
+        </svg> Send message</button>
+    </form>
+
+    <div id="thankyou" class="thankyou">
+      <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1f1f1f" viewBox="0 -960 960 960">
+          <path d="M400-304 240-464l56-56 104 104 264-264 56 56-320 320Z" />
+        </svg> Message sent, thanks for getting in touch.</p>
+    </div>
+  </div>
 </section>
