@@ -564,7 +564,7 @@ p.social svg {
   fill: #1877F2;
 }
 
-.instagram:hover svg path {
+.instagram svg:hover path {
   fill: #E1306C;
 }
 
