@@ -82,19 +82,6 @@ header {
   color: #181818;
 }
 
-.heading,
-.contact div,
-.studio div,
-.faq div {
-  width: 100%;
-margin:0;
-  @media screen and (min-width: 33em) {
-    max-width: 33em;
-    width: 33em;
-    margin: 0 auto;
-  }
-}
-
 .heading p {
   margin-top: 40px;
 }
@@ -232,7 +219,7 @@ a:hover {
   display: grid;
   
   /* 1. Define 3 rows that fit their content height */
-  grid-template-rows: repeat(3, min-content);
+  grid-template-rows: repeat(2, min-content);
   
   /* 2. Force items to fill vertically (Col 1: Row 1,2,3) then move to Col 2 */
   grid-auto-flow: column;
@@ -335,17 +322,11 @@ a:hover {
 .studio {
   background-color: #f7f7f7;
   color: #181818;
+  padding:20px 0;
 }
 
 .studio h2 {
-  padding-top: 40px;
-}
-
-.studio img {
-  width: 100%;
-  height: auto;
-  border-top: 4px solid #EDA40E;
-  margin: 20px 0 40px 0;
+  padding-top: 10px;
 }
 
 .faq {
@@ -460,10 +441,10 @@ a:hover {
 
 .contact .thankyou p svg,
 .form-submit svg {
-  height: 18px;
-  width: 18px;
-  line-height: 18px;
-  vertical-align: -20%;
+  height: 24px;
+  width: 24px;
+  line-height: 20px;
+  vertical-align: -33%;
   padding-right: 9px;
 }
 
@@ -529,7 +510,7 @@ a.threads:hover svg path {
   height: 16px;
   width: 16px;
   padding-right: 5px;
-  vertical-align: -25%;
+  vertical-align: -35%;
 }
 
 .language svg path {
@@ -547,14 +528,15 @@ p.copyright {
   margin-top: 10px;
   color: #999;
   padding-left: 5px;
-  text-align: left;
+  text-align: right;
 }
+p.copyright::first-letter{font-size:0.5rem;}
 
 p.knoll {
   text-transform: uppercase;
   font-size: 0.5rem;
   font-weight: 600;
-  padding: 40px 0;
+  padding: 10px 0 40px 0;
   text-align: right;
 }
 
