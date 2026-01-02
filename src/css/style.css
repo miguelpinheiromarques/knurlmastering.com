@@ -246,6 +246,7 @@ a:hover {
   margin-left:20px;
   opacity: 1;
   transition: opacity 0.5s ease;
+  animation: bounce 2s infinite;
 }
 
 .scroll.is-hidden {
@@ -265,35 +266,6 @@ a:hover {
 .artwork.has-scrolled { 
     /* Adjust this selector if you only want the .credits one to change */
     padding: 30px 20px; 
-}
-
-@keyframes swipe-pause {
-  /* --- First Swipe --- */
-  0% {
-    transform: translateX(0);
-    opacity: 0.5; /* Optional: fade out when still */
-  }
-  10% {
-    transform: translateX(10px); /* Move Right */
-    opacity: 1;
-  }
-  20% {
-    transform: translateX(0);    /* Move Back */
-  }
-
-  /* --- Second Swipe --- */
-  30% {
-    transform: translateX(10px); /* Move Right */
-  }
-  40% {
-    transform: translateX(0);    /* Move Back */
-  }
-
-  /* --- The Pause (40% to 100%) --- */
-  100% {
-    transform: translateX(0);    /* Stay still */
-    opacity: 0.5;
-  }
 }
 
 /* THE SCROLL GRID */
