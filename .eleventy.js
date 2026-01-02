@@ -1,8 +1,11 @@
 module.exports = function(eleventyConfig) {
-  // Pass CSS through to the output
+  // Pass CSS through
   eleventyConfig.addPassthroughCopy("./src/css");
   
-  // Watch for changes in style
+  // NEW: Pass the covers folder through
+  eleventyConfig.addPassthroughCopy("./src/covers");
+  
+  // Watch for changes
   eleventyConfig.addWatchTarget("./src/css/");
 
   return {

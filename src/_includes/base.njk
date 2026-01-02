@@ -4,11 +4,72 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }}</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preload" href="/css/styles.css" as="style">
   
   <link rel="alternate" hreflang="{{ locale }}" href="{{ site_url }}{{ page.url }}" />
   <link rel="alternate" hreflang="{{ alt_locale }}" href="{{ site_url }}/{{ alt_locale }}/" />
+  
+  <meta name="description"
+    content="Knurl Mastering is a music mastering studio founded by engineers Miguel Pinheiro Marques and Clara Araújo, driven by a deep respect for records, sonics, and the pursuit of high fidelity.">
+  <meta name="keywords"
+    content="mastering engineer, mastering studio, audio mastering, mastering services, professional mastering, mastered audio, music production, song mastering, recording and mastering studio, mixing and mastering, vinyl mastering, CD mastering, digital mastering, online mastering service, audio engineering, high-quality mastering, mastering techniques, single mastering, mastering service for artists, audio studio, audio mastering expert, audio mastering Portugal, mastering process, audio finalization, digital mastering, sound productions, exclusive for musicians, mastering customization, professional mastering for bands, miguel pinheiro marques, sistemas e técnicas de produção áudio, Apple Digital Masters, Mastered For iTunes, Bender Mastering Studio, Estúdios Sá da Bandeira, Arda Recorders">
+  <meta name="author" content="Knurl Mastering">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <meta name="theme-color" content="#383838" />
+  
+  
+  <link rel="canonical" hreflang="en-US" href="https://knurlmastering.com/" />
+  <link rel="alternate" hreflang="en-US" href="https://knurlmastering.com/" />
+  <link rel="alternate" hreflang="pt-PT" href="https://knurlmastering.com/pt/" />
+  <link rel="alternate" hreflang="x-default" href="https://knurlmastering.com/" />
+  
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Knurl" />
+  
+  <meta property="og:url" content="https://knurlmastering.com">
+  <meta property="og:type" content="website">
+  <meta property="og:title"
+    content="Knurl Mastering - Music mastering studio founded by engineers Miguel Pinheiro Marques and Clara Araújo">
+  <meta property="og:description"
+    content="Knurl Mastering is a music mastering studio founded by engineers Miguel Pinheiro Marques and Clara Araújo, driven by a deep respect for records, sonics, and the pursuit of high fidelity.">
+  <meta property="og:image" content="https://knurlmastering.com/knurlmastering-og.jpg">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="683">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="knurlmastering.com">
+  <meta property="twitter:url" content="https://knurlmastering.com">
+  <meta name="twitter:title"
+    content="Knurl Mastering - Music mastering studio founded by engineers Miguel Pinheiro Marques and Clara Araújo">
+  <meta name="twitter:description"
+    content="Knurl Mastering is a music mastering studio founded by engineers Miguel Pinheiro Marques and Clara Araújo, driven by a deep respect for records, sonics, and the pursuit of high fidelity.">
+  <meta name="twitter:image" content="https://knurlmastering.com/knurlmastering.jpg">
+
+  <link rel="stylesheet" href="/css/style.css">    
 </head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LLZNH0P7WX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Default: no cookies, no identifiers
+  gtag('config', 'G-LLZNH0P7WX', {
+    'anonymize_ip': true,      // mask IP addresses
+    'storage': 'none',         // do not set cookies
+    'client_storage': 'none'   // GA4-specific: block _ga cookies
+  });
+
+  // Extra privacy: deny all storage just in case
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied'
+  });
+</script>
+
 <body>
   
   {% include "partials/nav.njk" %}
