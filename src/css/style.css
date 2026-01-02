@@ -246,7 +246,7 @@ a:hover {
   margin-left:20px;
   opacity: 1;
   transition: opacity 0.5s ease;
-  animation: bounce 2s infinite;  
+  animation: bounce 1s infinite;  
 }
 
 .scroll.is-hidden {
@@ -255,8 +255,8 @@ a:hover {
 }
 
 @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(10px); }
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(10px); }
 }
 
 /* 2. Resizing the Artwork Divs */
