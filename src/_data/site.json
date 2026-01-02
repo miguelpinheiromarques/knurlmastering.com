@@ -1,16 +1,24 @@
 {
   "en": {
-	"nav_home": "Home",
-	"nav_contact": "Contact",
-	"section_miguel": "Miguel's Work",
-	"section_clara": "Clara's Work",
-	"footer_text": "All rights reserved."
+    "nav_home": "Home",
+    "nav_credits": "Credits",
+    "nav_faq": "FAQ",
+    "nav_contact": "Contact",
+    "intro_title": "Welcome to our Portfolio",
+    "intro_text": "We are Miguel and Clara, creative partners based in Lisbon.",
+    "faq_title": "Frequently Asked Questions",
+    "contact_title": "Get in Touch",
+    "footer_text": "All rights reserved."
   },
   "pt": {
-	"nav_home": "Início",
-	"nav_contact": "Contacto",
-	"section_miguel": "Trabalhos do Miguel",
-	"section_clara": "Trabalhos da Clara",
-	"footer_text": "Todos os direitos reservados."
+    "nav_home": "Início",
+    "nav_credits": "Créditos",
+    "nav_faq": "FAQ",
+    "nav_contact": "Contacto",
+    "intro_title": "Bem-vindo ao nosso Portfólio",
+    "intro_text": "Somos o Miguel e a Clara, parceiros criativos em Lisboa.",
+    "faq_title": "Perguntas Frequentes",
+    "contact_title": "Entre em Contacto",
+    "footer_text": "Todos os direitos reservados."
   }
 }
