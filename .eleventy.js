@@ -6,7 +6,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/css");
   eleventyConfig.addWatchTarget("./src/css/");
   eleventyConfig.addPassthroughCopy("./src/favicon.svg");
-  eleventyConfig.addPassthroughCopy("./src/apple-touch-icon");
+  eleventyConfig.addPassthroughCopy("./src/apple-touch-icon.png");
   eleventyConfig.addPassthroughCopy("./src/favicon-96x96.png");
   eleventyConfig.addPassthroughCopy("./src/knurlmastering-og.jpg");
 
