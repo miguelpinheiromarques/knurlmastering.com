@@ -49,15 +49,6 @@ body {
   background: #EDA40E;
 }
 
-header,
-footer,
-section:not(.credits) {
-	padding: 0 1rem;
-	@media screen and (min-width: 768px) {
-		padding: 0 1.5rem;
-	}
-}
-
 .heading,
 .contact div,
 .studio div,
@@ -65,10 +56,12 @@ section:not(.credits) {
 footer {
   width: 100%;
   margin: 0;
-
+  padding: 0 1rem;
+}
   @media screen and (min-width: 768px) {
     width: 100%;     /* Keep width flexible to fit inside padding */
     margin: 0 auto;
+	padding: 0 1.5rem;	  
   }
 }
 
