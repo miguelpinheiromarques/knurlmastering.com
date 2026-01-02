@@ -2,13 +2,20 @@
   command = "npm run build"
   publish = "_site"
 
-# Default redirect: Move root / to /en/
+# 1. If the browser language is Portuguese, go to /pt/
+[[redirects]]
+  from = "/"
+  to = "/pt/"
+  status = 302
+  conditions = {Language = ["pt", "pt-BR", "pt-PT"]}
+
+# 2. Default: Everyone else goes to /en/
 [[redirects]]
   from = "/"
   to = "/en/"
   status = 301
 
-# Handle 404s (optional but recommended)
+# 3. Handle 404s (send to English homepage)
 [[redirects]]
   from = "/*"
   to = "/en/"
