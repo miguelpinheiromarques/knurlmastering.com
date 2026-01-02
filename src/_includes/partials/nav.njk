@@ -1,14 +1,16 @@
 <nav>
   <ul>
-	<li><a href="/{{ locale }}/">{{ site[locale].nav_home }}</a></li>
-	<li><a href="#contact">{{ site[locale].nav_contact }}</a></li>
-	
-	<li class="lang-switch">
-	  {% if locale == "en" %}
-		<a href="/pt/">PT</a>
-	  {% else %}
-		<a href="/en/">EN</a>
-	  {% endif %}
-	</li>
+    <li><a href="#top">{{ site[locale].nav_home }}</a></li>
+    <li><a href="#credits">{{ site[locale].nav_credits }}</a></li>
+    <li><a href="#faq">{{ site[locale].nav_faq }}</a></li>
+    <li><a href="#contact">{{ site[locale].nav_contact }}</a></li>
+
+    <li class="lang-switch">
+      {% if locale == "en" %}
+        <a href="/pt/">PT</a>
+      {% else %}
+        <a href="/en/">EN</a>
+      {% endif %}
+    </li>
   </ul>
 </nav>
