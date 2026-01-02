@@ -232,7 +232,7 @@ a:hover {
   display: grid;
   
   /* 1. Define 3 rows that fit their content height */
-  grid-template-rows: repeat(3, min-content);
+  grid-template-rows: repeat(2, min-content);
   
   /* 2. Force items to fill vertically (Col 1: Row 1,2,3) then move to Col 2 */
   grid-auto-flow: column;
