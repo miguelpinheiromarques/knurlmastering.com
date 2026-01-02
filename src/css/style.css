@@ -685,7 +685,7 @@ p.knoll {
     color: #f0f0f0
   }
 
-  footer language {border-top:4px solid #282828}
+  footer .language {border-top:4px solid #282828}
   footer hr{color:#282828;}
 
   
