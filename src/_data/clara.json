@@ -1,6 +1,14 @@
 [
   {
     "artist": "Asa Cobra",
+    "work": "Ponta de Lança",
+    "service": "digital mastering",
+    "date": "September 2025",
+    "image": "covers/asa_cobra_ponta_de_lanca.jpg",
+    "link": "https://music.apple.com/pt/album/ponta-de-lanc-a/1837958923?i=1837958924&l=en-GB"
+  },
+  {
+    "artist": "Asa Cobra",
     "work": "Flutuar",
     "service": "digital mastering",
     "date": "June 2025",
