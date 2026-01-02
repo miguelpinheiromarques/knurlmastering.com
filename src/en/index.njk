@@ -35,35 +35,34 @@ site_url: "https://knurlmastering.com"
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   
-  // 1. Find ALL artwork containers
-  const artworkContainers = document.querySelectorAll('.artwork');
+  // 1. Select ALL artwork containers and ALL scroll labels
+  const allArtworks = document.querySelectorAll('.artwork');
+  const allLabels = document.querySelectorAll('.scroll');
 
-  artworkContainers.forEach(container => {
-    
-    // 2. Find the specific icon for THIS container.
-    // We assume the .scroll icon is a sibling (shares the same parent).
-    // If .scroll is INSIDE .artwork, change this to: container.querySelector('.scroll')
-    const scrollLabel = container.parentElement.querySelector('.scroll');
+  // 2. Define the "Master Switch" function
+  // This will run once and update EVERYTHING at the same time
+  const triggerGlobalUpdate = () => {
+      
+      // Hide ALL scroll labels
+      allLabels.forEach(label => {
+          label.classList.add('is-hidden');
+      });
 
-    // 3. Define the action for this specific container
-    const handleScroll = () => {
-        
-        // Hide the label/icon if found
-        if (scrollLabel) {
-            scrollLabel.classList.add('is-hidden');
-        }
+      // Update ALL artwork containers (add class for padding change)
+      allArtworks.forEach(art => {
+          art.classList.add('has-scrolled');
+      });
+  };
 
-        // Add the class to the artwork container (for your padding adjustment)
-        container.classList.add('has-scrolled');
-    };
+  // 3. Add the listener to every artwork container
+  // If ANY of them is scrolled, they trigger the global function
+  allArtworks.forEach(container => {
+      container.addEventListener('scroll', triggerGlobalUpdate, { once: true });
 
-    // 4. Add the listener
-    container.addEventListener('scroll', handleScroll, { once: true });
-
-    // Optional: Check if already scrolled on load
-    if (container.scrollLeft > 0 || container.scrollTop > 0) {
-        handleScroll();
-    }
+      // Check immediately if this specific container is already scrolled (e.g. refresh)
+      if (container.scrollLeft > 0 || container.scrollTop > 0) {
+          triggerGlobalUpdate();
+      }
   });
 });
 </script>
