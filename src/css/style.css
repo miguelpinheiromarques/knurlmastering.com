@@ -241,7 +241,9 @@ a:hover {
 
 /* 1. Hiding the Scroll Label */
 .scroll {
-  position:absolute;margin-top:-40px;margin-left:20px;
+  position:absolute;
+  margin-top:-40px;
+  margin-left:20px;
   opacity: 1;
   transition: opacity 0.5s ease;
 }
@@ -250,17 +252,19 @@ a:hover {
   opacity: 0;
   pointer-events: none;
 }
-.scroll svg{float:right;animation: swipe-pause 3s ease-in-out infinite;height:20px;width:20px;}
-.scroll svg path{fill:#666;}
-/* 2. Adjusting Padding on Scroll */
-/* This targets the .artwork div that has been scrolled */
+
+/* 2. Resizing the Artwork Divs */
 .artwork.has-scrolled {
-    transition: padding 0.3s ease; /* Optional: makes the padding jump smooth */
+    transition: padding 0.3s ease;
 }
 
-/* Specific override for the credits section as requested */
-.credits .artwork.has-scrolled {
-    padding: 30px 20px;
+/* Apply the padding change.
+   If you want BOTH divs to resize to 30px 20px, use this:
+*/
+.credits .artwork.has-scrolled,
+.artwork.has-scrolled { 
+    /* Adjust this selector if you only want the .credits one to change */
+    padding: 30px 20px; 
 }
 
 @keyframes swipe-pause {
