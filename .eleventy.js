@@ -5,6 +5,10 @@ module.exports = function(eleventyConfig) {
   // 1. Pass CSS and Covers through (Keep your existing settings)
   eleventyConfig.addPassthroughCopy("./src/css");
   eleventyConfig.addWatchTarget("./src/css/");
+  eleventyConfig.addPassthroughCopy("./src/favicon.svg");
+  eleventyConfig.addPassthroughCopy("./src/apple-touch-icon");
+  eleventyConfig.addPassthroughCopy("./src/favicon-96x96.png");
+  eleventyConfig.addPassthroughCopy("./src/knurlmastering-og.jpg");
 
   // 2. Define the Image Optimization Shortcode
   eleventyConfig.addNunjucksAsyncShortcode("image", async function(src, alt, sizes) {
