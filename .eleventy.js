@@ -25,7 +25,7 @@ eleventyConfig.addShortcode("image", async function(src, alt, sizes, className, 
   });
 
   let imageAttributes = {
-    class: className,
+    class: className || "", // If undefined, print nothing
     sizes: sizes,
     loading: loadingStrategy, 
     decoding: "async",
