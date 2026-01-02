@@ -4,7 +4,7 @@
   <div class="artwork">
   {% for item in creditList %}
     <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">
-        {% image "./src/_data/" + item.image, item.artist + " - " + item.work, "150px" %}
+        {% image "./src/_data/" + item.image, item.artist + " - " + item.work, "150px", "", "lazy", [450] %}
         <h3>{{ item.artist }}</h3>
         <h4>{{ item.work }}</h4>
         <p>{{ item.service }}<span>{{ item.date }}</span></p>
