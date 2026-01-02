@@ -241,6 +241,7 @@ a:hover {
 .scroll {position:absolute;margin-top:-40px;margin-left:20px;}
 .scroll svg{float:right;animation: swipe-pause 3s ease-in-out infinite;height:20px;width:20px;}
 .scroll svg path{fill:#666;}
+.is-hidden{display:none}
 .cta-hidden {
   animation-play-state: paused !important;
 }
