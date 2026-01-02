@@ -1,0 +1,445 @@
+:root {
+	--font-mono: "IBM Plex Mono", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+	--accent: #4e77f6;
+}
+
+html {
+	scroll-behavior: smooth;
+	color-scheme: light dark;
+}
+
+body {
+	background-color: light-dark(color-mix(in srgb, Canvas, CanvasText 2.5%), Canvas);
+	color: color-mix(in srgb, CanvasText, Canvas 2.5%);
+}
+
+::-moz-selection {
+	color: light-dark(Canvas, CanvasText);
+	background: AccentColor;
+}
+
+::selection {
+	color: light-dark(Canvas, CanvasText);
+	background: AccentColor;
+}
+
+section,
+header,
+footer {
+	margin: 0 1rem;
+	@media screen and (min-width: 48em) {
+		margin: 0 20%;
+	}
+}
+
+body,
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+form,
+button,
+input,
+textarea,
+input::placeholder,
+textarea::placeholder,
+#menu {
+	font-family: var(--font-mono);
+	font-size: clamp(0.95rem, 1.095rem + -0.227vw, 1.05rem);
+	letter-spacing: 0;
+	color: color-mix(in srgb, CanvasText, Canvas 2.5%);
+}
+
+@supports (font: -apple-system-body) {
+	body,
+	p,
+	a,
+	h1,
+	h2,
+	h3,
+	h4,
+	form,
+	button,
+	input,
+	textarea,
+	input::placeholder,
+	textarea::placeholder {
+		letter-spacing: -0.011em;
+	}
+}
+
+.column {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	align-content: stretch;
+	margin: 0;
+	padding: 0;
+}
+
+section a,section a:visited {color:CanvasText;background-color:transparent;padding:0;border-radius:0;font-weight:600}
+section a:hover{color:CanvasText;background-color:transparent;text-decoration:underline}
+
+section svg {
+	color: Canvas;
+	width: 14px;
+	height: 14px;
+	line-height: 14px;
+	vertical-align: middle;
+	margin-top: -4px;
+	margin-left: 1rem;
+}
+
+section svg path {
+	fill: Canvas;
+}
+
+.main-nav {
+	margin: 0;
+	padding: 2rem 0 0 0;
+}
+
+.main-nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.main-nav ul li {
+	display: inline;
+	margin-right: 0.5rem;
+}
+
+.main-nav ul li a,
+.main-nav ul li a:visited {
+	color: light-dark(Canvas, CanvasText);
+	text-decoration: none;
+	border-radius: 0.25rem;
+	padding: 0.2rem 0.5rem;
+	background-color: AccentColor;
+	letter-spacing: -0.011em;
+	word-spacing: -0.011em;
+	font-weight: 600;
+	font-size: 0.8rem;
+	text-transform: uppercase;	
+}
+
+.main-nav ul li a:hover {
+	background-color: light-dark(color-mix(in srgb, AccentColor, black 50%),color-mix(in srgb, AccentColor, white 15%));
+	text-decoration:none;
+}
+
+.main-nav ul li a[aria-current="page"],
+.main-nav ul li a.active {
+}
+
+p {
+	line-height: calc(1ex / 0.32);
+	margin: calc(1ex / 0.32) 0;
+	color: color-mix(in srgb, CanvasText, Canvas 35%);
+	letter-spacing: -0.011em;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+.h4 {
+	font-family: var(--font-mono);
+	font-weight: 600;
+	text-rendering: geometricPrecision;
+	-moz-font-smoothing: antialiased;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	font-size: 2rem;
+	letter-spacing: -0.15rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	text-transform: uppercase;
+}
+
+h3 {
+	font-size: 1.2rem;
+	text-transform: uppercase;
+}
+
+.h4 {
+	font-size: 1rem;
+	font-style: italic;
+	font-weight: 300;
+	text-transform: lowercase;
+	color: color-mix(in srgb, CanvasText, Canvas 50%);
+}
+
+#about,
+#credits,
+#acoustics,
+#book,
+#contact {
+	scroll-margin-top: 2rem;
+}
+
+form {
+	margin-right: 20px;
+}
+
+input {
+	width: 100%;
+	height: 30px;
+	margin: 4px 0 10px 0;
+	background: light-dark(color-mix(in srgb, Canvas, CanvasText 4%), color-mix(in srgb, Canvas, CanvasText 1.5%));
+	border: 0;
+	outline: 0;
+	padding-left: 10px;
+}
+
+textarea {
+	width: 100%;
+	min-height: 200px;
+	margin: 0;
+	background: light-dark(color-mix(in srgb, Canvas, CanvasText 4%), color-mix(in srgb, Canvas, CanvasText 1.5%));
+	border: 0;
+	outline: 0;
+	resize: none;
+	padding: 10px 0 0 10px
+}
+
+input::placeholder,
+textarea::placeholder {
+	color: color-mix(in srgb, CanvasText, Canvas 65%);
+}
+
+label {
+	color: color-mix(in srgb, CanvasText, Canvas 35%);
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+}
+
+button {
+	background-color: AccentColor;
+	-webkit-appearance: none;
+	border: 0;
+	outline: 0;
+	cursor: pointer;
+	padding: 0.2rem 0.7rem;
+	border-radius: 0.5rem;
+	margin-top: 10px;
+	color: Canvas;
+	text-transform: lowercase;
+	letter-spacing: -0.011em;
+	word-spacing: -0.011em;
+	font-weight: 300;
+	font-style: italic;
+	font-size: 1rem;
+}
+
+button:hover {
+	background-color: color-mix(in srgb, AccentColor, CanvasText 25%);
+}
+
+button svg {
+	width: 19px;
+	height: 19px;
+	line-height: 19px;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	margin-left: 0.8rem;
+	margin-top: -1px;
+	color:light-dark(Canvas,CanvasText);
+}
+
+button svg path {
+	fill: light-dark(Canvas,CanvasText)
+}
+
+header {
+	margin-top: 4rem;
+}
+
+.heading div h1 {
+	font-size:2.2rem;
+	line-height: 1.8rem;
+	margin:0 0 0.35rem 0;
+	font-weight: 400;
+	font-style:italic;
+	word-spacing: -0.5rem;
+	text-transform:lowercase;
+}
+
+.heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	align-content: stretch;
+	margin: 0;
+	padding: 0;
+}
+
+.heading svg {
+	width: 50px;
+	height: auto;
+}
+
+.heading svg path.logo-fill{fill:light-dark(CanvasText,CanvasText)}
+.heading svg path.logo-stroke{stroke:light-dark(CanvasText,CanvasText)}
+
+.heading .h4 {
+	margin-top: 0;
+	max-width:65%;
+}
+
+.hero img {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	margin: 1rem 0;
+	padding: 0
+}
+
+section.credits {
+	padding: 2rem 0
+}
+
+.credits span {
+	color: light-dark(color-mix(in srgb, Canvas, CanvasText 10%), color-mix(in srgb, Canvas, CanvasText 20%))
+}
+
+.about {
+	background-color:light-dark(color-mix(in srgb, CanvasText, Canvas 6%), color-mix(in srgb, Canvas, CanvasText 3%));
+	color:light-dark(Canvas,CanvasText);
+	padding:1rem;
+	border-radius:0.25rem;
+}
+.about p, .about .h4, .about h2{
+	color:light-dark(color-mix(in srgb, Canvas, CanvasText 2.5%),CanvasText);
+}
+
+.contact .h4 {
+	margin-bottom: 2rem;
+}
+.contact button{color:light-dark(Canvas,CanvasText)}
+hr {
+	margin: 40px 0;
+	box-sizing: border-box;
+	border: 0 none transparent;
+	border-top: 1px solid light-dark(color-mix(in srgb, Canvas, CanvasText 5%), color-mix(in srgb, Canvas, CanvasText 10%));
+}
+
+.thankyou {
+	color: color-mix(in srgb, Canvas, CanvasText 2.5%);
+	background-color: AccentColor;
+	margin-top: 2rem;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	display: none;
+}
+
+#thankyou:target {
+	display: block;
+}
+
+footer {
+	padding: 4rem 0;
+}
+
+footer p {
+	color: color-mix(in srgb, CanvasText, Canvas 50%);
+	font-size: 0.8rem;
+	word-spacing: 100vw;
+	font-style: italic;
+}
+
+footer svg {
+	height: 50px;
+	width: auto;
+}
+
+footer svg path {
+	fill: color-mix(in srgb, CanvasText, Canvas 40%)
+}
+
+.lang-switch {
+	float: right
+}
+
+.lang-switch ul {
+	display: inline;
+	text-align: right;
+	list-style-type: none;
+}
+
+.lang-switch ul li {
+	margin-left: 2rem;
+	display: inline;
+}
+
+
+.post-navigation {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 2rem;
+	padding-top: 1rem;
+}
+
+.nav-next {
+	text-align: right;
+	margin-left: auto;
+	/* Pushes to the right if prev is missing */
+}
+
+.nav-label {
+	font-size: 0.85em;
+	text-transform: uppercase;
+	color: color-mix(in srgb, Canvas, CanvasText 50%);
+	font-weight: bold;
+}
+
+.nav-title {
+	font-size: 1.1em;
+}
+.post-tags {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  font-size: 0.9rem;
+}
+
+a.tag-link {
+  background-color: color-mix(in srgb, Canvas, CanvasText 5%);
+  color: CanvasText;
+  padding:0.5rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-size:0.85rem;
+  text-transform:lowercase;
+}
+a.tag-link:hover {
+  background-color: color-mix(in srgb, Canvas, CanvasText 5%);
+  color: CanvasText;
+}
+.rss a{background-color: light-dark(color-mix(in srgb, Canvas, CanvasText 5%), color-mix(in srgb, Canvas, black 50%));}
+.rss-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: CanvasText;
+}
+
+.rss-link:hover {
+  color: #f26522; /* Standard RSS Orange, or use your brand color */
+}
+
+.rss-link svg {
+  display: block;
+	height:14px;
+	width: auto;
+}

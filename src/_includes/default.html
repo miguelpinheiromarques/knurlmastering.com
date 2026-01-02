@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="{{ lang | default('en') }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    {% if description %}<meta name="description" content="{{description}}"/>{% endif %}
+    {% block head %}{% endblock %}
+
+{% set supportedLanguages = ["en", "pt"] %}
+{% for code in supportedLanguages %}
+  {% set localizedUrl = translationKey | getLocalizedUrl(code, collections.all) %}  
+  {% if localizedUrl %}
+    <link rel="alternate" hreflang="{{ code }}" href="{{ site.url }}{{ localizedUrl }}" />
+  {% endif %}
+{% endfor %}
+
+{% set defaultUrl = translationKey | getLocalizedUrl("en", collections.all) %}
+{% if defaultUrl %}
+  <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ defaultUrl }}" />
+{% endif %}	
+
+	<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	<link rel="icon" href="/favicon.ico" sizes="32x32">
+
+	<link rel="alternate" type="application/rss+xml" title="RSS Feed (English)" href="{{ site.url }}/en/feed.xml" />
+	<link rel="alternate" type="application/rss+xml" title="RSS Feed (Português)" href="{{ site.url }}/pt/feed.xml" />	  
+	  
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">    <link rel="stylesheet" type="text/css" href="/static/css/styles.css"/>
+    
+    <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet"></noscript>
+    
+  </head>
+  <body>
+    {% include "./partials/navbar.html" %}
+
+    {{ content | safe }}
+
+    {% include "./partials/footer.html" %}
+  </body>
+</html>

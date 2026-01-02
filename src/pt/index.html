@@ -1,0 +1,65 @@
+---
+layout: blog
+title: Sum to Zero - um blog de Miguel Pinheiro Marques
+path: home
+translationKey: "home"
+pagination:
+  reverse: true
+  data: collections.posts_pt 
+  size: 6          
+  permalink: "pt/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber }}/{% endif %}index.html"
+---
+
+<section class="posts">
+  
+{% for post in pagination.items %}
+  <article>
+            <h2>
+                <a href="{{ post.url | url }}">
+                    {% if post.data.title %}
+                        {{ post.data.title }}
+                    {% else %}
+                        Untitled
+                    {% endif %}
+                </a>
+            </h2>
+		        <div class="h4"><time datetime="{{ post.date }}">{{ post.date | readableDate(lang) }}</time></div>
+            {% if post.data.description %}
+                <p>
+                    {{ post.data.description }}
+                </p>
+            {% endif %}
+
+            <p>
+              <a href="{{ post.url }}" class="read-more">{{ 'read_more' | t }}</a>
+            </p>
+
+        </article>
+    {% endfor %}
+
+<nav class="pagination" aria-label="Pagination">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+    
+    <div class="prev" style="flex: 1;">
+      {% if pagination.href.previous %}
+        <a href="{{ pagination.href.previous }}">{{ 'newer_posts' | t }}</a>
+      {% endif %}
+    </div>
+
+    <div class="page-count" style="flex: 1; text-align: center; font-weight: bold;">
+      {{ 'page_label' | t }} 
+      {{ pagination.pageNumber + 1 }} 
+      {{ 'of_label' | t }} 
+      {{ pagination.hrefs.length }}
+    </div>
+
+    <div class="next" style="flex: 1; text-align: right;">
+      {% if pagination.href.next %}
+        <a href="{{ pagination.href.next }}">{{ 'older_posts' | t }}</a>
+      {% endif %}
+    </div>
+    
+  </div>
+</nav>
+  
+</section>

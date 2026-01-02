@@ -1,0 +1,39 @@
+	<header id="top">
+		<div class="heading">
+			<div>
+				<h1>{{ 'title' | t }}</h1>
+				<div class="h4">{{ 'tagline' | t }}</div>
+			</div>
+			<div>
+				<svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewbox="0 0 250 250">
+					<path fill="none" stroke-linecap="round"
+						stroke-width="18"
+						d="M190 131s-11.441 29.164-28 29c-31.707-.314-39.46-63.025-73-61-14.446.872-24.005 10.912-32 23" class="logo-stroke" />
+					<path fill-rule="evenodd"
+						d="M125 18c59.094 0 107 47.906 107 107s-47.906 107-107 107S18 184.094 18 125 65.906 18 125 18Zm89 107c0 49.153-39.847 89-89 89s-89-39.847-89-89 39.847-89 89-89 89 39.847 89 89Z" class="logo-fill" />
+				</svg>
+			</div>
+		</div>
+		
+<nav class="main-nav">
+  <ul>    
+    {% for item in navigation %}
+      
+      {% set currentUrl = item.urls[lang] %}
+      {% set currentLabel = item.labels[lang] %}
+
+      {% set isActive = (page.url == currentUrl) %}
+
+      <li>
+        <a href="{{ currentUrl }}" {% if isActive %}aria-current="page" class="active"{% endif %}>
+          {{ currentLabel }}
+        </a>
+      </li>
+
+    {% endfor %}
+
+  </ul>
+</nav>
+		
+	<hr/>
+	</header>

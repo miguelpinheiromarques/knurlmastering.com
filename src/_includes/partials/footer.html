@@ -1,0 +1,60 @@
+<footer>
+	<hr/>
+	<div class="h4"><a href="https://instagram.com/miguel.pinheiro.marques" target="_blank">follow me on Instagram</a></div>
+
+	<div class="lang-switch">
+		{% if lang == "en" %}
+		  {% set targetLang = "pt" %}
+		  {% set label = "Português" %}
+		{% else %}
+		  {% set targetLang = "en" %}
+		  {% set label = "English" %}
+		{% endif %}
+		
+		{% set translatedUrl = "" %}
+		
+		{% if '/tags/' in page.url %}
+		
+		  {% set translatedTag = tag %} 
+		  
+		  {% if lang == "en" %}
+		    {% if tag_translations[tag] %}
+		      {% set translatedTag = tag_translations[tag] %}
+		    {% endif %}
+		  {% else %}
+		    {% for enTag, ptTag in tag_translations %}
+		      {% if ptTag == tag %}
+		        {% set translatedTag = enTag %}
+		      {% endif %}
+		    {% endfor %}
+		  {% endif %}
+		
+		  {% set translatedUrl = "/" + targetLang + "/tags/" + (translatedTag | slugify) + "/" %}
+		
+		{% elif pagination and pagination.hrefs %}
+		  
+		  {% if pagination.pageNumber == 0 %}
+		    {% set translatedUrl = "/" + targetLang + "/" %}
+		  {% else %}
+		    {% set translatedUrl = "/" + targetLang + "/" + pagination.pageNumber + "/" %}
+		  {% endif %}
+		
+		{% else %}
+		  {% set translatedUrl = translationKey | getLocalizedUrl(targetLang, collections.all) %}
+		{% endif %}
+		
+		<a href="{{ translatedUrl if translatedUrl else '/' + targetLang + '/' }}" class="lang-toggle">{{ label }}</a>
+		
+	</div>
+	<div class="rss">
+		<a href="/{{ lang }}/feed.xml" class="rss-link" title="Subscribe via RSS" aria-label="RSS Feed">
+		  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+		    <path d="M4 11a9 9 0 0 1 9 9"></path>
+		    <path d="M4 4a16 16 0 0 1 16 16"></path>
+		    <circle cx="5" cy="19" r="1"></circle>
+		  </svg>
+		  <span>RSS</span>
+		</a>
+	</div>
+	<small>&copy; 2010-{{year}} {{settings.author}}. All rights reserved.</small>
+</footer>

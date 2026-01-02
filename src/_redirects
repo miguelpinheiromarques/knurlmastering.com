@@ -1,0 +1,5 @@
+# If browser language is Portuguese, go to /pt/
+/   /pt/   302  Language=pt
+
+# Everyone else goes to /en/
+/   /en/   301
