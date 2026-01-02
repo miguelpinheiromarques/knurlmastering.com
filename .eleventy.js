@@ -10,7 +10,7 @@ module.exports = function(eleventyConfig) {
   // 2. Define the Image Optimization Shortcode
   eleventyConfig.addNunjucksAsyncShortcode("image", async function(src, alt, sizes) {
     let metadata = await Image(src, {
-      widths: [300, 600, "auto"], // Resize to these widths
+      widths: [300, 600, 900, 1200], 
       formats: ["webp", "jpeg"],  // specific formats
       urlPath: "/img/",           // Path in the URL
       outputDir: "./_site/img/"   // Where to save files on disk

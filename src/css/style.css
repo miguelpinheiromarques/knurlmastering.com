@@ -1,3 +1,7 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
@@ -45,12 +49,17 @@ body {
   background: #EDA40E;
 }
 
-header,
-footer,
-section:not(.credits) {
-  padding: 0 1rem;
-  @media screen and (min-width: 48em) {
-    padding: 0 1.5rem;
+.heading,
+.contact div,
+.studio div,
+.faq div {
+  width: 100%;
+  margin: 0;
+
+  @media screen and (min-width: 33em) {
+    max-width: 33em; /* Use max-width to cap the size */
+    width: 100%;     /* Keep width flexible to fit inside padding */
+    margin: 0 auto;
   }
 }
 
@@ -77,7 +86,7 @@ header {
 .studio div,
 .faq div {
   width: 100%;
-
+margin:0;
   @media screen and (min-width: 33em) {
     max-width: 33em;
     width: 33em;
@@ -145,6 +154,7 @@ a:hover {
   stroke: #383838;
 }
 
+/* Main Container */
 .credits {
   margin: 0;
   padding: 20px 0 10px 0;
@@ -155,96 +165,167 @@ a:hover {
 .credits .innercredits {
   background-image: linear-gradient(to right, #383838, #363636, #353535, #333333, #323232);
   border-top: 4px solid #EDA40E;
-  margin: 20px 0 40px 0
+  margin: 20px 0 40px 0;
 }
 
+/* Section Title */
 .credits h3 {
   margin: 0 1rem;
-
-  @media screen and (min-width: 48em) {
-    margin: 0 1.5rem;
-  }
-
+  padding: 5px 0 4px 0;
   font-optical-sizing: auto;
   font-size: 1.1rem;
   font-weight: 600;
-  padding: 5px 0 4px 0;
 }
 
-.credits .artwork {
-  width: 100%;
-  height: 190px;
-  margin: 0 0 0 0;
-  padding: 30px 0 60px 0;
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  align-content: flex-start;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  background-color: #242424;
-  box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.15) inset, 0px -10px 10px -10px rgba(0, 0, 0, 0.25) inset;
-  color: #fff;
-}
-
-.credits .artwork div {
-  width: 150px;
-  height: 150px;
-  text-align: left;
-  margin: 0 0.25rem 0 1rem;
-
-  @media screen and (min-width: 48em) {
-    margin: 0 0.25rem 0 1.5rem;
+@media screen and (min-width: 48em) {
+  .credits h3 {
+    margin: 0 1.5rem;
   }
 }
 
+/* CREDIT GRID SYSTEM */
+.credits-grid {
+  display: grid;
+  /* Creates a responsive grid: minimum 200px wide, fills space */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 30px 20px;
+}
+
+/* The Anchor Tag Wrapper */
+.credits-grid a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.credits-grid a:hover {
+  opacity: 0.8;
+}
+/* The 50/50 Split */
+.split-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows stacking on mobile */
+  width: 100%;
+}
+.split-col {
+  width: 50%; /* Desktop default */
+  box-sizing: border-box;
+}
+.split-col img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Full Width Sections */
+.full-section {
+  padding: 0;
+  margin: 0 auto;
+}
+
+/* Mobile: Stack columns */
+@media (max-width: 768px) {
+  .split-col {
+    width: 100%;
+  }
+}
+
+/* THE SCROLL GRID */
+.credits .artwork {
+  /* Use Grid instead of Flex */
+  display: grid;
+  
+  /* 1. Define 3 rows that fit their content height */
+  grid-template-rows: repeat(3, min-content);
+  
+  /* 2. Force items to fill vertically (Col 1: Row 1,2,3) then move to Col 2 */
+  grid-auto-flow: column;
+  
+  /* 3. Define the width of the columns (matches your image size) */
+  grid-auto-columns: 150px;
+  
+  /* 4. Gap replaces margins (First Value: Row Gap, Second: Col Gap) */
+  gap: 30px 25px;
+
+  /* Scroll Behavior */
+  overflow-x: auto;
+  overflow-y: hidden;
+  
+  /* Container Styling */
+  width: 100%;
+  height: auto; /* Allow height to grow to fit 3 rows */
+  margin: 0;
+  padding: 30px 20px 60px 20px; /* Add side padding so items don't touch edge */
+  background-color: #242424;
+  box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.15) inset, 0px -10px 10px -10px rgba(0, 0, 0, 0.25) inset;
+  color: #fff;
+  
+  /* Smooth Scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* The Grid Item (The Anchor Tag) */
+/* Note: We style the 'a' now, because your HTML removed the 'div' wrapper */
+.credits .artwork a {
+  width: 150px; /* Fixed width matching the grid column */
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The Image */
 .credits .artwork img {
   width: 150px;
   height: 150px;
-  object-fit: contain;
-  margin: 0;
+  object-fit: contain; /* or 'cover' if you want to crop to fill square */
+  margin-bottom: 8px; /* Space between img and text */
   outline: 1px solid #181818;
   outline-offset: -1px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   transition: all .1s linear;
+  display: block;
 }
 
+/* Hover Effect */
 .credits .artwork a:hover img {
-  outline-color: rgba(237, 164, 14, 0.4)
+  outline: 2px solid rgba(237, 164, 14, 0.8);
 }
 
+/* Typography inside the card */
 .credits .artwork h3 {
   font-weight: 300;
-  padding: 5px 0 0 0;
   margin: 0;
+  padding: 0;
   font-size: 0.8rem;
-  font-style: normal;
-  overflow: hidden;
   white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
+  color: #fff;
 }
 
 .credits .artwork h4 {
   font-weight: 600;
-  padding: 3px 0 0 0;
   margin: 0;
+  padding: 2px 0 0 0;
   font-size: 0.8rem;
-  font-style: normal;
-  overflow: hidden;
   white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
+  color: #fff;
 }
 
 .credits .artwork p {
   font-size: 0.7rem;
   font-weight: 400;
-  padding: 3px 0 0 0;
   margin: 0;
+  padding: 2px 0 0 0;
   color: #888;
-  overflow: hidden;
   white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
@@ -255,12 +336,6 @@ a:hover {
   text-transform: uppercase;
   font-size: 0.5rem;
   margin: 4px 0 0 0;
-}
-
-.credits .artwork a {
-  text-decoration: none;
-  color: #fff;
-  cursor: pointer;
 }
 
 .studio {
@@ -307,12 +382,7 @@ a:hover {
 }
 
 .contact input {
-  width: calc(100% - 0.5rem);
-
-  @media screen and (min-width: 48em) {
-    width: calc(100% - 0.75rem);
-  }
-
+  width: 100%;
   height: 30px;
   margin: 4px 0 10px 0;
   background: #f4f4f4;
@@ -327,12 +397,7 @@ a:hover {
   font-weight: 300;
 }
 .contact textarea {
-  width: calc(100% - 0.5rem);
-
-  @media screen and (min-width: 48em) {
-    width: calc(100% - 0.75rem);
-  }
-
+  width: 100%;
   min-height: 200px;
   margin: 3px 0 8px 0;
   background: #f4f4f4;
@@ -641,59 +706,4 @@ p.knoll {
     filter: invert(100%)
   }
   .tab__label, .tab__content p, .tab__content ul, .tab__content li{color:#f0f0f0}
-}
-
-
-/* CREDIT GRID SYSTEM */
-.credits-grid {
-  display: grid;
-  /* Creates a responsive grid: minimum 200px wide, fills space */
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 30px 20px;
-}
-
-/* The Anchor Tag Wrapper */
-.credits-grid a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  transition: opacity 0.3s ease;
-}
-
-.credits-grid a:hover {
-  opacity: 0.8;
-}
-/* The 50/50 Split */
-.split-container {
-  display: flex;
-  flex-wrap: wrap; /* Allows stacking on mobile */
-  width: 100%;
-}
-.split-col {
-  width: 50%; /* Desktop default */
-  box-sizing: border-box;
-  padding: 20px;
-}
-.split-col img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  margin-bottom: 20px;
-  display: block;
-  border-radius: 4px; /* Optional: adds nice rounded corners */
-}
-
-/* Full Width Sections */
-.full-section {
-  padding: 40px 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-/* Mobile: Stack columns */
-@media (max-width: 768px) {
-  .split-col {
-    width: 100%;
-  }
 }
