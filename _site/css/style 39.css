@@ -1,0 +1,691 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light dark;
+}
+
+body {
+  background: #f7f7f7;
+  color: #fff;	
+  font-size: clamp(0.95rem, 1.095rem + -0.227vw, 1.05rem);
+  letter-spacing: 0;
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 300;
+}
+
+.heading p,
+.credits .artwork p,
+.credits .artwork p span,
+.studio p,
+.faq p,
+.faq ul,
+.faq li,
+.contact p {
+  font-weight: 400;
+  line-height: 125%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-font-smoothing: antialiased !important;
+  text-rendering: optimizelegibility !important;
+  letter-spacing: -0.02em;
+}
+
+::-moz-selection {
+  color: #fff;
+  background: #EDA40E;
+}
+
+::selection {
+  color: #fff;
+  background: #EDA40E;
+}
+
+.heading,
+.contact div,
+.studio div,
+.faq div {
+  width: 100%;
+  margin: 0;
+
+  @media screen and (min-width: 33em) {
+    max-width: 33em; /* Use max-width to cap the size */
+    width: 100%;     /* Keep width flexible to fit inside padding */
+    margin: 0 auto;
+  }
+}
+
+h2 {
+  font-size: 1.1rem;
+  font-optical-sizing: auto;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+header {
+  text-align: left;
+  padding-top: 50px;
+  padding-bottom: 0;
+  background-color: #f7f7f7;
+  color: #181818;
+}
+
+.heading,
+.contact div,
+.studio div,
+.faq div {
+  width: 100%;
+margin:0;
+  @media screen and (min-width: 33em) {
+    max-width: 33em;
+    width: 33em;
+    margin: 0 auto;
+  }
+}
+
+.heading p {
+  margin-top: 40px;
+}
+
+.heading h1 {
+  margin: -86px 0 0 0;
+  @media screen and (min-width: 33em) {
+    margin: -85px 0 0 0;
+  }
+}
+
+.heading h1 svg {
+  width:178px;
+  @media screen and (min-width: 33em) {
+    width: 184px;
+  }
+}
+
+.heading h1 svg path {
+  fill: #181818
+}
+
+a {
+  color: #EDA40E;
+  transition: all .2s linear;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  color: #E6C16A;
+}
+
+.heading a {
+  white-space: nowrap;
+}
+
+.heading .logo {
+  text-align: right;
+}
+
+.heading .logo svg {
+  height: 90px;
+  width: 90px;
+
+  @media screen and (min-width: 33em) {
+    height: 92px;
+    width: 92px;
+  }
+}
+
+.heading .logo svg path {
+  stroke: #383838;
+  fill: #383838;
+}
+
+.heading .logo svg circle {
+  stroke: #383838;
+}
+
+/* Main Container */
+.credits {
+  margin: 0;
+  padding: 20px 0 10px 0;
+  background-color: #f4f4f4;
+  box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.015) inset, 0px -10px 10px -10px rgba(0, 0, 0, 0.025) inset;
+}
+
+.credits .innercredits {
+  background-image: linear-gradient(to right, #383838, #363636, #353535, #333333, #323232);
+  border-top: 4px solid #EDA40E;
+}
+
+/* Section Title */
+.credits h3 {
+  margin: 0 1rem;
+  padding: 5px 0 4px 0;
+  font-optical-sizing: auto;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+@media screen and (min-width: 48em) {
+  .credits h3 {
+    margin: 0 1.5rem;
+  }
+}
+
+/* The 50/50 Split */
+.split-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows stacking on mobile */
+  width: 100%;
+}
+.split-col {
+  width: 50%; /* Desktop default */
+  box-sizing: border-box;
+  padding:0 20px;
+  margin:0 0 20px 0;
+}
+.split-col img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Full Width Sections */
+.full-section {
+  padding: 0;
+  margin: 0 auto;
+}
+
+/* Mobile: Stack columns */
+@media (max-width: 768px) {
+  .split-col {
+    width: 100%;
+  }
+}
+
+/* THE SCROLL GRID */
+.credits .artwork {
+  /* Use Grid instead of Flex */
+  display: grid;
+  
+  /* 1. Define 3 rows that fit their content height */
+  grid-template-rows: repeat(3, min-content);
+  
+  /* 2. Force items to fill vertically (Col 1: Row 1,2,3) then move to Col 2 */
+  grid-auto-flow: column;
+  
+  /* 3. Define the width of the columns (matches your image size) */
+  grid-auto-columns: 150px;
+  
+  /* 4. Gap replaces margins (First Value: Row Gap, Second: Col Gap) */
+  gap: 30px 25px;
+
+  /* Scroll Behavior */
+  overflow-x: auto;
+  overflow-y: hidden;
+  
+  /* Container Styling */
+  width: 100%;
+  height: auto; /* Allow height to grow to fit 3 rows */
+  margin: 0;
+  padding: 30px 20px 60px 20px; /* Add side padding so items don't touch edge */
+  background-color: #242424;
+  box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.15) inset, 0px -10px 10px -10px rgba(0, 0, 0, 0.25) inset;
+  color: #fff;
+  
+  /* Smooth Scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* The Grid Item (The Anchor Tag) */
+/* Note: We style the 'a' now, because your HTML removed the 'div' wrapper */
+.credits .artwork a {
+  width: 150px; /* Fixed width matching the grid column */
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The Image */
+.credits .artwork img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain; /* or 'cover' if you want to crop to fill square */
+  margin-bottom: 8px; /* Space between img and text */
+  outline: 1px solid #181818;
+  outline-offset: -1px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  transition: all .1s linear;
+  display: block;
+}
+
+/* Hover Effect */
+.credits .artwork a:hover img {
+  outline: 2px solid rgba(237, 164, 14, 0.8);
+}
+
+/* Typography inside the card */
+.credits .artwork h3 {
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+}
+
+.credits .artwork h4 {
+  font-weight: 600;
+  margin: 0;
+  padding: 2px 0 0 0;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+}
+
+.credits .artwork p {
+  font-size: 0.7rem;
+  font-weight: 400;
+  margin: 0;
+  padding: 2px 0 0 0;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.credits .artwork p span {
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  margin: 4px 0 0 0;
+}
+
+.studio {
+  background-color: #f7f7f7;
+  color: #181818;
+}
+
+.studio h2 {
+  padding-top: 40px;
+}
+
+.studio img {
+  width: 100%;
+  height: auto;
+  border-top: 4px solid #EDA40E;
+  margin: 20px 0 40px 0;
+}
+
+.faq {
+  background-color: #f4f4f4;
+  color: #181818;
+}
+
+.faq h2 {
+  padding-top: 40px;
+}
+
+.faq h3 {
+  border-bottom: 2px solid #EDA40E
+}
+
+.contact {
+  background-color: #f7f7f7;
+}
+
+.contact h2 {
+  padding-top: 40px;
+  color: #181818
+}
+
+.contact form {
+  margin: 0;
+  padding: 0 0 20px 0;
+}
+
+.contact input {
+  width: 100%;
+  height: 30px;
+  margin: 4px 0 10px 0;
+  background: #f4f4f4;
+  border: 0;
+  outline: 0;
+  padding: 0 0 0 10px;
+  color:#181818;
+  border:1px solid #eee;
+  font-size: clamp(0.95rem, 1.095rem + -0.227vw, 1.05rem);
+  letter-spacing: 0;
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 300;
+}
+.contact textarea {
+  width: 100%;
+  min-height: 200px;
+  margin: 3px 0 8px 0;
+  background: #f4f4f4;
+  border: 0;
+  outline: 0;
+  resize: none;
+  padding: 10px 0 0 10px;
+  color:#181818;
+  border:1px solid #eee;
+  font-size: clamp(0.95rem, 1.095rem + -0.227vw, 1.05rem);
+  letter-spacing: 0;
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 300;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .contact input,
+  .contact textarea {
+    font-size: 16px;
+  }
+}
+
+.contact input::placeholder,
+.contact textarea::placeholder {
+  color: #aaa;
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+
+.contact button {
+  background-color: #EDA40E;
+  -webkit-appearance: none;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  transition: .2s;
+  color: #fff;
+  width: 100%;
+  letter-spacing: -0.011em;
+  word-spacing: -0.011em;
+  font-size: 0.85rem;
+  padding: 5px 0;
+  border-radius: 2px;
+}
+
+.contact button:hover {
+  box-shadow: 0 0 1px #EDA40E;
+}
+
+.contact .thankyou {
+  display: none;
+}
+
+.contact .thankyou p {
+  color: #fff;
+  background-color: #EDA40E;
+  border-radius: 2px;
+  text-align: center;
+  letter-spacing: -0.011em;
+  word-spacing: -0.011em;
+  font-size: 0.85rem;
+  padding: 5px 0;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.contact .thankyou p svg,
+.form-submit svg {
+  height: 18px;
+  width: 18px;
+  line-height: 18px;
+  vertical-align: -20%;
+  padding-right: 9px;
+}
+
+.contact .thankyou svg path,
+.form-submit svg path {
+  fill: #fff
+}
+
+.contact #thankyou:target {
+  display: block;
+}
+
+.contact p {
+  color: #181818
+}
+
+p.social {
+  padding-bottom: 20px;
+}
+
+p.social svg {
+  height: 18px;
+  width: 18px;
+  margin-right: 9px;
+}
+
+a.facebook:hover svg path {
+  fill: #1877F2
+}
+
+a.instagram:hover svg path {
+  fill: #E4405F
+}
+
+a.threads:hover svg path {
+  fill: #ff3040
+}
+
+.language p {
+  margin: 80px 0 0 0;
+  font-weight: 600;
+  background-color: #f2f2f2;
+  border-radius: 2px;
+  padding: 6px 10px;
+  transition: all .2s linear;
+  text-align: left;
+}
+
+.language p:hover {
+  background-color: #f0f0f0
+}
+
+.language a {
+  color: #999;
+  display: block;
+  width: 100%;
+  font-weight: 500;
+  font-size: 0.65rem;
+  text-transform: uppercase
+}
+
+.language svg {
+  height: 16px;
+  width: 16px;
+  padding-right: 5px;
+  vertical-align: -25%;
+}
+
+.language svg path {
+  fill: #999
+}
+
+p.copyright,
+p.knoll {
+  font-size: 0.70rem;
+  padding: 0;
+  margin: 0
+}
+
+p.copyright {
+  margin-top: 10px;
+  color: #999;
+  padding-left: 5px;
+  text-align: left;
+}
+
+p.knoll {
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  font-weight: 600;
+  padding: 40px 0;
+  text-align: right;
+}
+
+.tab {
+  position: relative;
+}
+
+.tab input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+.tab__content {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+
+.tab input:checked ~ .tab__content {
+  max-height: 40rem;
+}
+
+.accordion {
+  color: #181818;
+  padding-bottom: 40px;
+}
+
+.tab__label {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 1rem 0;
+  border-bottom: 2px solid #EDA40E;
+  color: #181818;
+}
+
+.tab__label::after {
+  content: "\276F";
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  transform: rotate(90deg);
+  transition: all 0.35s;
+}
+
+.tab input:checked + .tab__label::after {
+  transform: rotate(270deg);
+  margin-right: 6px;
+}
+
+.tab__content {
+  background-color: transparent;
+}
+.tab__content li {
+  margin: 0;
+  padding: 0;
+}
+.tab__content p {
+  margin: 0;
+  padding: 0;
+}
+.tab__content p:first-of-type {
+  padding: 1rem 0;
+}
+.tab__content p:last-of-type {
+  padding: 0 0 1rem 0;
+}
+.tab__content p:not(:first-of-type):not(:last-of-type) {
+  padding-bottom: 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  body,
+  .studio,
+  header {
+    background-color: #000000;
+    color: #f0f0f0
+  }
+
+  .credits,
+  .contact input,
+  .contact textarea {
+    background-color: #181818;
+    border-color: #282828;
+    color: #f0f0f0
+  }
+
+  .language p {
+    border: 1px solid #101010;
+    background-color: #101010;
+  }
+
+  .language p:hover {
+    background-color: #181818;
+    border: 1px solid #181818
+  }
+
+  .language a {
+    color: #f0f0f0
+  }
+
+  .language svg path {
+    fill: #f0f0f0
+  }
+
+  .heading .logo svg path {
+    stroke: #f0f0f0;
+    stroke-width: 3;
+    fill: #f0f0f0;
+  }
+
+  .heading .logo svg circle {
+    stroke: #f0f0f0;
+    stroke-width: 10;
+    fill: none
+  }
+
+  .heading h1 svg path {
+    fill: #f0f0f0
+  }
+
+  .contact {
+    background-color: #000;
+    color: #f0f0f0;
+  }
+
+  .faq {
+    background-color: #181818;
+    color: #f0f0f0
+  }
+
+  h1,
+  .credits h2,
+  .contact h2,
+  .credits h3,
+  .contact p {
+    color: #f0f0f0
+  }
+
+  p.social svg {
+    filter: invert(100%)
+  }
+  .tab__label, .tab__content p, .tab__content ul, .tab__content li{color:#f0f0f0}
+}
