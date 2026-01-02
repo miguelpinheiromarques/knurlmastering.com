@@ -11,13 +11,14 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/knurlmastering-og.jpg");
 
   // 2. Define the Image Optimization Shortcode
-eleventyConfig.addShortcode("image", async function(src, alt, sizes, className, loading) {
+eleventyConfig.addShortcode("image", async function(src, alt, sizes, className, loading, widthsList) {
   
-  // 1. Default to lazy if not specified
-  let loadingStrategy = loading || "lazy"; 
+  // Use the specific list if provided, otherwise default to global
+  // Note: We default to your full list if 'widthsList' is missing
+  let targetWidths = widthsList || [450, 600, 900, 1200]; 
 
   let metadata = await Image(src, {
-    widths: [450, 600, 900, 1200],
+    widths: targetWidths, // <--- Use the variable here
     formats: ["webp", "jpeg"],
     outputDir: "./_site/img/",
     urlPath: "/img/"
