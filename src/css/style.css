@@ -52,7 +52,8 @@ body {
 .heading,
 .contact div,
 .studio div,
-.faq div {
+.faq div,
+footer {
   width: 100%;
   margin: 0;
 
@@ -157,15 +158,15 @@ a:hover {
 /* Main Container */
 .credits {
   margin: 0;
-  padding: 20px 0 10px 0;
-  background-color: #f4f4f4;
-  box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.015) inset, 0px -10px 10px -10px rgba(0, 0, 0, 0.025) inset;
+  padding:20px 0;
+  background-color:#f0f0f0;
 }
-
+@media screen and (min-width: 48em) {
+  .credits {padding:20px;}
+}  
 .credits .innercredits {
   background-image: linear-gradient(to right, #383838, #363636, #353535, #333333, #323232);
   border-top: 4px solid #EDA40E;
-  margin: 0 0 40px 0;
 }
 
 /* Section Title */
@@ -183,16 +184,22 @@ a:hover {
   }
 }
 
-
 /* The 50/50 Split */
 .split-container {
   display: flex;
   flex-wrap: wrap; /* Allows stacking on mobile */
   width: 100%;
 }
-.split-col {
-  width: 50%; /* Desktop default */
-  box-sizing: border-box;
+@media (min-width: 768px) {
+  .split-col {
+    width: calc(50% - 10px); /* Desktop default */
+    box-sizing: border-box;
+    padding:10px;
+    margin:0 10px 0 0;
+    background-color: #202020;
+    border:1px solid #282828;
+  }
+  .split-col:last-child {padding-left:10px;margin:0 0 0 10px;}
 }
 .split-col img {
   width: 100%;
@@ -211,8 +218,13 @@ a:hover {
 @media (max-width: 768px) {
   .split-col {
     width: 100%;
+    padding:0;
+    margin:0 0 40px 0;
+    border:none;
   }
 }
+
+.credits h3 span{float:right;}
 
 /* THE SCROLL GRID */
 .credits .artwork {
@@ -239,7 +251,7 @@ a:hover {
   width: 100%;
   height: auto; /* Allow height to grow to fit 3 rows */
   margin: 0;
-  padding: 30px 20px 60px 20px; /* Add side padding so items don't touch edge */
+  padding: 30px 20px; /* Add side padding so items don't touch edge */
   background-color: #242424;
   box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.15) inset, 0px -10px 10px -10px rgba(0, 0, 0, 0.25) inset;
   color: #fff;
@@ -270,6 +282,7 @@ a:hover {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   transition: all .1s linear;
   display: block;
+  border-radius:2px;
 }
 
 /* Hover Effect */
@@ -319,7 +332,6 @@ a:hover {
   font-size: 0.5rem;
   margin: 4px 0 0 0;
 }
-
 .studio {
   background-color: #f7f7f7;
   color: #181818;
