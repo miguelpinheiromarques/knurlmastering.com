@@ -71,7 +71,8 @@ footer {
   footer {
     width: 48em;
     margin: 0 auto;
-    padding: 0; /* Footer Padding */
+    margin-left:1.5rem;
+    margin-right:1.5rem;
   }
 }
 
