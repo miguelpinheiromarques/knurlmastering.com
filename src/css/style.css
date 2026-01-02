@@ -238,12 +238,29 @@ a:hover {
     border:none;
   }
 }
-.scroll {position:absolute;margin-top:-40px;margin-left:20px;}
+
+/* 1. Hiding the Scroll Label */
+.scroll {
+  position:absolute;margin-top:-40px;margin-left:20px;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.scroll.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
 .scroll svg{float:right;animation: swipe-pause 3s ease-in-out infinite;height:20px;width:20px;}
 .scroll svg path{fill:#666;}
-.is-hidden{display:none}
-.cta-hidden {
-  animation-play-state: paused !important;
+/* 2. Adjusting Padding on Scroll */
+/* This targets the .artwork div that has been scrolled */
+.artwork.has-scrolled {
+    transition: padding 0.3s ease; /* Optional: makes the padding jump smooth */
+}
+
+/* Specific override for the credits section as requested */
+.credits .artwork.has-scrolled {
+    padding: 30px 20px;
 }
 
 @keyframes swipe-pause {
