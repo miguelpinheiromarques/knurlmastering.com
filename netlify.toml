@@ -2,21 +2,22 @@
   command = "npm run build"
   publish = "_site"
 
-# 1. If the browser language is Portuguese, go to /pt/
+# 1. Portuguese Language Redirect
 [[redirects]]
   from = "/"
   to = "/pt/"
   status = 302
   conditions = {Language = ["pt", "pt-BR", "pt-PT"]}
 
-# 2. Default: Everyone else goes to /en/
+# 2. Default English Redirect
 [[redirects]]
   from = "/"
   to = "/en/"
   status = 301
 
-# 3. Handle 404s (send to English homepage)
+# 3. Custom 404 Page (UPDATED)
+# This serves the 404.html file without changing the URL
 [[redirects]]
   from = "/*"
-  to = "/en/"
+  to = "/404.html"
   status = 404
