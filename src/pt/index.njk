@@ -6,6 +6,30 @@ alt_locale: en
 site_url: "https://knurlmastering.com/pt/"
 ---
 
+{% include "partials/hero.njk" %}
+  
+<div id="credits" class="split-container credits">
+  
+    <div class="split-col">
+      {% image "./src/images/miguelpinheiromarques.jpg", "Miguel Pinheiro Marques", "(min-width: 768px) 50vw, 100vw" %}
+      
+      {% set creditList = miguel %}
+      {% set creditName = "Miguel Pinheiro Marques" %}
+      
+      {% include "partials/credit-grid.njk" %}
+    </div>
+  
+    <div class="split-col">
+      {% image "./src/images/claraaraujo.jpg", "Clara Araújo", "(min-width: 768px) 50vw, 100vw" %}
+      
+      {% set creditList = clara %}
+      {% set creditName = "Clara Araújo" %}
+      
+      {% include "partials/credit-grid.njk" %}
+    </div>
+  
+</div>  
+
 <section id="about" class="studio" class="full-section">
   <div>
     <h2>{{ site.pt.about_title }}</h2>
