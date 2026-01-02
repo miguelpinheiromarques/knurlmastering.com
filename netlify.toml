@@ -1,3 +1,15 @@
 [build]
-  publish = "_site"
   command = "npm run build"
+  publish = "_site"
+
+# Default redirect: Move root / to /en/
+[[redirects]]
+  from = "/"
+  to = "/en/"
+  status = 301
+
+# Handle 404s (optional but recommended)
+[[redirects]]
+  from = "/*"
+  to = "/en/"
+  status = 404
