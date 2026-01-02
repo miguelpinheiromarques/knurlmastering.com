@@ -1,19 +1,54 @@
 ---
 layout: base.njk
-title: My Portfolio
+title: Portfolio - Miguel & Clara
 locale: en
+alt_locale: pt
+site_url: "https://your-domain.com"
 ---
 
-<section id="miguel">
-  <h2>{{ site.en.section_miguel }}</h2>
-  {% set creditList = miguel %}
-  {% include "partials/credit-grid.njk" %}
+<div id="top"></div>
+
+<section class="intro">
+  <div class="logo-placeholder"></div>
+  <h1>{{ site.en.intro_title }}</h1>
+  <p>{{ site.en.intro_text }}</p>
+</section>
+
+<div id="credits" class="split-container">
+  
+  <div class="split-col">
+    <img src="https://via.placeholder.com/600x400?text=Miguel" alt="Miguel" class="profile-pic">
+    {% set creditList = miguel %}
+    {% include "partials/credit-grid.njk" %}
+  </div>
+
+  <div class="split-col">
+    <img src="https://via.placeholder.com/600x400?text=Clara" alt="Clara" class="profile-pic">
+    {% set creditList = clara %}
+    {% include "partials/credit-grid.njk" %}
+  </div>
+
+</div>
+
+<hr>
+
+<section id="faq" class="full-section">
+  <h2>{{ site.en.faq_title }}</h2>
+  <div class="faq-content">
+    <details>
+      <summary>Are you available for hire?</summary>
+      <p>Yes, we are currently taking new projects.</p>
+    </details>
+    <details>
+      <summary>Where are you based?</summary>
+      <p>We are based in Lisbon, Portugal.</p>
+    </details>
+  </div>
 </section>
 
 <hr>
 
-<section id="clara">
-  <h2>{{ site.en.section_clara }}</h2>
-  {% set creditList = clara %}
-  {% include "partials/credit-grid.njk" %}
+<section id="contact" class="full-section">
+  <h2>{{ site.en.contact_title }}</h2>
+  <p>Email us at: <a href="mailto:hello@example.com">hello@example.com</a></p>
 </section>
