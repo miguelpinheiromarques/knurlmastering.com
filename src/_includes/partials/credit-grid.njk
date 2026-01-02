@@ -1,8 +1,10 @@
 <div class="innercredits">
+  <h3>{{ creditName }}</h3>
+
   <div class="artwork">
   {% for item in creditList %}
     <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">
-        <img decoding="async" src="/{{ item.image }}" loading="lazy" alt="{{ item.artist }} - {{ item.work }}" />
+      {% image "./src/" + item.image, item.artist + " - " + item.work, "(min-width: 768px) 50vw, 100vw" %}
         <h3>{{ item.artist }}</h3>
         <h4>{{ item.work }}</h4>
         <p>{{ item.service }}<span>{{ item.date }}</span></p>

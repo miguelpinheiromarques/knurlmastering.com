@@ -165,7 +165,7 @@ a:hover {
 .credits .innercredits {
   background-image: linear-gradient(to right, #383838, #363636, #353535, #333333, #323232);
   border-top: 4px solid #EDA40E;
-  margin: 20px 0 40px 0;
+  margin: 0 0 40px 0;
 }
 
 /* Section Title */
@@ -183,25 +183,7 @@ a:hover {
   }
 }
 
-/* CREDIT GRID SYSTEM */
-.credits-grid {
-  display: grid;
-  /* Creates a responsive grid: minimum 200px wide, fills space */
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 30px 20px;
-}
 
-/* The Anchor Tag Wrapper */
-.credits-grid a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  transition: opacity 0.3s ease;
-}
-
-.credits-grid a:hover {
-  opacity: 0.8;
-}
 /* The 50/50 Split */
 .split-container {
   display: flex;
