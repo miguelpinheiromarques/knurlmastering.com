@@ -4,7 +4,6 @@ module.exports = function(eleventyConfig) {
   
   // 1. Pass CSS and Covers through (Keep your existing settings)
   eleventyConfig.addPassthroughCopy("./src/css");
-  eleventyConfig.addPassthroughCopy("./src/covers");
   eleventyConfig.addWatchTarget("./src/css/");
 
   // 2. Define the Image Optimization Shortcode
