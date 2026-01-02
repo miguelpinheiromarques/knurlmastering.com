@@ -64,19 +64,13 @@ footer {
   .studio,
   .faq,
   .contact {
-    width: 48em;
+    width: 33em;
     margin: 0 auto;
     padding: 0 1.5rem; /* Desktop Padding */
   }
-  footer {
-    width: 48em;
-    margin: 0 auto;
-    margin-left:1.5rem;
-    margin-right:1.5rem;
-  }
 }
 
-footer {margin-top:80px;border-top:4px solid #ddd}
+footer {margin-top:80px;border-top:4px solid #ddd;}
 
 h2 {
   font-size: 1.1rem;
