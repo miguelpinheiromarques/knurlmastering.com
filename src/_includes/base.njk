@@ -68,33 +68,6 @@
     {{ content | safe }}
   </main>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  
-  // 1. Select the scrollable container and the icon
-  const scrollContainer = document.querySelector('.artwork');
-  const scrollIcon = document.querySelector('.scroll svg');
-
-  // Check if both elements exist to avoid errors
-  if (scrollContainer && scrollIcon) {
-    
-    // 2. Define the hide function
-    const hideIcon = () => {
-      scrollIcon.classList.add('is-hidden');
-    };
-
-    // 3. Add listener to the CONTAINER, not the window
-    // { once: true } ensures it runs only the first time they scroll
-    scrollContainer.addEventListener('scroll', hideIcon, { once: true });
-    
-    // Optional: Check immediately if it's already scrolled (e.g. after a refresh)
-    if (scrollContainer.scrollLeft > 0 || scrollContainer.scrollTop > 0) {
-        hideIcon();
-    }
-  }
-});
-</script>
-
   {% include "partials/footer.njk" %}
 
 </body>
