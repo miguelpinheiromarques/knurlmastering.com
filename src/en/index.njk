@@ -9,20 +9,20 @@ site_url: "https://your-domain.com"
 <div id="credits" class="split-container credits">
 
   <div class="split-col">
-    <img src="https://via.placeholder.com/600x400?text=Miguel" alt="Miguel" class="profile-pic">
+    {% image "./src/images/miguelpinheiromarques.jpg", "Clara Araújo", "(min-width: 768px) 50vw, 100vw" %}
     {% set creditList = miguel %}
     {% include "partials/credit-grid.njk" %}
   </div>
 
   <div class="split-col">
-    <img src="https://via.placeholder.com/600x400?text=Clara" alt="Clara" class="profile-pic">
+    {% image "./src/images/claraaraujo.jpg", "Clara Araújo", "(min-width: 768px) 50vw, 100vw" %}
     {% set creditList = clara %}
     {% include "partials/credit-grid.njk" %}
   </div>
 
 </div>
 
-<section class="studio">
+<section id="about" class="studio" class="full-section">
   <div>
     <h2>{{ site.en.about_title }}</h2>
     <p>Our name is inspired by the crisp, crosshatched knurls formed through metalworking on a lathe and the
@@ -41,7 +41,7 @@ site_url: "https://your-domain.com"
   </div>
 </section>
 
-<section class="faq">
+<section id="faq" class="faq" class="full-section">
   <div>
     <h2>{{ site.en.faq_title }}</h2>
     <div class="accordion accordion--checkbox">
@@ -104,7 +104,7 @@ site_url: "https://your-domain.com"
   <br />
 </section>
 
-<section id="contact" class="full-section">
+<section id="contact" class="contact" class="full-section">
   <div>
     <h2>{{ site.en.contact_title }}</h2>
     <p>You might have a project in mind or simply be looking for more info, either way we'd be happy to hear
