@@ -56,12 +56,18 @@ header,
 footer {
   width: 100%;
   margin: 0;
-  padding: 0 1rem;
+  padding: 0 1rem; /* Mobile Padding */
 }
-  @media screen and (min-width: 768px) {
+
+@media screen and (min-width: 768px) {
+  header,
+  .studio,
+  .faq,
+  .contact,
+  footer {
     width: 100%;
     margin: 0 auto;
-	padding: 0 1.5rem;	  
+    padding: 0 1.5rem; /* Desktop Padding */
   }
 }
 
@@ -371,7 +377,9 @@ a:hover {
 .studio {
   background-color: #f7f7f7;
   color: #181818;
-  padding:20px 0;
+  /* Only change top/bottom, leave sides alone */
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .studio h2 {
