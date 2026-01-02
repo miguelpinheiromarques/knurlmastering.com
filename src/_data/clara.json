@@ -1,4 +1,52 @@
 [
+ {
+    "artist": "Lara Espiga",
+    "work": "What You've Done",
+    "service": "digital mastering",
+    "date": "December 2025",
+    "image": "covers/lara_espiga_what_youve_done.jpg",
+    "link": "https://music.apple.com/pt/album/what-youve-done-single/1854030585?l=en-GB"
+  },
+  {
+    "artist": "Lucena",
+    "work": "Era uma vez a vida",
+    "service": "digital mastering",
+    "date": "November 2025",
+    "image": "covers/lucena_era_uma_vez_a_vida.jpg",
+    "link": "https://music.apple.com/pt/album/era-uma-vez-a-vida/1856238602?l=en-GB"
+  },
+  {
+    "artist": "HOLY NOTHING",
+    "work": "Moeda de Troca (feat. Luca Argel)",
+    "service": "digital mastering",
+    "date": "November 2025",
+    "image": "covers/holy_nothing_moeda_de_troca_feat_luca_argel.jpg",
+    "link": "https://music.apple.com/pt/album/moeda-de-troca-feat-luca-argel-single/1851188371?l=en-GB"
+  },
+  {
+    "artist": "Lachado",
+    "work": "Barriga aos Gritos",
+    "service": "digital mastering",
+    "date": "November 2025",
+    "image": "covers/lachado_barriga_aos_gritos.jpg",
+    "link": "https://music.apple.com/pt/album/barriga-aos-gritos/1853270878?l=en-GB"
+  },
+  {
+    "artist": "MONSTRO",
+    "work": "Unborn Love",
+    "service": "digital mastering",
+    "date": "November 2025",
+    "image": "covers/monstro_unborne_love.jpg",
+    "link": "https://music.apple.com/pt/album/unborn-love/1856539887?l=en-GB"
+  },
+  {
+    "artist": "Expresso Transatlântico",
+    "work": "Tigre da Serra",
+    "service": "digital mastering",
+    "date": "November 2025",
+    "image": "covers/expresso_transatlantico_tigre_da_serra.jpg",
+    "link": "https://music.apple.com/pt/album/tigre-da-serra/1851192291?i=1851192293&l=en-GB"
+  },
   {
     "artist": "Asa Cobra",
     "work": "Ponta de Lança",
