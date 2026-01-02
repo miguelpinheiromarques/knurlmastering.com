@@ -201,7 +201,20 @@ a:hover {
   object-fit: cover;
   display: block;
 }
-
+.split-col img.pos-right {
+  /* Aligns to the Right edge, vertically Centered */
+  object-position: right center; 
+  
+  /* Or use percentages: 80% horizontal, 50% vertical */
+  /* object-position: 80% 50%; */
+}
+.split-col img.pos-left {
+  /* Aligns to the Right edge, vertically Centered */
+  object-position: left center; 
+  
+  /* Or use percentages: 80% horizontal, 50% vertical */
+  /* object-position: 80% 50%; */
+}
 /* Full Width Sections */
 .full-section {
   padding: 0;
