@@ -269,6 +269,40 @@ a:hover {
     color: #EDA40E;          /* Uses your blue brand color */         /* Makes it slightly thicker */
     opacity: 1;                  /* Ensures it's fully visible */
 }
+.scroll {
+  position:absolute;
+  margin-top:-40px;
+  margin-left:20px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  transition: opacity 0.1s ease;
+  animation: bounce 1s infinite;  
+}
+
+.scroll.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(10px); }
+}
+
+/* 2. Resizing the Artwork Divs */
+.artwork.has-scrolled {
+    transition: padding 0.3s ease;
+    transition: padding 0.5s ease;
+}
+
+/* Apply the padding change.
+   If you want BOTH divs to resize to 30px 20px, use this:
+*/
+.credits .artwork.has-scrolled,
+.artwork.has-scrolled { 
+    /* Adjust this selector if you only want the .credits one to change */
+    padding: 30px 20px; 
+}
 
 /* THE SCROLL GRID */
 .credits .artwork {
@@ -295,7 +329,7 @@ a:hover {
   width: 100%;
   height: auto; /* Allow height to grow to fit 3 rows */
   margin: 0;
-  padding: 30px 20px; /* Add side padding so items don't touch edge */
+  padding: 30px 20px 60px; /* Add side padding so items don't touch edge */
   background-color: #242424;
   box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.15) inset, 0px -10px 10px -10px rgba(0, 0, 0, 0.25) inset;
   color: #fff;
