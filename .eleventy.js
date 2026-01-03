@@ -7,6 +7,10 @@ module.exports = function(eleventyConfig) {
   // -----------------------------------------------------------------
   eleventyConfig.addWatchTarget("./src/css/");
   
+  eleventyConfig.addShortcode("version", function () {
+    return String(Date.now());
+  });  
+  
   // Important: If your CSS is just a static file (not Sass/PostCSS), 
   // you usually need this line too. If your CSS is missing in the 
   // output folder, uncomment the next line:
