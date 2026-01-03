@@ -58,8 +58,8 @@ footer {
   margin: 0;
   padding: 0 1rem; /* Mobile Padding */
 }
-@media screen and (max-width: 768px) {.hide-mobile{display:none;}}
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 999px) {.hide-mobile{display:none;}}
+@media screen and (min-width: 835px) {
   header,
   .studio,
   .faq,
@@ -159,7 +159,7 @@ a:hover {
   padding:20px 0 0 0;
   background-color:#f0f0f0;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 835px) {
   .credits {padding:20px;}
 }  
 .credits .innercredits {
@@ -173,10 +173,11 @@ a:hover {
   padding: 5px 0 4px 0;
   font-optical-sizing: auto;
   font-size: 1.1rem;
+  white-space:nowrap;
   font-weight: 600;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 835px) {
   .credits h3 {
     margin: 0 1.5rem;
   }
@@ -188,7 +189,7 @@ a:hover {
   flex-wrap: wrap; /* Allows stacking on mobile */
   width: 100%;
 }
-@media (min-width: 768px) {
+@media (min-width: 835px) {
   .split-col {
     width: calc(50% - 10px); /* Desktop default */
     box-sizing: border-box;
@@ -226,7 +227,7 @@ a:hover {
 }
 
 /* Mobile: Stack columns */
-@media (max-width: 768px) {
+@media (max-width: 835px) {
   .split-col {
     width: 100%;
     padding:0;
