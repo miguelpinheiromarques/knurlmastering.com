@@ -32,41 +32,6 @@ site_url: "https://knurlmastering.com"
   
 </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  
-  // 1. Select ALL artwork containers and ALL scroll labels
-  const allArtworks = document.querySelectorAll('.artwork');
-  const allLabels = document.querySelectorAll('.scroll');
-
-  // 2. Define the "Master Switch" function
-  // This will run once and update EVERYTHING at the same time
-  const triggerGlobalUpdate = () => {
-      
-      // Hide ALL scroll labels
-      allLabels.forEach(label => {
-          label.classList.add('is-hidden');
-      });
-
-      // Update ALL artwork containers (add class for padding change)
-      allArtworks.forEach(art => {
-          art.classList.add('has-scrolled');
-      });
-  };
-
-  // 3. Add the listener to every artwork container
-  // If ANY of them is scrolled, they trigger the global function
-  allArtworks.forEach(container => {
-      container.addEventListener('scroll', triggerGlobalUpdate, { once: true });
-
-      // Check immediately if this specific container is already scrolled (e.g. refresh)
-      if (container.scrollLeft > 0 || container.scrollTop > 0) {
-          triggerGlobalUpdate();
-      }
-  });
-});
-</script>
-
 <section id="about" class="studio" class="full-section">
   <div>
     <h2>{{ site.en.about_title }}</h2>

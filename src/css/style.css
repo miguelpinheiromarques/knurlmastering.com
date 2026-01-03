@@ -239,38 +239,38 @@ a:hover {
   }
 }
 
-/* 1. Hiding the Scroll Label */
-.scroll {
-  position:absolute;
-  margin-top:-40px;
-  margin-left:20px;
-  opacity: 1;
-  transition: opacity 0.1s ease;
-  animation: bounce 1s infinite;  
+/* Header container to align title and buttons */
+.credits-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right:0.5rem;
 }
 
-.scroll.is-hidden {
-  opacity: 0;
-  pointer-events: none;
+.sort-controls {
+  display: flex;
+  gap: 1rem;
 }
 
-@keyframes bounce {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(10px); }
+.sort-btn {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  color:#999;
 }
 
-/* 2. Resizing the Artwork Divs */
-.artwork.has-scrolled {
-    transition: padding 0.5s ease;
+.sort-btn:hover {
+  color: #666;
 }
 
-/* Apply the padding change.
-   If you want BOTH divs to resize to 30px 20px, use this:
-*/
-.credits .artwork.has-scrolled,
-.artwork.has-scrolled { 
-    /* Adjust this selector if you only want the .credits one to change */
-    padding: 30px 20px; 
+/* The Active State */
+.sort-btn.active {
+    color: #EDA40E;          /* Uses your blue brand color */         /* Makes it slightly thicker */
+    opacity: 1;                  /* Ensures it's fully visible */
 }
 
 /* THE SCROLL GRID */
@@ -298,7 +298,7 @@ a:hover {
   width: 100%;
   height: auto; /* Allow height to grow to fit 3 rows */
   margin: 0;
-  padding: 30px 20px 60px; /* Add side padding so items don't touch edge */
+  padding: 30px 20px; /* Add side padding so items don't touch edge */
   background-color: #242424;
   box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.15) inset, 0px -10px 10px -10px rgba(0, 0, 0, 0.25) inset;
   color: #fff;
