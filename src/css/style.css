@@ -59,7 +59,7 @@ footer {
   padding: 0 1rem; /* Mobile Padding */
 }
 @media screen and (max-width: 999px) {.hide-mobile{display:none;}}
-@media screen and (min-width: 835px) {
+@media screen and (min-width: 999px) {
   header,
   .studio,
   .faq,
@@ -98,10 +98,10 @@ header {
 }
 
 .heading h1 {
-  margin: -98px 0 0 0;
+  margin: -93px 0 0 0;
 }
 
-.heading h1 svg {width:184px;}
+.heading h1 svg {height:68px;}
 
 .heading h1{background-color:#f2f2f2;padding:10px 10px 3px 10px;border-radius:5px 55px 55px 5px;}
 .heading .logo svg{background-color:#f9f9f9;border-radius:50%;border:2px solid #EDA40E}
@@ -741,8 +741,8 @@ p.knoll {
   }
 
   .heading h1{background-color:#202020;}
-  .heading h1 svg path {fill: #f2f2f2}
-  .heading .logo svg{background-color:#f2f2f2;border-color:#EDA40E;}
+  .heading h1 svg path {fill: #e2e2e2}
+  .heading .logo svg{background-color:#f0f0f0;border-color:#EDA40E;}
 
 
 
