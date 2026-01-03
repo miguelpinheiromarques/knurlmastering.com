@@ -58,7 +58,7 @@ footer {
   margin: 0;
   padding: 0 1rem; /* Mobile Padding */
 }
-
+@media screen and (max-width: 768px) {.hide-mobile{display:none;}}
 @media screen and (min-width: 768px) {
   header,
   .studio,
@@ -98,10 +98,7 @@ header {
 }
 
 .heading h1 {
-  margin: -86px 0 0 0;
-  @media screen and (min-width: 528px) {
-    margin: -85px 0 0 0;
-  }
+  margin: -95px 0 0 0;
 }
 
 .heading h1 svg {
@@ -110,6 +107,9 @@ header {
     width: 184px;
   }
 }
+
+.heading h1{background-color:#f0f0f0;padding:10px 10px 4px 10px;border-radius:5px 55px 55px 5px;}
+.heading .logo svg{background-color:#f9f9f9;border-radius:50%}
 
 .heading h1 svg path {
   fill: #181818
@@ -139,13 +139,8 @@ a:hover {
 }
 
 .heading .logo svg {
-  height: 90px;
-  width: 90px;
-
-  @media screen and (min-width: 528px) {
-    height: 92px;
-    width: 92px;
-  }
+  height: 92px;
+  width: 92px;
 }
 
 .heading .logo svg path {
@@ -261,6 +256,7 @@ a:hover {
   text-transform: uppercase;
   cursor: pointer;
   color:#999;
+  white-space: nowrap;
 }
 
 .sort-btn:hover {
@@ -713,7 +709,11 @@ p.knoll {
     fill: #f0f0f0
   }
 
-  .heading .logo svg path {
+  .heading h1{background-color:#282828;}
+  .heading h1 svg path {fill: #f0f0f0}
+  .heading .logo svg{background-color:#f0f0f0;}
+ /**
+ .heading .logo svg path {
     stroke: #f0f0f0;
     stroke-width: 2;
     fill: #f0f0f0;
@@ -724,10 +724,12 @@ p.knoll {
     stroke-width: 5;
     fill: none
   }
-
   .heading h1 svg path {
     fill: #f0f0f0
   }
+  **/
+
+
 
   .contact {
     background-color: #121212;

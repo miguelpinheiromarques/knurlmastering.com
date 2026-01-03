@@ -1,7 +1,9 @@
 <div class="innercredits">
 
   <div class="credits-header">
-    <h3>{{ creditName }}</h3>
+    <h3>
+      {{ creditName | replace("Pinheiro", "<span class='hide-mobile'>Pinheiro</span>") | safe }}
+    </h3>
     
     <div class="sort-controls">
       <button class="sort-btn active" data-sort="latest">{% if locale == "en" %}Latest{% else %}Últimos{% endif %}</button>
