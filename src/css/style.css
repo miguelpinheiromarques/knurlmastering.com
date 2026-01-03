@@ -100,7 +100,10 @@ header {
 .heading p {
   margin-top: 40px;
 }
-.heading .hero {background-color:#f2f2f2;border-radius:5px 100px 100px 5px;}
+.heading .hero {
+  background-color:#f2f2f2;
+  border-radius:5px 100px 100px 5px;
+}
 .heading .hero h1 {
   margin: 0;
   background-color:#f2f2f2;
@@ -744,9 +747,7 @@ p.knoll {
   .heading .hero h1 {background-color:#202020}
   .heading .hero h1 svg{background-color:#202020;}
   .heading .hero h1 svg path {fill: #e2e2e2}
-  .heading .hero .logo svg{background-color:#f0f0f0;border-color:#EDA40E;}
-
-
+  .heading .hero .logo svg{background-color:#e2e2e2;border-color:#EDA40E;}
 
   .contact {
     background-color: #121212;
