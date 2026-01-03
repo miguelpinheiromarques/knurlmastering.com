@@ -86,30 +86,49 @@ h3 {
 }
 
 header {
-  text-align: left;
   padding-top: 50px;
   padding-bottom: 0;
   background-color: #f7f7f7;
   color: #181818;
 }
-
+.hero {
+  display: flex;             /* Establishes the flex container */
+  justify-content: space-between; /* Pushes .logo to the left and .intro to the right */
+  align-items: center;       /* Perfectly aligns them vertically in the middle */
+  width: 100%;
+}
 .heading p {
   margin-top: 40px;
 }
-
-.heading h1 {
-  margin: -96px 0 0 0;
+.heading .hero {background-color:#f2f2f2;border-radius:5px 100px 100px 5px;}
+.heading .hero h1 {
+  margin: 0;
+  background-color:#f2f2f2;
+  padding:0 10px;
 }
 
-.heading h1 svg {height:68px;}
+.heading .hero h1 svg {height:80px;padding-top:8px;}
 
-.heading h1{background-color:#f2f2f2;padding:10px 10px 3px 10px;border-radius:5px 55px 55px 5px;}
-.heading .logo svg{background-color:#f9f9f9;border-radius:50%;border:2px solid #EDA40E}
-
-.heading h1 svg path {
+.heading .hero h1 svg path {
   fill: #181818
 }
+.heading .hero .logo{margin:0;padding:0;}
+.heading .hero .logo svg{background-color:#f9f9f9;border-radius:50%;border:2px solid #EDA40E}
 
+.heading .logo svg {
+  height: 90px;
+  margin-top:3px;
+  padding:0 0 0 1px;
+}
+
+.heading .logo svg path {
+  stroke: #383838;
+  fill: #383838;
+}
+
+.heading .logo svg circle {
+  stroke: #383838;
+}
 a {
   color: #EDA40E;
   transition: all .2s linear;
@@ -127,25 +146,6 @@ a:hover {
   text-decoration: none;
   font-weight: 600;	
   white-space: nowrap;
-}
-
-.heading .logo {
-  text-align: right;
-}
-
-.heading .logo svg {
-  height: 95px;
-  width: 95px;
-  padding-left:1px;
-}
-
-.heading .logo svg path {
-  stroke: #383838;
-  fill: #383838;
-}
-
-.heading .logo svg circle {
-  stroke: #383838;
 }
 
 /* Main Container */
@@ -740,9 +740,11 @@ p.knoll {
     fill: #f0f0f0
   }
 
-  .heading h1{background-color:#202020;}
-  .heading h1 svg path {fill: #e2e2e2}
-  .heading .logo svg{background-color:#f0f0f0;border-color:#EDA40E;}
+  .heading .hero {background-color:#202020}
+  .heading .hero h1 {background-color:#202020}
+  .heading .hero h1 svg{background-color:#202020;}
+  .heading .hero h1 svg path {fill: #e2e2e2}
+  .heading .hero .logo svg{background-color:#f0f0f0;border-color:#EDA40E;}
 
 
 
