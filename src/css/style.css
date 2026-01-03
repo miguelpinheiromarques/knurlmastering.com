@@ -104,7 +104,7 @@ header {
 .heading h1 svg {width:184px;}
 
 .heading h1{background-color:#f2f2f2;padding:10px 10px 3px 10px;border-radius:5px 55px 55px 5px;}
-.heading .logo svg{background-color:#f9f9f9;border-radius:50%;border:4px solid #EDA40E}
+.heading .logo svg{background-color:#f9f9f9;border-radius:50%;border:2px solid #EDA40E}
 
 .heading h1 svg path {
   fill: #181818
