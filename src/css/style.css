@@ -402,12 +402,14 @@ a:hover {
 }
 
 .faq {
-  background-color: #f4f4f4;
+  background-color:#f7f7f7;
+  border:1px solid #e2e2e2;
   color: #181818;
+  margin-top:20px;
 }
 
 .faq h2 {
-  padding-top: 40px;
+  padding-top: 20px;
 }
 
 .faq h3 {
@@ -701,7 +703,7 @@ p.knoll {
     color: #f0f0f0
   }
   
-  .credits {background-color: #161616;}
+  .credits {background-color: #191919;}
 
   footer .language {border-top:4px solid #282828}
 
@@ -733,7 +735,8 @@ p.knoll {
   }
 
   .faq {
-    background-color: #191919;
+    background-color: #161616;
+    border-color:#282828;
     color: #f0f0f0
   }
 
