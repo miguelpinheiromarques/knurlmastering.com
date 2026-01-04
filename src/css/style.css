@@ -473,7 +473,7 @@ a:hover {
 .contact textarea::placeholder {
   color: #aaa;
   font-size: 0.8rem;
-  font-weight: 100;
+  font-weight: 200;
 }
 
 .contact button {
@@ -640,7 +640,7 @@ p.knoll {
 
 .accordion {
   color: #181818;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
 }
 
 .tab__label {
@@ -648,7 +648,7 @@ p.knoll {
   justify-content: space-between;
   cursor: pointer;
   font-weight: 600;
-  padding: 1rem 0;
+  padding: 1rem 0 0.3rem 0;
   border-bottom: 2px solid #EDA40E;
   color: #181818;
 }
@@ -682,7 +682,7 @@ p.knoll {
   padding: 1rem 0;
 }
 .tab__content p:last-of-type {
-  padding: 0 0 1rem 0;
+  padding: 0 0 0 0;
 }
 .tab__content p:not(:first-of-type):not(:last-of-type) {
   padding-bottom: 1rem;
