@@ -100,7 +100,7 @@ header {
   margin-top: 40px;
 }
 .heading .hero {
-  background: linear-gradient(#f7f7f7, #f7f7f7) padding-box,linear-gradient(to right, #f7f7f7, #EDA40E) border-box;
+  background: linear-gradient(#f7f7f7, #f7f7f7) padding-box,linear-gradient(to right, #f7f7f7, #ddd) border-box;
   border: 1px solid transparent;
   border-radius:15px 150px 150px 15px;
 }
@@ -729,7 +729,7 @@ p.knoll {
     fill: #f0f0f0
   }
 
-  .heading .hero {background: linear-gradient(#161616, #161616) padding-box,linear-gradient(to right, #161616, #EDA40E) border-box;border: 1px solid transparent;}
+  .heading .hero {background: linear-gradient(#161616, #161616) padding-box,linear-gradient(to right, #161616, #383838) border-box;border: 1px solid transparent;}
   .heading .hero h1 svg path {fill:#f2f2f2;}
   .heading .hero .logo svg{filter:invert(100%) saturate(0%)brightness(150%) contrast(100%);}
 
