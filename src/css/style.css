@@ -407,11 +407,15 @@ a:hover {
 
 .faq {
   background-color:#f7f7f7;
-  border:1px solid #e2e2e2;
   color: #181818;
   margin-top:20px;
 }
-
+@media screen and (min-width: 768px) {
+  .faq{border:1px solid #e2e2e2;}
+}
+@media screen and (max-width: 768px) {
+  .faq{border-top:1px solid #e2e2e2;border-bottom:1px solid #e2e2e2;}
+}
 .faq h2 {
   padding-top: 20px;
 }
@@ -644,7 +648,7 @@ p.knoll {
 
 .accordion {
   color: #181818;
-  padding-bottom: 30px;
+  padding-bottom: 25px;
 }
 
 .tab__label {
@@ -652,9 +656,10 @@ p.knoll {
   justify-content: space-between;
   cursor: pointer;
   font-weight: 600;
-  padding: 1rem 0 0.3rem 0;
+  padding: 0 0 0.3rem 0;
   border-bottom: 2px solid #EDA40E;
   color: #181818;
+  margin-top:2.5rem;
 }
 
 .tab__label::after {
