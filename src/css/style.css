@@ -100,12 +100,13 @@ header {
   margin-top: 40px;
 }
 .heading .hero {
-  border:1px solid #e2e2e2;
+  background: linear-gradient(#f7f7f7, #f7f7f7) padding-box,linear-gradient(to right, #f7f7f7, #EDA40E) border-box;
+  border: 1px solid transparent;
   border-radius:15px 150px 150px 15px;
 }
 .heading .hero h1 {
   margin: 0;
-  padding:0 10px;
+  padding:0 0;
 }
 
 .heading .hero h1 svg {height:80px;padding-top:8px;}
@@ -114,7 +115,7 @@ header {
   fill: #181818
 }
 .heading .hero .logo{margin:0 5px 0 0;padding:0;}
-.heading .hero .logo svg{background-color:#f9f9f9;border-radius:50%;border:2px solid #EDA40E;
+.heading .hero .logo svg{
   height: 90px;
   margin-top:3px;
   padding:0 0 1px 2px;
@@ -725,9 +726,10 @@ p.knoll {
     fill: #f0f0f0
   }
 
-  .heading .hero {border-color:#383838;}
-  .heading .hero h1 svg path {fill: #e2e2e2}
-  .heading .hero .logo svg{background-color:#e2e2e2;border-color:#EDA40E;}
+  .heading .hero {background: linear-gradient(#161616, #161616) padding-box,linear-gradient(to right, #161616, #EDA40E) border-box;border: 1px solid transparent;}
+  .heading .hero h1 svg path {fill:#f2f2f2;}
+  .heading .hero .logo svg path{fill:#f2f2f2;stroke:#f2f2f2;}
+  .heading .hero .logo svg circle{stroke:#f2f2f2;}
 
   .contact {
     background-color: #161616;
