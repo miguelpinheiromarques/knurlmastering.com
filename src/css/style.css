@@ -153,7 +153,7 @@ a:hover {
   padding:20px 0 0 0;
   background-color:#f0f0f0;
 }
-@media screen and (min-width: 835px) {
+@media screen and (min-width: 768px) {
   .credits {padding:20px;}
 }  
 .credits .innercredits {
@@ -171,7 +171,7 @@ a:hover {
   font-weight: 600;
 }
 
-@media screen and (min-width: 835px) {
+@media screen and (min-width: 768px) {
   .credits h3 {
     margin: 0 1.5rem;
   }
@@ -183,7 +183,7 @@ a:hover {
   flex-wrap: wrap; /* Allows stacking on mobile */
   width: 100%;
 }
-@media (min-width: 835px) {
+@media (min-width: 768px) {
   .split-col {
     width: calc(50% - 10px); /* Desktop default */
     box-sizing: border-box;
@@ -221,7 +221,7 @@ a:hover {
 }
 
 /* Mobile: Stack columns */
-@media (max-width: 835px) {
+@media (max-width: 768px) {
   .split-col {
     width: 100%;
     padding:0;
