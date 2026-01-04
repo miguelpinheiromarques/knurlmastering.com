@@ -164,7 +164,7 @@ a:hover {
 /* Section Title */
 .credits h3 {
   margin: 0;
-  padding: 3px 0 5px 12px;
+  padding: 3px 0 5px 6px;
   font-optical-sizing: auto;
   font-size: 1.1rem;
   white-space:nowrap;
@@ -229,7 +229,7 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding:1px 15px 0 0;
+  padding:1px 5px 0 0;
 }
 
 .sort-controls {
