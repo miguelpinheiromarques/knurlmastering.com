@@ -116,6 +116,10 @@ document.addEventListener("DOMContentLoaded", function() {
       // Clear and Re-append
       grid.innerHTML = "";
       sortedItems.forEach(item => grid.appendChild(item));
+      grid.scrollTo({
+        left: 0,
+        behavior: 'smooth'
+      });
     };
 
     // --- CLICK HANDLERS ---

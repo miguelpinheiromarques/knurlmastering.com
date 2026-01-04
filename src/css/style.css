@@ -288,15 +288,6 @@ a:hover {
     50% { transform: translateX(10px); }
 }
 
-/* Apply the padding change.
-   If you want BOTH divs to resize to 30px 20px, use this:
-*/
-.credits .artwork.has-scrolled,
-.artwork.has-scrolled { 
-    /* Adjust this selector if you only want the .credits one to change */
-    padding: 30px 20px; 
-}
-
 /* THE SCROLL GRID */
 .credits .artwork {
   /* Use Grid instead of Flex */
@@ -329,6 +320,7 @@ a:hover {
   
   /* Smooth Scrolling on mobile */
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 /* The Grid Item (The Anchor Tag) */
