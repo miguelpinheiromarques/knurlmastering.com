@@ -1,4 +1,28 @@
 [
+  {
+    "artist": "Throes + The Shine",
+    "work": "Gira",
+    "service": "digital mastering",
+    "date": "February 2026",
+    "image": "covers/throes_the_shine_gira.jpg",
+    "link": "https://music.apple.com/pt/album/gira/1876582462?i=1876583504&l=en-GB"
+ },
+  {
+    "artist": "Lachado",
+    "work": "Vadios da Noite",
+    "service": "digital mastering",
+    "date": "February 2026",
+    "image": "covers/lachado_vadios_da_noite.jpg",
+    "link": "https://music.apple.com/pt/album/vadios-da-noite/1874482137?i=1874482138&l=en-GB"
+ },
+  {
+    "artist": "Expresso Transatlântico",
+    "work": "Trópico Paranóia",
+    "service": "vinyl & digital mastering",
+    "date": "January 2026",
+    "image": "covers/expresso_transatlantico_tropico_paranoia.jpg",
+    "link": "https://music.apple.com/pt/album/tr%C3%B3pico-paran%C3%B3ia/1860682106?l=en-GB"
+ },
  {
     "artist": "Tarina",
     "work": "Lua",
