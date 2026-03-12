@@ -5,7 +5,8 @@
     "service": "digital mastering",
     "date": "January 2026",
     "image": "covers/jorge_cruz_fio_a_meada_ao_vivo.jpg",
-    "link": "https://music.apple.com/pt/album/fio-%C3%A0-meada-ao-vivo/1867312485?l=en-GB"
+    "link": "https://music.apple.com/pt/album/fio-%C3%A0-meada-ao-vivo/1867312485?l=en-GB",
+    "featured": false
   },  
   {
     "artist": "The Last Internationale",
@@ -13,31 +14,35 @@
     "service": "digital mastering",
     "date": "January 2026",
     "image": "covers/the_last_internationale_live_in_europe.jpg",
-    "link": "https://music.apple.com/pt/album/live-in-europe/1860404580?l=en-GB"
+    "link": "https://music.apple.com/pt/album/live-in-europe/1860404580?l=en-GB",
+    "featured": true
   },  
   {
-  "artist": "Della",
-  "work": "waste",
-  "service": "digital mastering",
-  "date": "January 2026",
-  "image": "covers/della_waste.jpg",
-  "link": "https://music.apple.com/pt/album/waste-single/1863626856?l=en-GB"
-},  
+    "artist": "Della",
+    "work": "waste",
+    "service": "digital mastering",
+    "date": "January 2026",
+    "image": "covers/della_waste.jpg",
+    "link": "https://music.apple.com/pt/album/waste-single/1863626856?l=en-GB",
+    "featured": false
+  },  
   {
-  "artist": "Nick Marks",
-  "work": "Do wut u love (lo-fi version)",
-  "service": "digital mastering",
-  "date": "December 2025",
-  "image": "covers/nick_marks_do_wut_u_luv.jpg",
-  "link": "https://music.apple.com/pt/album/do-wut-u-luv-lo-fi-version-single/1856003149?l=en-GB"
-},
-{
+    "artist": "Nick Marks",
+    "work": "Do wut u love (lo-fi version)",
+    "service": "digital mastering",
+    "date": "December 2025",
+    "image": "covers/nick_marks_do_wut_u_luv.jpg",
+    "link": "https://music.apple.com/pt/album/do-wut-u-luv-lo-fi-version-single/1856003149?l=en-GB",
+    "featured": false
+  },
+  {
     "artist": "Best Youth",
     "work": "Highway Moon",
     "service": "vinyl & digital remastering",
     "date": "December 2025",
     "image": "covers/best_youth_highway_moon_remaster.jpg",
-    "link": "https://bestyouth.bandcamp.com/album/highway-moon-2025-remastered"
+    "link": "https://bestyouth.bandcamp.com/album/highway-moon-2025-remastered",
+    "featured": true
   },
   {
     "artist": "Tomás Rocha",
@@ -45,7 +50,8 @@
     "service": "digital mastering",
     "date": "November 2025",
     "image": "covers/tomas_rocha_avos.jpg",
-    "link": "https://music.apple.com/pt/album/av%C3%B3s-single/1851060493?l=en-GB"
+    "link": "https://music.apple.com/pt/album/av%C3%B3s-single/1851060493?l=en-GB",
+    "featured": false
   },
   {
     "artist": "HUMAN NATURES",
@@ -53,7 +59,8 @@
     "service": "vinyl & digital mastering",
     "date": "November 2025",
     "image": "covers/human_natures_electric_dreams.jpg",
-    "link": "https://music.apple.com/pt/album/electric-dreams/1828885465?l=en-GB"
+    "link": "https://music.apple.com/pt/album/electric-dreams/1828885465?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Mordo Mia",
@@ -61,7 +68,8 @@
     "service": "vinyl & digital mastering",
     "date": "October 2025",
     "image": "covers/mordo_mia_chumbo_concavo.jpg",
-    "link": "https://music.apple.com/pt/album/chumbo-c%C3%B4ncavo/1846753392?l=en-GB"
+    "link": "https://music.apple.com/pt/album/chumbo-c%C3%B4ncavo/1846753392?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Caleidoscópio Colectivo",
@@ -69,7 +77,8 @@
     "service": "vinyl & digital mastering",
     "date": "October 2025",
     "image": "covers/caleidoscopio_colectivo_vortice.png",
-    "link": "https://music.apple.com/pt/album/v%C3%B3rtice-para-o-fim-de-um-tempo/1844664863?l=en-GB"
+    "link": "https://music.apple.com/pt/album/v%C3%B3rtice-para-o-fim-de-um-tempo/1844664863?l=en-GB",
+    "featured": false
   },
   {
     "artist": "noiserv",
@@ -77,7 +86,8 @@
     "service": "vinyl & digital mastering",
     "date": "October 2025",
     "image": "covers/noiserv_7305.jpg",
-    "link": "https://music.apple.com/pt/album/7305/1844328167?l=en-GB"
+    "link": "https://music.apple.com/pt/album/7305/1844328167?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Três Tristes Tigres",
@@ -85,7 +95,8 @@
     "service": "vinyl & digital mastering",
     "date": "September 2025",
     "image": "covers/tres_tristes_tigres_arca.jpg",
-    "link": "https://music.apple.com/pt/album/arca/1831018750?l=en-GB"
+    "link": "https://music.apple.com/pt/album/arca/1831018750?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Jonas Myrin",
@@ -93,7 +104,8 @@
     "service": "immersive mastering",
     "date": "July 2025",
     "image": "covers/jonas_myrin_hope_is_on_the_way.jpg",
-    "link": "https://music.apple.com/pt/album/hope-is-on-the-way-from-the-hopeful-single/1821939588?l=en-GB"
+    "link": "https://music.apple.com/pt/album/hope-is-on-the-way-from-the-hopeful-single/1821939588?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Rita Cruz",
@@ -101,7 +113,8 @@
     "service": "digital mastering",
     "date": "June 2025",
     "image": "covers/rita_cruz_cuidado.jpg",
-    "link": "https://music.apple.com/pt/album/cuidado-feat-dino-dsantiago-single/1822240035?l=en-GB"
+    "link": "https://music.apple.com/pt/album/cuidado-feat-dino-dsantiago-single/1822240035?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Tomás Rocha",
@@ -109,7 +122,8 @@
     "service": "digital mastering",
     "date": "June 2025",
     "image": "covers/tomas_rocha_panama.jpg",
-    "link": "https://music.apple.com/pt/album/panam%C3%A1-single/1817703515?l=en-GB"
+    "link": "https://music.apple.com/pt/album/panam%C3%A1-single/1817703515?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Mocky",
@@ -117,7 +131,8 @@
     "service": "vinyl & digital mastering",
     "date": "June 2025",
     "image": "covers/mocky_music_will_explain.jpg",
-    "link": "https://music.apple.com/pt/album/music-will-explain-choir-music-vol-1/1799053835?l=en-GB"
+    "link": "https://music.apple.com/pt/album/music-will-explain-choir-music-vol-1/1799053835?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Della",
@@ -125,7 +140,8 @@
     "service": "digital mastering",
     "date": "June 2025",
     "image": "covers/della_13.jpg",
-    "link": "https://music.apple.com/pt/album/13-ep/1815537750?l=en-GB"
+    "link": "https://music.apple.com/pt/album/13-ep/1815537750?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Alexa Michael",
@@ -133,7 +149,8 @@
     "service": "digital mastering",
     "date": "April 2025",
     "image": "covers/alexa_michael_different_worlds.jpg",
-    "link": "https://music.apple.com/pt/album/different-worlds-ep/1808319766?l=en-GB"
+    "link": "https://music.apple.com/pt/album/different-worlds-ep/1808319766?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Memória de Peixe",
@@ -141,7 +158,8 @@
     "service": "vinyl & digital mastering",
     "date": "March 2025",
     "image": "covers/memoria_de_peixe_3.jpg",
-    "link": "https://music.apple.com/pt/album/iii/1801838460?l=en-GB"
+    "link": "https://music.apple.com/pt/album/iii/1801838460?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Tomás Rocha, Carolina de Deus",
@@ -149,7 +167,8 @@
     "service": "digital mastering",
     "date": "March 2025",
     "image": "covers/tomas_rocha_carolina_deus_feitos_de_carne_e_osso.jpg",
-    "link": "https://music.apple.com/pt/album/feitos-de-carne-e-osso-single/1799052714?l=en-GB"
+    "link": "https://music.apple.com/pt/album/feitos-de-carne-e-osso-single/1799052714?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Rui Reininho & OJM",
@@ -157,7 +176,8 @@
     "service": "vinyl & digital mastering",
     "date": "February 2025",
     "image": "covers/rui_reininho_ojm.jpg",
-    "link": "https://music.apple.com/pt/album/rui-reininho-orquestra-jazz-de-matosinhos-ep/1796389059?l=en-GB"
+    "link": "https://music.apple.com/pt/album/rui-reininho-orquestra-jazz-de-matosinhos-ep/1796389059?l=en-GB",
+    "featured": true
   },
   {
     "artist": "The Last Internationale",
@@ -165,7 +185,8 @@
     "service": "digital mastering",
     "date": "January 2025",
     "image": "covers/the_last_internationale_master.jpg",
-    "link": "https://music.apple.com/pt/album/master-single/1826868870?l=en-GB"
+    "link": "https://music.apple.com/pt/album/master-single/1826868870?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Mão Morta",
@@ -173,7 +194,8 @@
     "service": "digital mastering",
     "date": "January 2025",
     "image": "covers/mao_morta_viva_la_muerte.jpg",
-    "link": "https://music.apple.com/pt/album/viva-la-muerte/1787916570?l=en-GB"
+    "link": "https://music.apple.com/pt/album/viva-la-muerte/1787916570?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Diane Keaton",
@@ -181,7 +203,8 @@
     "service": "digital mastering",
     "date": "November 2024",
     "image": "covers/diane_keaton_first_christmas.jpg",
-    "link": "https://music.apple.com/pt/album/first-christmas-single/1778570159?l=en-GB"
+    "link": "https://music.apple.com/pt/album/first-christmas-single/1778570159?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Bombazine",
@@ -189,7 +212,8 @@
     "service": "digital mastering",
     "date": "November 2024",
     "image": "covers/bombazine_samba_celta.jpg",
-    "link": "https://music.apple.com/pt/album/samba-celta/1827233813?l=en-GB"
+    "link": "https://music.apple.com/pt/album/samba-celta/1827233813?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Dora Morelenbaum",
@@ -197,7 +221,8 @@
     "service": "vinyl & digital mastering",
     "date": "October 2024",
     "image": "covers/dora_morelenbaum_pique.jpg",
-    "link": "https://music.apple.com/pt/album/pique/1758717876?l=en-GB"
+    "link": "https://music.apple.com/pt/album/pique/1758717876?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Líquen",
@@ -205,7 +230,8 @@
     "service": "digital mastering",
     "date": "October 2024",
     "image": "covers/liquen_ep.jpg",
-    "link": "https://music.apple.com/pt/album/i-ep/1809114253?l=en-GB"
+    "link": "https://music.apple.com/pt/album/i-ep/1809114253?l=en-GB",
+    "featured": false
   },
   {
     "artist": "S. Pedro",
@@ -213,7 +239,8 @@
     "service": "digital mastering",
     "date": "October 2024",
     "image": "covers/spedro_tradicao.jpg",
-    "link": "https://music.apple.com/pt/album/tradi%C3%A7%C3%A3o-single/1772131322?l=en-GB"
+    "link": "https://music.apple.com/pt/album/tradi%C3%A7%C3%A3o-single/1772131322?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Call of Duty Black Ops 6",
@@ -221,7 +248,8 @@
     "service": "digital mastering",
     "date": "October 2024",
     "image": "covers/call_of_duty_black_ops_6.jpg",
-    "link": "https://music.apple.com/pt/album/raining-the-fire/1774169902?i=1774169905&l=en-GB"
+    "link": "https://music.apple.com/pt/album/raining-the-fire/1774169902?i=1774169905&l=en-GB",
+    "featured": true
   },
   {
     "artist": "Virgem Suta",
@@ -229,7 +257,8 @@
     "service": "vinyl & digital mastering",
     "date": "October 2024",
     "image": "covers/virgem_suta_no_ceu_da_boca_do_lobo.jpg",
-    "link": "https://music.apple.com/pt/album/no-c%C3%A9u-da-boca-do-lobo/1772765476?l=en-GB"
+    "link": "https://music.apple.com/pt/album/no-c%C3%A9u-da-boca-do-lobo/1772765476?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Inóspita",
@@ -237,7 +266,8 @@
     "service": "vinyl & digital mastering",
     "date": "September 2024",
     "image": "covers/inospita_e_nos.jpg",
-    "link": "https://music.apple.com/pt/album/e-n%C3%B3s-in%C3%B3spita/1767397490?l=en-GB"
+    "link": "https://music.apple.com/pt/album/e-n%C3%B3s-in%C3%B3spita/1767397490?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Wolf Manhattan",
@@ -245,7 +275,8 @@
     "service": "vinyl & digital mastering",
     "date": "April 2024",
     "image": "covers/wolf_manhattan_real_life_is_overrated.jpg",
-    "link": "https://music.apple.com/pt/album/real-life-is-overrated/1738039721?l=en-GB"
+    "link": "https://music.apple.com/pt/album/real-life-is-overrated/1738039721?l=en-GB",
+    "featured": false
   },
   {
     "artist": "EVAYA",
@@ -253,7 +284,8 @@
     "service": "vinyl & digital mastering",
     "date": "April 2024",
     "image": "covers/evaya_abaixo_das_raizes_deste_jardim.jpg",
-    "link": "https://music.apple.com/pt/album/abaixo-das-ra%C3%ADzes-deste-jardim/1820362289?l=en-GB"
+    "link": "https://music.apple.com/pt/album/abaixo-das-ra%C3%ADzes-deste-jardim/1820362289?l=en-GB",
+    "featured": false
   },
   {
     "artist": "OJM",
@@ -261,7 +293,8 @@
     "service": "digital mastering",
     "date": "March 2024",
     "image": "covers/ojm_musicas_brasileiras_musicos_portugueses.jpg",
-    "link": "https://music.apple.com/pt/album/m%C3%BAsicas-brasileiras-m%C3%BAsicos-portugueses/1735752446?l=en-GB"
+    "link": "https://music.apple.com/pt/album/m%C3%BAsicas-brasileiras-m%C3%BAsicos-portugueses/1735752446?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Diogo Piçarra",
@@ -269,7 +302,8 @@
     "service": "immersive mastering",
     "date": "March 2024",
     "image": "covers/diogo_picarra_sntmntl.jpg",
-    "link": "https://music.apple.com/pt/album/sntmntl/1731231619?l=en-GB"
+    "link": "https://music.apple.com/pt/album/sntmntl/1731231619?l=en-GB",
+    "featured": true
   },
   {
     "artist": "O Marta",
@@ -277,7 +311,8 @@
     "service": "digital mastering",
     "date": "March 2024",
     "image": "covers/o_marta_casta_brava.jpg",
-    "link": "https://music.apple.com/pt/album/casta-brava/1736540100?l=en-GB"
+    "link": "https://music.apple.com/pt/album/casta-brava/1736540100?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Best Youth",
@@ -285,7 +320,8 @@
     "service": "vinyl & digital mastering",
     "date": "January 2024",
     "image": "covers/best_youth_everywhen.jpg",
-    "link": "https://music.apple.com/pt/album/everywhen/1726588382?l=en-GB"
+    "link": "https://music.apple.com/pt/album/everywhen/1726588382?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Fernando Daniel",
@@ -293,7 +329,8 @@
     "service": "immersive & digital mastering",
     "date": "November 2023",
     "image": "covers/fernado_daniel_contigo.jpg",
-    "link": "https://music.apple.com/pt/album/contigo-single/1715884189?l=en-GB"
+    "link": "https://music.apple.com/pt/album/contigo-single/1715884189?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Conferência Inferno",
@@ -301,7 +338,8 @@
     "service": "digital mastering",
     "date": "September 2023",
     "image": "covers/conferencia_inferno_pos_esmeralda.jpg",
-    "link": "https://music.apple.com/pt/album/p%C3%B3s-esmeralda/1700889351?l=en-GB"
+    "link": "https://music.apple.com/pt/album/p%C3%B3s-esmeralda/1700889351?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Nuno Lanhoso, Bianca Barros & Rita Rocha",
@@ -309,7 +347,8 @@
     "service": "digital mastering",
     "date": "June 2023",
     "image": "covers/nuno_lanhoso_rita_rocha_bianca_barros_esperava_mais_de_ti.jpg",
-    "link": "https://music.apple.com/pt/album/esperava-mais-de-ti-single/1690719955?l=en-GB"
+    "link": "https://music.apple.com/pt/album/esperava-mais-de-ti-single/1690719955?l=en-GB",
+    "featured": false
   },
   {
     "artist": "NAPA",
@@ -317,7 +356,8 @@
     "service": "digital mastering",
     "date": "May 2023",
     "image": "covers/napa_logo_se_ve.jpg",
-    "link": "https://music.apple.com/pt/album/logo-se-v%C3%AA/1688376484?l=en-GB"
+    "link": "https://music.apple.com/pt/album/logo-se-v%C3%AA/1688376484?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Tomara",
@@ -325,7 +365,8 @@
     "service": "digital mastering",
     "date": "March 2023",
     "image": "covers/tomara_avalanche.jpeg",
-    "link": "https://music.apple.com/pt/album/avalanche/1673134927?l=en-GB"
+    "link": "https://music.apple.com/pt/album/avalanche/1673134927?l=en-GB",
+    "featured": false
   },
   {
     "artist": "GNR",
@@ -333,7 +374,8 @@
     "service": "digital mastering",
     "date": "March 2023",
     "image": "covers/gnr_eu_nao_sou_assim.jpg",
-    "link": "https://music.apple.com/pt/album/eu-n%C3%A3o-sou-assim-single/1676144790?l=en-GB"
+    "link": "https://music.apple.com/pt/album/eu-n%C3%A3o-sou-assim-single/1676144790?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Tó Trips",
@@ -341,7 +383,8 @@
     "service": "vinyl & digital mastering",
     "date": "March 2023",
     "image": "covers/to_trips_popular_jaguar.jpeg",
-    "link": "https://music.apple.com/pt/album/popular-jaguar/1672133491?l=en-GB"
+    "link": "https://music.apple.com/pt/album/popular-jaguar/1672133491?l=en-GB",
+    "featured": true
   },
   {
     "artist": "The Last Internationale",
@@ -349,7 +392,8 @@
     "service": "digital mastering",
     "date": "March 2023",
     "image": "covers/the_last_internationale_running_for_a_dream.jpg",
-    "link": "https://music.apple.com/pt/album/running-for-a-dream/1726292914?l=en-GB"
+    "link": "https://music.apple.com/pt/album/running-for-a-dream/1726292914?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Animal Zero",
@@ -357,7 +401,8 @@
     "service": "digital mastering",
     "date": "May 2023",
     "image": "covers/animal_zero_id.jpg",
-    "link": "https://music.apple.com/pt/album/id-ep/1683056070?l=en-GB"
+    "link": "https://music.apple.com/pt/album/id-ep/1683056070?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Glockenwise",
@@ -365,7 +410,8 @@
     "service": "vinyl & digital mastering",
     "date": "February 2023",
     "image": "covers/glockenwise_gotico_portugues.jpg",
-    "link": "https://music.apple.com/pt/album/g%C3%B3tico-portugu%C3%AAs/1668146197?l=en-GB"
+    "link": "https://music.apple.com/pt/album/g%C3%B3tico-portugu%C3%AAs/1668146197?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Frankie Chavez",
@@ -373,7 +419,8 @@
     "service": "vinyl & digital mastering",
     "date": "February 2023",
     "image": "covers/frankie_chavez_alcantara.jpg",
-    "link": "https://music.apple.com/pt/album/alc%C3%A2ntara/1672420441?l=en-GB"
+    "link": "https://music.apple.com/pt/album/alc%C3%A2ntara/1672420441?l=en-GB",
+    "featured": false
   },
   {
     "artist": "António Vale da Conceição",
@@ -381,7 +428,8 @@
     "service": "digital mastering",
     "date": "December 2022",
     "image": "covers/antonio_vale_conceicao_at_your_service_mam_2.jpg",
-    "link": "https://music.apple.com/pt/album/at-your-service-maam-2/1656747698?l=en-GB"
+    "link": "https://music.apple.com/pt/album/at-your-service-maam-2/1656747698?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Salto",
@@ -389,7 +437,8 @@
     "service": "vinyl & digital mastering",
     "date": "September 2022",
     "image": "covers/salto_lingua_afiada.jpg",
-    "link": "https://music.apple.com/pt/album/l%C3%ADngua-afiada/1641536943?l=en-GB"
+    "link": "https://music.apple.com/pt/album/l%C3%ADngua-afiada/1641536943?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Wolf Manhattan",
@@ -397,7 +446,8 @@
     "service": "vinyl & digital mastering",
     "date": "September 2022",
     "image": "covers/wolf_manhattan_lp.jpg",
-    "link": "https://music.apple.com/pt/album/wolf-manhattan/1641488438?l=en-GB"
+    "link": "https://music.apple.com/pt/album/wolf-manhattan/1641488438?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Mirror People",
@@ -405,7 +455,8 @@
     "service": "vinyl & digital mastering",
     "date": "September 2022",
     "image": "covers/mirror_people_heartbeats_etc.jpg",
-    "link": "https://music.apple.com/pt/album/heartbeats-etc/1641035570?l=en-GB"
+    "link": "https://music.apple.com/pt/album/heartbeats-etc/1641035570?l=en-GB",
+    "featured": false
   },
   {
     "artist": "S. Pedro",
@@ -413,7 +464,8 @@
     "service": "digital mastering",
     "date": "August 2022",
     "image": "covers/spedro_campanha.png",
-    "link": "https://music.apple.com/pt/album/campanh%C3%A3-single/1642319286?l=en-GB"
+    "link": "https://music.apple.com/pt/album/campanh%C3%A3-single/1642319286?l=en-GB",
+    "featured": false
   },
   {
     "artist": "You Can't Win, Charlie Brown",
@@ -421,7 +473,8 @@
     "service": "vinyl & digital mastering",
     "date": "May 2022",
     "image": "covers/ycwcb_ambar.jpg",
-    "link": "https://music.apple.com/pt/album/%C3%A2mbar/1622046373?l=en-GB"
+    "link": "https://music.apple.com/pt/album/%C3%A2mbar/1622046373?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Mariana Miguel",
@@ -429,7 +482,8 @@
     "service": "digital mastering",
     "date": "April 2022",
     "image": "covers/mariana_miguel_piano_oceano.jpg",
-    "link": "https://music.apple.com/pt/album/piano-oceano/1615732683?l=en-GB"
+    "link": "https://music.apple.com/pt/album/piano-oceano/1615732683?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Bárbara Eugénia",
@@ -437,7 +491,8 @@
     "service": "digital mastering",
     "date": "December 2021",
     "image": "covers/barbara_eugenia_crashes_n_crushes.jpg",
-    "link": "https://music.apple.com/pt/album/crashes-n-crushes/1597370941?l=en-GB"
+    "link": "https://music.apple.com/pt/album/crashes-n-crushes/1597370941?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Sensible Soccers",
@@ -445,7 +500,8 @@
     "service": "vinyl & digital mastering",
     "date": "October 2021",
     "image": "covers/sensible_soccers_manoel.jpg",
-    "link": "https://music.apple.com/pt/album/manoel/1585033197?l=en-GB"
+    "link": "https://music.apple.com/pt/album/manoel/1585033197?l=en-GB",
+    "featured": true
   },
   {
     "artist": "The Rite of Trio",
@@ -453,7 +509,8 @@
     "service": "digital mastering",
     "date": "October 2021",
     "image": "covers/the_rite_of_trio_free_development_of_delirium.jpg",
-    "link": "https://music.apple.com/pt/album/free-development-of-delirium/1588905881?l=en-GB"
+    "link": "https://music.apple.com/pt/album/free-development-of-delirium/1588905881?l=en-GB",
+    "featured": false
   },
   {
     "artist": "João Couto",
@@ -461,7 +518,8 @@
     "service": "digital mastering",
     "date": "October 2021",
     "image": "covers/joao_couto_boa_sorte.jpg",
-    "link": "https://music.apple.com/pt/album/boa-sorte/1808724496?l=en-GB"
+    "link": "https://music.apple.com/pt/album/boa-sorte/1808724496?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Rui Massena",
@@ -469,7 +527,8 @@
     "service": "digital mastering",
     "date": "June 2021",
     "image": "covers/rui_massena_world_piano_day.jpg",
-    "link": "https://music.apple.com/pt/album/world-piano-day-live-for-deutsche-grammophon-single/1569783961?l=en-GB"
+    "link": "https://music.apple.com/pt/album/world-piano-day-live-for-deutsche-grammophon-single/1569783961?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Rui Reininho",
@@ -477,7 +536,8 @@
     "service": "vinyl & digital mastering",
     "date": "June 2021",
     "image": "covers/rui_reininho_20000_eguas_submarinas.jpg",
-    "link": "https://music.apple.com/pt/album/20-000-%C3%A9guas-submarinas-feat-paulo-borges/1569239348?l=en-GB"
+    "link": "https://music.apple.com/pt/album/20-000-%C3%A9guas-submarinas-feat-paulo-borges/1569239348?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Sean Riley & The Slowriders",
@@ -485,7 +545,8 @@
     "service": "vinyl & digital mastering",
     "date": "May 2021",
     "image": "covers/sean_riley_life.jpg",
-    "link": "https://music.apple.com/pt/album/life/1567391647?l=en-GB"
+    "link": "https://music.apple.com/pt/album/life/1567391647?l=en-GB",
+    "featured": false
   },
   {
     "artist": "FEE.",
@@ -493,7 +554,8 @@
     "service": "digital mastering",
     "date": "December 2020",
     "image": "covers/fee_nachtluft.jpg",
-    "link": "https://music.apple.com/pt/album/nachtluft/1536784319?l=en-GB"
+    "link": "https://music.apple.com/pt/album/nachtluft/1536784319?l=en-GB",
+    "featured": false
   },
   {
     "artist": "noiserv",
@@ -501,7 +563,8 @@
     "service": "digital mastering",
     "date": "September 2020",
     "image": "covers/noiserv_uma_palavra_comecada_por_n.jpg",
-    "link": "https://music.apple.com/pt/album/uma-palavra-come%C3%A7ada-por-n/1689566768?l=en-GB"
+    "link": "https://music.apple.com/pt/album/uma-palavra-come%C3%A7ada-por-n/1689566768?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Três Tristes Tigres",
@@ -509,7 +572,8 @@
     "service": "digital mastering",
     "date": "September 2020",
     "image": "covers/tres_tristes_tigres_minima_luz.jpg",
-    "link": "https://music.apple.com/pt/album/m%C3%ADnima-luz/1509126853?l=en-GB"
+    "link": "https://music.apple.com/pt/album/m%C3%ADnima-luz/1509126853?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Capitão Fausto",
@@ -517,7 +581,8 @@
     "service": "surround & digital mastering",
     "date": "March 2020",
     "image": "covers/capitao_fausto_sol_posto.jpg",
-    "link": "https://music.apple.com/pt/album/sol-posto/1558662683?l=en-GB"
+    "link": "https://music.apple.com/pt/album/sol-posto/1558662683?l=en-GB",
+    "featured": true
   },
   {
     "artist": "White Haus",
@@ -525,7 +590,8 @@
     "service": "vinyl & digital mastering",
     "date": "October 2019",
     "image": "covers/white_haus_body.jpg",
-    "link": "https://music.apple.com/pt/album/body-electric/1480774684?l=en-GB"
+    "link": "https://music.apple.com/pt/album/body-electric/1480774684?l=en-GB",
+    "featured": false
   },
   {
     "artist": "S. Pedro",
@@ -533,7 +599,8 @@
     "service": "digital mastering",
     "date": "September 2019",
     "image": "covers/spedro_mais_um.jpg",
-    "link": "https://music.apple.com/pt/album/mais-um/1477982700?l=en-GB"
+    "link": "https://music.apple.com/pt/album/mais-um/1477982700?l=en-GB",
+    "featured": false
   },
   {
     "artist": "VARIAÇÕES",
@@ -541,7 +608,8 @@
     "service": "digital mastering",
     "date": "August 2019",
     "image": "covers/variacoes_ost.jpg",
-    "link": "https://music.apple.com/pt/album/varia%C3%A7%C3%B5es-banda-sonora/1475230797?l=en-GB"
+    "link": "https://music.apple.com/pt/album/varia%C3%A7%C3%B5es-banda-sonora/1475230797?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Sensible Soccers",
@@ -549,7 +617,8 @@
     "service": "vinyl & digital mastering",
     "date": "March 2019",
     "image": "covers/sensible_soccers_aurora.jpg",
-    "link": "https://music.apple.com/pt/album/aurora/1455623732?l=en-GB"
+    "link": "https://music.apple.com/pt/album/aurora/1455623732?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Miguel Araújo",
@@ -557,7 +626,8 @@
     "service": "digital mastering",
     "date": "December 2018",
     "image": "covers/miguel_araujo_uma_noite.jpg",
-    "link": "https://music.apple.com/pt/album/uma-noite-na-philharmonie-luxembourg/1450568278?l=en-GB"
+    "link": "https://music.apple.com/pt/album/uma-noite-na-philharmonie-luxembourg/1450568278?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Glockenwise",
@@ -565,7 +635,8 @@
     "service": "vinyl & digital mastering",
     "date": "December 2018",
     "image": "covers/glockenwise_plastico.jpg",
-    "link": "https://music.apple.com/pt/album/pl%C3%A1stico/1537587550?l=en-GB"
+    "link": "https://music.apple.com/pt/album/pl%C3%A1stico/1537587550?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Os Quatro e Meia",
@@ -573,7 +644,8 @@
     "service": "digital mastering",
     "date": "November 2018",
     "image": "covers/os_quatro_e_meia_a_terra_gira.jpg",
-    "link": "https://music.apple.com/pt/album/a-terra-gira-single/1441988690?l=en-GB"
+    "link": "https://music.apple.com/pt/album/a-terra-gira-single/1441988690?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Diabo na Cruz",
@@ -581,7 +653,8 @@
     "service": "vinyl & digital mastering",
     "date": "October 2018",
     "image": "covers/diabo_na_cruz_lebre.jpg",
-    "link": "https://music.apple.com/pt/album/lebre/1438551893?l=en-GB"
+    "link": "https://music.apple.com/pt/album/lebre/1438551893?l=en-GB",
+    "featured": true
   },
   {
     "artist": "The Black Mamba",
@@ -589,7 +662,8 @@
     "service": "vinyl & digital mastering",
     "date": "October 2018",
     "image": "covers/black_mamba_mamba_king.jpg",
-    "link": "https://music.apple.com/pt/album/the-mamba-king/1566129016?l=en-GB"
+    "link": "https://music.apple.com/pt/album/the-mamba-king/1566129016?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Salto",
@@ -597,7 +671,8 @@
     "service": "digital mastering",
     "date": "October 2018",
     "image": "covers/salto_ferias_familia.jpg",
-    "link": "https://music.apple.com/pt/album/f%C3%A9rias-em-fam%C3%ADlia/1439589536?l=en-GB"
+    "link": "https://music.apple.com/pt/album/f%C3%A9rias-em-fam%C3%ADlia/1439589536?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Keep Razors Sharp",
@@ -605,7 +680,8 @@
     "service": "vinyl & digital mastering",
     "date": "October 2018",
     "image": "covers/keep_razors_sharp_overcome.jpg",
-    "link": "https://music.apple.com/pt/album/overcome/1438776425?l=en-GB"
+    "link": "https://music.apple.com/pt/album/overcome/1438776425?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Fernando Daniel",
@@ -613,7 +689,8 @@
     "service": "digital mastering",
     "date": "March 2018",
     "image": "covers/fernando_daniel_salto.jpg",
-    "link": "https://music.apple.com/pt/album/salto/1443181307?l=en-GB"
+    "link": "https://music.apple.com/pt/album/salto/1443181307?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Sunflowers",
@@ -621,7 +698,8 @@
     "service": "vinyl & digital mastering",
     "date": "February 2018",
     "image": "covers/the_sunflowers_castlespell.jpg",
-    "link": "https://music.apple.com/pt/album/castle-spell/1801268894?l=en-GB"
+    "link": "https://music.apple.com/pt/album/castle-spell/1801268894?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Mimicat",
@@ -629,7 +707,8 @@
     "service": "digital mastering",
     "date": "September 2017",
     "image": "covers/mimicat_back_in_town.jpg",
-    "link": "https://music.apple.com/pt/album/back-in-town/1276551833?l=en-GB"
+    "link": "https://music.apple.com/pt/album/back-in-town/1276551833?l=en-GB",
+    "featured": true
   },
   {
     "artist": "S. Pedro",
@@ -637,7 +716,8 @@
     "service": "digital mastering",
     "date": "June 2017",
     "image": "covers/spedro_o_fim.jpg",
-    "link": "https://music.apple.com/pt/album/o-fim/1394208393?l=en-GB"
+    "link": "https://music.apple.com/pt/album/o-fim/1394208393?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Ana Moura",
@@ -645,7 +725,8 @@
     "service": "digital mastering",
     "date": "November 2016",
     "image": "covers/ana_moura_moura_deluxe.jpg",
-    "link": "https://music.apple.com/pt/album/moura-deluxe-version/1452839924?l=en-GB"
+    "link": "https://music.apple.com/pt/album/moura-deluxe-version/1452839924?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Sunflowers",
@@ -653,7 +734,8 @@
     "service": "vinyl & digital mastering",
     "date": "September 2016",
     "image": "covers/the_sunflowers_lp.jpg",
-    "link": "https://music.apple.com/pt/album/the-intergalactic-guide-to-find-the-red-cowboy/1143658830?l=en-GB"
+    "link": "https://music.apple.com/pt/album/the-intergalactic-guide-to-find-the-red-cowboy/1143658830?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Cavaliers of Fun",
@@ -661,7 +743,8 @@
     "service": "digital mastering",
     "date": "May 2016",
     "image": "covers/cavaliers_of_fun_astral_division.jpg",
-    "link": "https://music.apple.com/pt/album/astral-division/1111182521?l=en-GB"
+    "link": "https://music.apple.com/pt/album/astral-division/1111182521?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Sean Riley & The Slowriders",
@@ -669,7 +752,8 @@
     "service": "vinyl & digital mastering",
     "date": "April 2016",
     "image": "covers/sean_riley_and_the_slowriders_lp.jpg",
-    "link": "https://music.apple.com/pt/album/sean-riley-the-slowriders/1094128261?l=en-GB"
+    "link": "https://music.apple.com/pt/album/sean-riley-the-slowriders/1094128261?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Isaura",
@@ -677,7 +761,8 @@
     "service": "digital mastering",
     "date": "May 2015",
     "image": "covers/isaura_serendipity.jpg",
-    "link": "https://music.apple.com/pt/album/serendipity-ep/1814294509?l=en-GB"
+    "link": "https://music.apple.com/pt/album/serendipity-ep/1814294509?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Capitão Fausto",
@@ -685,7 +770,8 @@
     "service": "vinyl & digital mastering",
     "date": "April 2016",
     "image": "covers/capitao_fausto_capitao_fausto_tem_os_dias_contados.jpg",
-    "link": "https://music.apple.com/pt/album/capit%C3%A3o-fausto-t%C3%AAm-os-dias-contados/1103204693?l=en-GB"
+    "link": "https://music.apple.com/pt/album/capit%C3%A3o-fausto-t%C3%AAm-os-dias-contados/1103204693?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Filho da Mãe",
@@ -693,7 +779,8 @@
     "service": "vinyl & digital mastering",
     "date": "March 2016",
     "image": "covers/filho_da_mae_mergulho.jpg",
-    "link": "https://music.apple.com/pt/album/mergulho/1686235981?l=en-GB"
+    "link": "https://music.apple.com/pt/album/mergulho/1686235981?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Balla",
@@ -701,7 +788,8 @@
     "service": "digital mastering",
     "date": "September 2015",
     "image": "covers/balla_arqueologia.jpg",
-    "link": "https://open.spotify.com/album/3sADHokp6Aesgf6JtASQ04"
+    "link": "https://open.spotify.com/album/3sADHokp6Aesgf6JtASQ04",
+    "featured": false
   },
   {
     "artist": "Diogo Piçarra",
@@ -709,7 +797,8 @@
     "service": "digital mastering",
     "date": "March 2015",
     "image": "covers/diogo_picarra_espelho.jpg",
-    "link": "https://music.apple.com/pt/album/espelho-edi%C3%A7%C3%A3o-especial/1442679110?l=en-GB"
+    "link": "https://music.apple.com/pt/album/espelho-edi%C3%A7%C3%A3o-especial/1442679110?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Roger Plexico",
@@ -717,7 +806,8 @@
     "service": "digital mastering",
     "date": "December 2014",
     "image": "covers/roger_plexico_who_is_roger_plexico.png",
-    "link": "https://music.apple.com/pt/album/who-is-roger-plexico-ep/1635212763?l=en-GB"
+    "link": "https://music.apple.com/pt/album/who-is-roger-plexico-ep/1635212763?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Keep Razors Sharp",
@@ -725,7 +815,8 @@
     "service": "vinyl & digital mastering",
     "date": "November 2014",
     "image": "covers/keep_razors_sharp_lp.jpg",
-    "link": "https://music.apple.com/pt/album/keep-razors-sharp/929952122?l=en-GB"
+    "link": "https://music.apple.com/pt/album/keep-razors-sharp/929952122?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Glockenwise",
@@ -733,7 +824,8 @@
     "service": "vinyl & digital mastering",
     "date": "January 2013",
     "image": "covers/the_glockenwise_leeches.jpg",
-    "link": "https://music.apple.com/pt/album/leeches/1686234459?l=en-GB"
+    "link": "https://music.apple.com/pt/album/leeches/1686234459?l=en-GB",
+    "featured": true
   },
   {
     "artist": "The Last Internationale",
@@ -741,7 +833,8 @@
     "service": "digital mastering",
     "date": "January 2013",
     "image": "covers/the_last_internationale_new_york_i_do_mind_dying.jpg",
-    "link": "https://music.apple.com/pt/album/new-york-i-do-mind-dying-ep/592063915?l=en-GB"
+    "link": "https://music.apple.com/pt/album/new-york-i-do-mind-dying-ep/592063915?l=en-GB",
+    "featured": true
   },
   {
     "artist": "Trêsporcento",
@@ -749,6 +842,7 @@
     "service": "digital mastering",
     "date": "November 2012",
     "image": "covers/tresporcento_quadro.jpg",
-    "link": "https://music.apple.com/pt/album/quadro-2024-remaster/1785943299?l=en-GB"
+    "link": "https://music.apple.com/pt/album/quadro-2024-remaster/1785943299?l=en-GB",
+    "featured": false
   }
 ]

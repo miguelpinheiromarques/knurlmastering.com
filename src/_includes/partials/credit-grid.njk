@@ -6,22 +6,22 @@
     </h3>
     
     <div class="sort-controls">
-      <button class="sort-btn active" data-sort="latest">{% if locale == "en" %}Latest{% else %}Últimos{% endif %}</button>
+      <button class="sort-btn active" data-sort="featured">{% if locale == "en" %}Featured{% else %}Em Destaque{% endif %}</button>
+      <button class="sort-btn" data-sort="latest">{% if locale == "en" %}Latest{% else %}Últimos{% endif %}</button>
       <button class="sort-btn" data-sort="oldest">{% if locale == "en" %}Oldest{% else %}Primeiros{% endif %}</button>
-      <button class="sort-btn" data-sort="az">A-Z</button>
-      <button class="sort-btn" data-sort="za">Z-A</button>
     </div>
   </div>
   
   <div class="artwork gallery-grid">
   {% for item in creditList %}
     <a href="{{ item.link }}" 
-      target="_blank" 
-      rel="noopener noreferrer" 
-      class="grid-item"
-      data-date="{{ item.date }}" 
-      data-artist="{{ item.artist }}">
-      
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="grid-item"
+       data-date="{{ item.date }}" 
+       data-artist="{{ item.artist }}"
+       data-featured="{{ item.featured }}">
+       
       {% image "./src/_data/" + item.image, item.artist + " - " + item.work, "150px", "", "lazy", [450] %}
       <h3>{{ item.artist }}</h3>
       <h4>{{ item.work }}</h4>
@@ -79,43 +79,53 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (!grid || buttons.length === 0) return;
 
-    // Get items safely
-    const items = Array.from(grid.getElementsByClassName('grid-item'));
+    // Store ALL original DOM elements securely
+    const allItems = Array.from(grid.querySelectorAll('.grid-item'));
 
     // --- CORE SORT FUNCTION ---
     const runSort = (sortType) => {
-      const sortedItems = items.sort((a, b) => {
-        
-        // Latest (Desc Date)
-        if (sortType === 'latest') {
-          const valA = parseDate(a.dataset.date);
-          const valB = parseDate(b.dataset.date);
-          if (valA !== valB) return valB - valA; // Big to Small
-          return a.dataset.artist.localeCompare(b.dataset.artist); // Tie-break
-        }
+      let itemsToSort = [];
 
-        // Oldest (Asc Date)
-        if (sortType === 'oldest') {
-          const valA = parseDate(a.dataset.date);
-          const valB = parseDate(b.dataset.date);
-          if (valA !== valB) return valA - valB; // Small to Big
-          return a.dataset.artist.localeCompare(b.dataset.artist);
-        }
-
-        // A-Z
-        if (sortType === 'az') {
-          return a.dataset.artist.localeCompare(b.dataset.artist);
-        }
-
-        // Z-A
-        if (sortType === 'za') {
-          return b.dataset.artist.localeCompare(a.dataset.artist);
+      // Step A: Toggle visibility based on mode
+      allItems.forEach(item => {
+        if (sortType === 'featured') {
+          if (item.dataset.featured === 'true') {
+            item.style.display = ''; // Show
+            itemsToSort.push(item);
+          } else {
+            item.style.display = 'none'; // Hide non-featured securely without deleting them
+          }
+        } else {
+          item.style.display = ''; // Show everything for Latest/Oldest
+          itemsToSort.push(item);
         }
       });
 
-      // Clear and Re-append
-      grid.innerHTML = "";
-      sortedItems.forEach(item => grid.appendChild(item));
+      // Step B: Sort the active items
+      if (sortType === 'featured') {
+        // Randomize
+        itemsToSort.sort(() => Math.random() - 0.5);
+      } else {
+        // Date sorting
+        itemsToSort.sort((a, b) => {
+          const valA = parseDate(a.dataset.date);
+          const valB = parseDate(b.dataset.date);
+          
+          if (sortType === 'latest') {
+            if (valA !== valB) return valB - valA; 
+            return a.dataset.artist.localeCompare(b.dataset.artist); 
+          }
+          if (sortType === 'oldest') {
+            if (valA !== valB) return valA - valB; 
+            return a.dataset.artist.localeCompare(b.dataset.artist);
+          }
+        });
+      }
+
+      // Step C: Move items to their new visual position in the grid
+      itemsToSort.forEach(item => grid.appendChild(item));
+      
+      // Step D: Reset scroll
       grid.scrollTo({
         left: 0,
         behavior: 'smooth'
@@ -125,48 +135,35 @@ document.addEventListener("DOMContentLoaded", function() {
     // --- CLICK HANDLERS ---
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
-        // Visuals
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        
-        // Logic
         runSort(btn.getAttribute('data-sort'));
       });
     });
 
     // --- AUTO-SORT ON LOAD ---
-    // This ensures the list is sorted by "Latest" immediately when page opens
-    runSort('latest');
+    runSort('featured');
 
   });
 });
+
+// Second DOMContentLoaded for global scroll states
 document.addEventListener("DOMContentLoaded", function() {
   
-  // 1. Select ALL artwork containers and ALL scroll labels
   const allArtworks = document.querySelectorAll('.artwork');
   const allLabels = document.querySelectorAll('.scroll');
 
-  // 2. Define the "Master Switch" function
-  // This will run once and update EVERYTHING at the same time
   const triggerGlobalUpdate = () => {
-      
-      // Hide ALL scroll labels
       allLabels.forEach(label => {
           label.classList.add('is-hidden');
       });
-
-      // Update ALL artwork containers (add class for padding change)
       allArtworks.forEach(art => {
           art.classList.add('has-scrolled');
       });
   };
 
-  // 3. Add the listener to every artwork container
-  // If ANY of them is scrolled, they trigger the global function
   allArtworks.forEach(container => {
       container.addEventListener('scroll', triggerGlobalUpdate, { once: true });
-
-      // Check immediately if this specific container is already scrolled (e.g. refresh)
       if (container.scrollLeft > 0 || container.scrollTop > 0) {
           triggerGlobalUpdate();
       }
