@@ -123,7 +123,7 @@
     "date": "June 2025",
     "image": "covers/tomas_rocha_panama.jpg",
     "link": "https://music.apple.com/pt/album/panam%C3%A1-single/1817703515?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Mocky",
@@ -213,7 +213,7 @@
     "date": "November 2024",
     "image": "covers/bombazine_samba_celta.jpg",
     "link": "https://music.apple.com/pt/album/samba-celta/1827233813?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "Dora Morelenbaum",
@@ -240,7 +240,7 @@
     "date": "October 2024",
     "image": "covers/spedro_tradicao.jpg",
     "link": "https://music.apple.com/pt/album/tradi%C3%A7%C3%A3o-single/1772131322?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Call of Duty Black Ops 6",
@@ -348,7 +348,7 @@
     "date": "June 2023",
     "image": "covers/nuno_lanhoso_rita_rocha_bianca_barros_esperava_mais_de_ti.jpg",
     "link": "https://music.apple.com/pt/album/esperava-mais-de-ti-single/1690719955?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "NAPA",
@@ -492,7 +492,7 @@
     "date": "December 2021",
     "image": "covers/barbara_eugenia_crashes_n_crushes.jpg",
     "link": "https://music.apple.com/pt/album/crashes-n-crushes/1597370941?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "Sensible Soccers",
@@ -501,7 +501,7 @@
     "date": "October 2021",
     "image": "covers/sensible_soccers_manoel.jpg",
     "link": "https://music.apple.com/pt/album/manoel/1585033197?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "The Rite of Trio",
@@ -780,7 +780,7 @@
     "date": "March 2016",
     "image": "covers/filho_da_mae_mergulho.jpg",
     "link": "https://music.apple.com/pt/album/mergulho/1686235981?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Balla",
@@ -834,6 +834,15 @@
     "date": "January 2013",
     "image": "covers/the_last_internationale_new_york_i_do_mind_dying.jpg",
     "link": "https://music.apple.com/pt/album/new-york-i-do-mind-dying-ep/592063915?l=en-GB",
+    "featured": true
+  },
+  {
+    "artist": "ÁTOA",
+    "work": "Hoje",
+    "service": "digital mastering",
+    "date": "May 2019",
+    "image": "covers/atoa_sem_medos.jpg",
+    "link": "https://music.apple.com/pt/album/hoje/1460265341?i=1460265344&l=en-GB",
     "featured": true
   },
   {
