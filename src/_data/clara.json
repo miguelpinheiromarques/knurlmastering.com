@@ -1,5 +1,14 @@
 [
   {
+    "artist": "Neon Soho",
+    "work": "Endless World",
+    "service": "digital mastering",
+    "date": "January 2023",
+    "image": "covers/neon_soho_endless_world.jpg",
+    "link": "https://music.apple.com/pt/album/endless-world/1667650267?i=1667650828&l=en-GB",
+    "featured": false
+  },  
+  {
     "artist": "Throes + The Shine",
     "work": "Gira",
     "service": "digital mastering",
