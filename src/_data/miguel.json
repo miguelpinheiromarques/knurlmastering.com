@@ -621,6 +621,24 @@
     "featured": false
   },
   {
+    "artist": "Cláudia Pascoal",
+    "work": "Jardim (feat. Isaura)",
+    "service": "digital mastering",
+    "date": "March 2018",
+    "image": "covers/claudia_pascoal_o_jardim.jpg",
+    "link": "https://music.apple.com/pt/album/o-jardim-single-feat-isaura-single/1356288573?l=en-GB",
+    "featured": true
+  },
+  {
+    "artist": "Elas",
+    "work": "9",
+    "service": "digital mastering",
+    "date": "Novembro 2019",
+    "image": "covers/elas_9.jpg",
+    "link": "https://music.apple.com/pt/album/9/1488632294?l=en-GB",
+    "featured": false
+  },
+  {
     "artist": "Miguel Araújo",
     "work": "Uma Noite (...)",
     "service": "digital mastering",
@@ -628,6 +646,24 @@
     "image": "covers/miguel_araujo_uma_noite.jpg",
     "link": "https://music.apple.com/pt/album/uma-noite-na-philharmonie-luxembourg/1450568278?l=en-GB",
     "featured": true
+  },
+  {
+    "artist": "Nuno Ribeiro",
+    "work": "Tu",
+    "service": "digital mastering",
+    "date": "April 2018",
+    "image": "covers/nuno_ribeiro_tu.jpg",
+    "link": "https://music.apple.com/pt/album/tu-single/1362588167?l=en-GB",
+    "featured": true
+  },
+  {
+    "artist": "Miguel Araújo",
+    "work": "Estou Por Tudo (feat. Cláudia Pascoal)",
+    "service": "digital mastering",
+    "date": "July 2021",
+    "image": "covers/miguel_araujo_claudia_pascoal_estou_por_tudo.jpg",
+    "link": "https://music.apple.com/pt/album/estou-por-tudo-feat-cl%C3%A1udia-pascoal-single/1573816312?l=en-GB",
+    "featured": false
   },
   {
     "artist": "Glockenwise",
