@@ -6,7 +6,7 @@
     "date": "January 2026",
     "image": "covers/jorge_cruz_fio_a_meada_ao_vivo.jpg",
     "link": "https://music.apple.com/pt/album/fio-%C3%A0-meada-ao-vivo/1867312485?l=en-GB",
-    "featured": false
+    "featured": true
   },  
   {
     "artist": "The Last Internationale",
@@ -15,7 +15,7 @@
     "date": "January 2026",
     "image": "covers/the_last_internationale_live_in_europe.jpg",
     "link": "https://music.apple.com/pt/album/live-in-europe/1860404580?l=en-GB",
-    "featured": true
+    "featured": false
   },  
   {
     "artist": "Della",
@@ -33,7 +33,7 @@
     "date": "December 2025",
     "image": "covers/nick_marks_do_wut_u_luv.jpg",
     "link": "https://music.apple.com/pt/album/do-wut-u-luv-lo-fi-version-single/1856003149?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Best Youth",
@@ -132,7 +132,7 @@
     "date": "June 2025",
     "image": "covers/mocky_music_will_explain.jpg",
     "link": "https://music.apple.com/pt/album/music-will-explain-choir-music-vol-1/1799053835?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Della",
@@ -141,7 +141,7 @@
     "date": "June 2025",
     "image": "covers/della_13.jpg",
     "link": "https://music.apple.com/pt/album/13-ep/1815537750?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Alexa Michael",
@@ -159,7 +159,7 @@
     "date": "March 2025",
     "image": "covers/memoria_de_peixe_3.jpg",
     "link": "https://music.apple.com/pt/album/iii/1801838460?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Tomás Rocha, Carolina de Deus",
@@ -177,7 +177,7 @@
     "date": "February 2025",
     "image": "covers/rui_reininho_ojm.jpg",
     "link": "https://music.apple.com/pt/album/rui-reininho-orquestra-jazz-de-matosinhos-ep/1796389059?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "The Last Internationale",
@@ -186,7 +186,7 @@
     "date": "January 2025",
     "image": "covers/the_last_internationale_master.jpg",
     "link": "https://music.apple.com/pt/album/master-single/1826868870?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "Mão Morta",
@@ -213,7 +213,7 @@
     "date": "November 2024",
     "image": "covers/bombazine_samba_celta.jpg",
     "link": "https://music.apple.com/pt/album/samba-celta/1827233813?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Dora Morelenbaum",
@@ -222,7 +222,7 @@
     "date": "October 2024",
     "image": "covers/dora_morelenbaum_pique.jpg",
     "link": "https://music.apple.com/pt/album/pique/1758717876?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Líquen",
@@ -267,7 +267,7 @@
     "date": "September 2024",
     "image": "covers/inospita_e_nos.jpg",
     "link": "https://music.apple.com/pt/album/e-n%C3%B3s-in%C3%B3spita/1767397490?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Wolf Manhattan",
@@ -285,7 +285,7 @@
     "date": "April 2024",
     "image": "covers/evaya_abaixo_das_raizes_deste_jardim.jpg",
     "link": "https://music.apple.com/pt/album/abaixo-das-ra%C3%ADzes-deste-jardim/1820362289?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "OJM",
@@ -294,7 +294,7 @@
     "date": "March 2024",
     "image": "covers/ojm_musicas_brasileiras_musicos_portugueses.jpg",
     "link": "https://music.apple.com/pt/album/m%C3%BAsicas-brasileiras-m%C3%BAsicos-portugueses/1735752446?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Diogo Piçarra",
@@ -348,7 +348,7 @@
     "date": "June 2023",
     "image": "covers/nuno_lanhoso_rita_rocha_bianca_barros_esperava_mais_de_ti.jpg",
     "link": "https://music.apple.com/pt/album/esperava-mais-de-ti-single/1690719955?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "NAPA",
@@ -357,7 +357,7 @@
     "date": "May 2023",
     "image": "covers/napa_logo_se_ve.jpg",
     "link": "https://music.apple.com/pt/album/logo-se-v%C3%AA/1688376484?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Tomara",
@@ -456,7 +456,7 @@
     "date": "September 2022",
     "image": "covers/mirror_people_heartbeats_etc.jpg",
     "link": "https://music.apple.com/pt/album/heartbeats-etc/1641035570?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "S. Pedro",
@@ -492,7 +492,7 @@
     "date": "December 2021",
     "image": "covers/barbara_eugenia_crashes_n_crushes.jpg",
     "link": "https://music.apple.com/pt/album/crashes-n-crushes/1597370941?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Sensible Soccers",
@@ -501,7 +501,7 @@
     "date": "October 2021",
     "image": "covers/sensible_soccers_manoel.jpg",
     "link": "https://music.apple.com/pt/album/manoel/1585033197?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "The Rite of Trio",
@@ -564,7 +564,7 @@
     "date": "September 2020",
     "image": "covers/noiserv_uma_palavra_comecada_por_n.jpg",
     "link": "https://music.apple.com/pt/album/uma-palavra-come%C3%A7ada-por-n/1689566768?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "Três Tristes Tigres",
@@ -573,7 +573,7 @@
     "date": "September 2020",
     "image": "covers/tres_tristes_tigres_minima_luz.jpg",
     "link": "https://music.apple.com/pt/album/m%C3%ADnima-luz/1509126853?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "Capitão Fausto",
@@ -582,7 +582,7 @@
     "date": "March 2020",
     "image": "covers/capitao_fausto_sol_posto.jpg",
     "link": "https://music.apple.com/pt/album/sol-posto/1558662683?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "White Haus",
@@ -591,7 +591,7 @@
     "date": "October 2019",
     "image": "covers/white_haus_body.jpg",
     "link": "https://music.apple.com/pt/album/body-electric/1480774684?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "S. Pedro",
@@ -600,7 +600,7 @@
     "date": "September 2019",
     "image": "covers/spedro_mais_um.jpg",
     "link": "https://music.apple.com/pt/album/mais-um/1477982700?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "VARIAÇÕES",
@@ -618,7 +618,7 @@
     "date": "March 2019",
     "image": "covers/sensible_soccers_aurora.jpg",
     "link": "https://music.apple.com/pt/album/aurora/1455623732?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "Miguel Araújo",
@@ -672,7 +672,7 @@
     "date": "October 2018",
     "image": "covers/salto_ferias_familia.jpg",
     "link": "https://music.apple.com/pt/album/f%C3%A9rias-em-fam%C3%ADlia/1439589536?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Keep Razors Sharp",
@@ -708,7 +708,7 @@
     "date": "September 2017",
     "image": "covers/mimicat_back_in_town.jpg",
     "link": "https://music.apple.com/pt/album/back-in-town/1276551833?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "S. Pedro",
@@ -753,7 +753,7 @@
     "date": "April 2016",
     "image": "covers/sean_riley_and_the_slowriders_lp.jpg",
     "link": "https://music.apple.com/pt/album/sean-riley-the-slowriders/1094128261?l=en-GB",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Isaura",
@@ -789,7 +789,7 @@
     "date": "September 2015",
     "image": "covers/balla_arqueologia.jpg",
     "link": "https://open.spotify.com/album/3sADHokp6Aesgf6JtASQ04",
-    "featured": false
+    "featured": true
   },
   {
     "artist": "Diogo Piçarra",
@@ -825,7 +825,7 @@
     "date": "January 2013",
     "image": "covers/the_glockenwise_leeches.jpg",
     "link": "https://music.apple.com/pt/album/leeches/1686234459?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "The Last Internationale",
