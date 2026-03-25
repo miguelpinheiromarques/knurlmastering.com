@@ -1,5 +1,14 @@
 [
   {
+    "artist": "Líquen",
+    "work": "Aurora",
+    "service": "digital mastering",
+    "date": "March 2026",
+    "image": "covers/liquen_aurora_single.jpg",
+    "link": "https://music.apple.com/pt/album/aurora-single/1880511006?l=en-GB",
+    "featured": true
+  },  
+  {
     "artist": "Jorge Cruz",
     "work": "Fio à Meada - ao vivo",
     "service": "digital mastering",
