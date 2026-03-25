@@ -9,6 +9,15 @@
     "featured": true
   },  
   {
+    "artist": "Copper Curios",
+    "work": "Time",
+    "service": "digital mastering",
+    "date": "March 2026",
+    "image": "covers/copper_curios_time.jpg",
+    "link": "https://music.apple.com/pt/album/time/1854446857?l=en-GB",
+    "featured": true
+  },  
+  {
     "artist": "Bossarenova Trio",
     "work": "Nem Sei",
     "service": "digital mastering",
