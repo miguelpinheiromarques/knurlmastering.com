@@ -1,5 +1,14 @@
 [
   {
+    "artist": "emmy Curl",
+    "work": "Encanto",
+    "service": "digital mastering",
+    "date": "March 2026",
+    "image": "covers/emmy_curl_encanto.jpg",
+    "link": "https://music.apple.com/pt/album/encanto/1888147353?i=1888147548&l=en-GB",
+    "featured": true
+  },  
+  {
     "artist": "Neon Soho",
     "work": "Endless World",
     "service": "digital mastering",
