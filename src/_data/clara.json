@@ -1,5 +1,14 @@
 [
   {
+    "artist": "Holy Nothing",
+    "work": "Fascínio e Miragem",
+    "service": "vinyl & digital mastering",
+    "date": "April 2026",
+    "image": "covers/holy_nothing_fascinio_e_miragem.jpg",
+    "link": "https://music.apple.com/pt/album/fasc%C3%ADnio-e-miragem/1888465829?l=en-GB",
+    "featured": false
+  },
+  {
     "artist": "emmy Curl",
     "work": "Encanto",
     "service": "digital mastering",
