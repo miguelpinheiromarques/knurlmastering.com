@@ -48,6 +48,89 @@ site_url: "https://knurlmastering.com/pt/"
       programa Apple Digital Masters. Seja para prensagem em vinil ou lançamento nas plataformas digitais,
       garantimos os masters certos para cada formato e acompanhamos o processo até à fase final.</p>
   </div>
+
+  <p>Queres ver o estúdio? <a href="#studio-gallery" class="overlay-trigger" data-target="studio-gallery">Clica aqui para a galeria de fotos</a>.</p>
+    
+  <div id="studio-gallery" class="fullscreen-overlay">
+      <div class="overlay-bg"></div>
+      <button class="close-overlay" aria-label="Close gallery">&times;</button>
+      
+      <div class="gallery-container">
+        <div class="gallery-track">
+          <div class="gallery-slide">
+            {% image "./src/knurlmastering.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+          </div>
+          <div class="gallery-slide">
+            {% image "./src/knurlmastering.jpg", "Gear", "100vw", "gallery-img", "lazy" %}
+          </div>
+        </div>
+        
+        <button class="gallery-arrow prev-arrow" aria-label="Previous image">&#10094;</button>
+        <button class="gallery-arrow next-arrow" aria-label="Next image">&#10095;</button>
+    
+        <div class="gallery-hint">Swipe to view more &rarr;</div>
+      </div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Grab all triggers (bios and galleries) and all close buttons
+      const triggers = document.querySelectorAll('.bio-trigger, .overlay-trigger');
+      const closeButtons = document.querySelectorAll('.close-bio, .close-overlay');
+      const overlays = document.querySelectorAll('.bio-overlay, .fullscreen-overlay');
+    
+      // Open the corresponding overlay
+      triggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault(); 
+          const targetId = trigger.getAttribute('data-target');
+          const targetOverlay = document.getElementById(targetId);
+          
+          if (targetOverlay) {
+            targetOverlay.classList.add('is-open');
+            document.body.style.overflow = 'hidden'; 
+          }
+        });
+      });
+    
+      // Close overlays
+      closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          overlays.forEach(overlay => overlay.classList.remove('is-open'));
+          document.body.style.overflow = ''; 
+        });
+      });
+    
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          overlays.forEach(overlay => overlay.classList.remove('is-open'));
+          document.body.style.overflow = ''; 
+        }
+      });
+      // --- Gallery Arrow Navigation ---
+      const prevArrows = document.querySelectorAll('.prev-arrow');
+      const nextArrows = document.querySelectorAll('.next-arrow');
+      
+      prevArrows.forEach(arrow => {
+        arrow.addEventListener('click', () => {
+          // Find the track inside the same container
+          const track = arrow.parentElement.querySelector('.gallery-track');
+          // Scroll left by the width of one slide
+          track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
+        });
+      });
+      
+      nextArrows.forEach(arrow => {
+        arrow.addEventListener('click', () => {
+          const track = arrow.parentElement.querySelector('.gallery-track');
+          // Scroll right by the width of one slide
+          track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
+        });
+      });
+    });
+    </script>  
+  
 </section>
 
 <section id="faq" class="faq" class="full-section">

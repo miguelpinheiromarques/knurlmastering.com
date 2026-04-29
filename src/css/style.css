@@ -764,54 +764,43 @@ p.knoll {
   .tab__label, .tab__content p, .tab__content ul, .tab__content li{color:#f0f0f0}
 }
 
-/* Base styles for both overlays */
-/* 1. The Stationary Wrapper (Fixes the Safari Viewport issue) */
-/* 1. The Main Wrapper (Handles the fade) */
-.bio-overlay {
+/* ==========================================================================
+   1. SHARED OVERLAY STYLES (Bios & Gallery)
+   ========================================================================== */
+
+/* The Main Wrapper (Handles the fade and adapts to Safari) */
+.bio-overlay,
+.fullscreen-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: 9999;
   opacity: 0;
   visibility: hidden; 
-  /* NO background color or overflow here! */
 }
 
-.bio-overlay.is-open {
+/* Open State */
+.bio-overlay.is-open,
+.fullscreen-overlay.is-open {
   opacity: 1;
   visibility: visible;
 }
 
-/* 2. The Static Background (Bypasses the Safari lag) */
-.bio-bg {
+/* The Static Safari-Proof Background */
+.bio-bg,
+.overlay-bg {
   position: absolute;
-  /* Oversize the background to bleed safely past the top/bottom Safari UI */
   top: -20vh; bottom: -20vh; left: 0; right: 0; 
   background-color: #161616;
   z-index: 1;
 }
 
-/* 3. The Scrolling Area (Sits on top of the background) */
-.bio-scroll-area {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 2;
-  overflow-y: auto; 
-  -webkit-overflow-scrolling: touch; 
-  padding: 60px 20px calc(20px + env(safe-area-inset-bottom)); 
-}
-
-/* 4. Center the text content */
-.bio-scroll-area .bio-content {
-  max-width: 800px;
-  margin: 0 auto;
-}
-.bio-content h2{font-size:140%;}
-/* 5. The Close Button (Stays pinned to the top right) */
-.close-bio {
+/* The Close Button */
+.close-bio,
+.close-overlay {
   position: absolute;
   top: 20px;
   right: 30px;
-  z-index: 3; /* Keeps it above the scrolling text */
+  z-index: 5; /* Kept high so it's always clickable */
   background: transparent;
   border: none;
   color: #ffffff;
@@ -824,12 +813,35 @@ p.knoll {
 }
 
 .close-bio:hover,
-.close-bio:focus {
+.close-bio:focus,
+.close-overlay:hover,
+.close-overlay:focus {
   color: #aaaaaa;
   outline: none;
 }
 
-/* 6. Image styles (Unchanged) */
+
+/* ==========================================================================
+   2. BIO OVERLAY SPECIFICS
+   ========================================================================== */
+
+/* The Vertical Scrolling Area */
+.bio-scroll-area {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  overflow-y: auto; 
+  -webkit-overflow-scrolling: touch; 
+  padding: 60px 20px calc(20px + env(safe-area-inset-bottom)); 
+}
+
+/* Center the text content */
+.bio-scroll-area .bio-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Bio Image Fix */
 .bio-content picture.bio-hero-image,
 .bio-hero-image {
   display: block;
@@ -846,24 +858,144 @@ img.bio-hero-image {
   border-radius: 4px;
 }
 
-/* Remove default list styling and padding */
+
+/* ==========================================================================
+   3. STUDIO GALLERY SPECIFICS (Scroll Snapping)
+   ========================================================================== */
+
+/* Gallery Layout Container */
+.gallery-container {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+}
+
+/* The Horizontal Scroll Track */
+.gallery-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory; 
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Hides scrollbar on Firefox */
+}
+
+/* Hides horizontal scrollbar on Chrome/Safari */
+.gallery-track::-webkit-scrollbar {
+  display: none; 
+}
+
+/* Individual Slides */
+.gallery-slide {
+  flex: 0 0 100%; 
+  height: 100%;
+  scroll-snap-align: center; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px calc(20px + env(safe-area-inset-bottom)); /* Respects close button and notch */
+  box-sizing: border-box;
+}
+
+/* FIX FOR DISAPPEARING IMAGES: Target the 11ty picture tag AND the img */
+.gallery-slide picture.gallery-img,
+.gallery-slide img.gallery-img {
+  display: flex; /* Forces the picture wrapper to behave in the flex context */
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  max-height: 75dvh;
+}
+
+.gallery-slide picture.gallery-img img,
+img.gallery-img {
+  max-width: 100%;
+  max-height: 75dvh;
+  width: auto;
+  height: auto;
+  display: block;
+  object-fit: contain; 
+}
+
+/* Swipe Hint */
+.gallery-hint {
+  position: absolute;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  color: #aaaaaa;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 3;
+}
+
+/* Navigation Arrows */
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.4); 
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.gallery-arrow:hover,
+.gallery-arrow:focus {
+  background: rgba(0, 0, 0, 0.8);
+  outline: none;
+}
+
+.gallery-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.prev-arrow { left: 20px; }
+.next-arrow { right: 20px; }
+
+/* Desktop vs Mobile logic */
+@media (hover: hover) and (pointer: fine) {
+  .gallery-hint { display: none; }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .gallery-arrow { display: none; }
+}
+
+
+/* ==========================================================================
+   4. INLINE ARTIST LIST (Middot Separated)
+   ========================================================================== */
+
 .artist-list {
   list-style: none;
-  padding: 0 0 80px 0;
+  padding: 0;
   margin: 0;
-  line-height: 1.25; /* Gives the block of text some breathing room */
+  line-height: 1.8;
 }
 
-/* Display items in a continuous line */
 .artist-list li {
   display: inline;
-  white-space: nowrap; /* Forces the whole name to stay on one line */
+  white-space: nowrap; 
 }
 
-/* Add the middot after every item EXCEPT the last one */
 .artist-list li:not(:last-child)::after {
-  content: "\00B7"; /* This is the CSS hex code for a middot */
-  margin: 0 4px; /* Adds space on the left and right of the dot */
-  color: #aaaaaa; /* Optional: makes the dot slightly faded */
-  font-weight: bold; /* Optional: gives the dot a bit more presence */
+  content: "\00B7"; 
+  margin: 0 8px; 
+  color: #aaaaaa; 
+  font-weight: bold; 
 }
