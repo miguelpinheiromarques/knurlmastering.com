@@ -790,7 +790,7 @@ p.knoll {
 .overlay-bg {
   position: absolute;
   top: -20vh; bottom: -20vh; left: 0; right: 0; 
-  background-color: #161616;
+  background-color: rgba(22,22,22,0.99);
   z-index: 1;
 }
 
