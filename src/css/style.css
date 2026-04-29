@@ -236,6 +236,7 @@ a:hover {
   .credits-header {padding:1px 15px 0 0;}
 }
 
+.credits-header a{color:#fff}
 .sort-controls {
   display: flex;
   gap: 1rem;

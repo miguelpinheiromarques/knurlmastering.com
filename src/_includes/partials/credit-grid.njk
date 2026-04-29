@@ -2,7 +2,11 @@
 
   <div class="credits-header">
     <h3>
-      {{ creditName | replace("Pinheiro", "<span class='hide-mobile'>Pinheiro</span>") | safe }}
+      {% if creditName == "Miguel Pinheiro Marques" %}	
+        <a href="#bio-miguel" class="bio-trigger" data-target="bio-miguel">{{ creditName | replace("Pinheiro", "<span class='hide-mobile'>Pinheiro</span>") | safe }}</a>
+      {% else %}
+      <a href="#bio-miguel" class="bio-trigger" data-target="bio-clara">{{ creditName }}</a>
+      {% endif %}
     </h3>
     
     <div class="sort-controls">
