@@ -762,3 +762,79 @@ p.knoll {
   }
   .tab__label, .tab__content p, .tab__content ul, .tab__content li{color:#f0f0f0}
 }
+
+/* Base styles for both overlays */
+.bio-overlay {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background: #282828;
+  z-index: 9999;
+  overflow-y: auto; /* Allows scrolling if bio is long */
+  padding: 60px 20px 20px; /* Top padding ensures text doesn't overlap the close button */
+  box-sizing: border-box;
+  transition: transform 0.4s ease-in-out;
+}
+
+/* Container to center the bio text */
+.bio-overlay .bio-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Miguel's starting position (hidden to the left) */
+.bio-overlay.slide-left {
+  left: 0;
+  transform: translateX(-100%);
+}
+
+/* Clara's starting position (hidden to the right) */
+.bio-overlay.slide-right {
+  right: 0;
+  transform: translateX(100%);
+}
+
+/* Class added via JavaScript to slide the panels into view */
+.bio-overlay.is-open {
+  transform: translateX(0);
+}
+
+/* Close Button Styling */
+.close-bio {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 2.5rem; /* Reduced from 3rem to make it slightly smaller */
+  font-weight: 300;  /* Makes the lines thinner (you can also try 200 or 100) */
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.close-bio:hover,
+.close-bio:focus {
+  color: #aaaaaa;
+  outline: none;
+}
+/* Make the picture container full width */
+.bio-content picture.bio-hero-image,
+.bio-hero-image {
+  display: block;
+  width: 100%;
+  margin-bottom: 24px; /* Space between the image and the name */
+}
+
+/* Ensure the image inside scales correctly */
+.bio-content picture.bio-hero-image img,
+img.bio-hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover; /* Prevents the image from stretching weirdly */
+  border-radius: 4px; /* Optional: adds a slight softening to the corners */
+}
