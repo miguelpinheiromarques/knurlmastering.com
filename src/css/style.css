@@ -767,41 +767,45 @@ p.knoll {
 .bio-overlay {
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0; /* Anchors it to the absolute bottom of the screen */
-  height: 100vh; /* Fallback for older browsers */
-  height: 100dvh; /* The magic fix for modern mobile browsers */
-  background-color: #282828; /* Make sure this matches your desired color */
+  bottom: 0; /* Keeps it anchored below the address bar */
+  width: 100%; /* Replaces left:0/right:0 to prevent width confusion */
+  height: 100dvh;
+  background-color: #000000;
   color: #ffffff;
   z-index: 9999;
   overflow-y: auto; 
+  -webkit-overflow-scrolling: touch; /* Enables buttery smooth scrolling inside the panel on iOS */
   padding: 60px 20px 20px; 
   box-sizing: border-box;
-  transition: transform 0.4s ease-in-out;
+  
+  /* Hardware acceleration & visibility toggle to fix lag and ghosting */
+  will-change: transform, visibility;
+  visibility: hidden; 
+  transition: transform 0.4s ease-in-out, visibility 0.4s ease-in-out;
+}
+
+/* Miguel's starting position */
+.bio-overlay.slide-left {
+  left: 0;
+  transform: translateX(-100%);
+}
+
+/* Clara's starting position */
+.bio-overlay.slide-right {
+  right: 0;
+  transform: translateX(100%);
+}
+
+/* When open */
+.bio-overlay.is-open {
+  transform: translateX(0);
+  visibility: visible;
 }
 
 /* Container to center the bio text */
 .bio-overlay .bio-content {
   max-width: 800px;
   margin: 0 auto;
-}
-
-/* Miguel's starting position (hidden to the left) */
-.bio-overlay.slide-left {
-  left: 0;
-  transform: translateX(-100%);
-}
-
-/* Clara's starting position (hidden to the right) */
-.bio-overlay.slide-right {
-  right: 0;
-  transform: translateX(100%);
-}
-
-/* Class added via JavaScript to slide the panels into view */
-.bio-overlay.is-open {
-  transform: translateX(0);
 }
 
 /* Close Button Styling */
@@ -811,7 +815,7 @@ p.knoll {
   right: 30px;
   background: transparent;
   border: none;
-  color: #ffffff;
+  color: #282828;
   font-size: 2.5rem; /* Reduced from 3rem to make it slightly smaller */
   font-weight: 300;  /* Makes the lines thinner (you can also try 200 or 100) */
   cursor: pointer;
