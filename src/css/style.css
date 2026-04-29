@@ -189,6 +189,9 @@ a:hover {
   }
   .split-col:last-child {padding-left:10px;margin:0 0 0 10px;}
 }
+
+.split-col h3{margin:0 0 10px 0;padding:0}
+.split-col h3 a,.split-col h3 a:visited {color:#fff}
 .split-col img {
   width: 100%;
   height: 350px;
@@ -240,6 +243,7 @@ a:hover {
 .sort-controls {
   display: flex;
   gap: 1rem;
+  padding:10px 10px 7px 10px;
 }
 
 .sort-btn {
@@ -263,29 +267,7 @@ a:hover {
     color: #EDA40E;          /* Uses your blue brand color */         /* Makes it slightly thicker */
     opacity: 1;                  /* Ensures it's fully visible */
 }
-.scroll {
-  position:absolute;
-  margin-top:-60px;
-  margin-left:20px;
-  opacity: 0.9;
-  transition: opacity 0.5s ease;
-  animation: bounce 1s infinite;  
-  background-color:#EDA40E;
-  border-radius:50%;
-  padding:5px;
-}
-.scroll svg{padding-top:4px;height:20px;}
-.scroll svg path{fill:#181818;}
 
-.scroll.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(10px); }
-}
 
 /* THE SCROLL GRID */
 .credits .artwork {
@@ -293,7 +275,7 @@ a:hover {
   display: grid;
   
   /* 1. Define 3 rows that fit their content height */
-  grid-template-rows: repeat(2, min-content);
+  grid-template-rows: repeat(3, min-content);
   
   /* 2. Force items to fill vertically (Col 1: Row 1,2,3) then move to Col 2 */
   grid-auto-flow: column;

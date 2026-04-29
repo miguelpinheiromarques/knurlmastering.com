@@ -1,16 +1,8 @@
 <div class="innercredits">
 
   <div class="credits-header">
-    <h3>
-      {% if creditName == "Miguel Pinheiro Marques" %}	
-        <a href="#bio-miguel" class="bio-trigger" data-target="bio-miguel">{{ creditName | replace("Pinheiro", "<span class='hide-mobile'>Pinheiro</span>") | safe }}</a>
-      {% else %}
-      <a href="#bio-miguel" class="bio-trigger" data-target="bio-clara">{{ creditName }}</a>
-      {% endif %}
-    </h3>
-    
     <div class="sort-controls">
-      <button class="sort-btn active" data-sort="featured">{% if locale == "en" %}Featured{% else %}Em Destaque{% endif %}</button>
+      <button class="sort-btn active" data-sort="featured">{% if locale == "en" %}Featured Credits{% else %}Créditos Em Destaque{% endif %}</button>
       <button class="sort-btn" data-sort="latest">{% if locale == "en" %}Latest{% else %}Últimos{% endif %}</button>
       <button class="sort-btn" data-sort="oldest">{% if locale == "en" %}Oldest{% else %}Primeiros{% endif %}</button>
     </div>
