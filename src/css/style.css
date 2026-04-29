@@ -770,7 +770,7 @@ p.knoll {
   bottom: 0; /* Keeps it anchored below the address bar */
   width: 100%; /* Replaces left:0/right:0 to prevent width confusion */
   height: 100dvh;
-  background-color: #000000;
+  background-color: #282828;
   color: #ffffff;
   z-index: 9999;
   overflow-y: auto; 
@@ -815,7 +815,7 @@ p.knoll {
   right: 30px;
   background: transparent;
   border: none;
-  color: #282828;
+  color: #ffffff;
   font-size: 2.5rem; /* Reduced from 3rem to make it slightly smaller */
   font-weight: 300;  /* Makes the lines thinner (you can also try 200 or 100) */
   cursor: pointer;
