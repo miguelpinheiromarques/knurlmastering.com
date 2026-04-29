@@ -766,65 +766,53 @@ p.knoll {
 
 /* Base styles for both overlays */
 /* 1. The Stationary Wrapper (Fixes the Safari Viewport issue) */
+/* 1. The Main Wrapper (Handles the fade) */
 .bio-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0; /* Pins to all edges */
-  height: 100dvh; /* Adapts to Safari address bar */
-  background-color: #161616;
-  color: #ffffff;
+  top: 0; left: 0; right: 0; bottom: 0;
   z-index: 9999;
-  
-  /* Scrolling behavior */
-  overflow-y: auto; 
-  -webkit-overflow-scrolling: touch; 
-  
-  /* Padding with safe-area for iPhone home bar */
-  padding: 60px 20px calc(20px + env(safe-area-inset-bottom)); 
-  box-sizing: border-box;
-  
-  /* The Fade Transition */
   opacity: 0;
   visibility: hidden; 
   transition: opacity 0.3s ease, visibility 0.3s ease;
+  /* NO background color or overflow here! */
 }
 
-/* Container to center the bio text */
-.bio-overlay .bio-content {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* When open, it fades in */
 .bio-overlay.is-open {
   opacity: 1;
   visibility: visible;
 }
 
-/* Image styles */
-.bio-content picture.bio-hero-image,
-.bio-hero-image {
-  display: block;
-  width: 100%;
-  margin-bottom: 24px;
+/* 2. The Static Background (Bypasses the Safari lag) */
+.bio-bg {
+  position: absolute;
+  /* Oversize the background to bleed safely past the top/bottom Safari UI */
+  top: -20vh; bottom: -20vh; left: 0; right: 0; 
+  background-color: #161616;
+  z-index: 1;
 }
 
-.bio-content picture.bio-hero-image img,
-img.bio-hero-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  border-radius: 4px;
+/* 3. The Scrolling Area (Sits on top of the background) */
+.bio-scroll-area {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  overflow-y: auto; 
+  -webkit-overflow-scrolling: touch; 
+  padding: 60px 20px calc(20px + env(safe-area-inset-bottom)); 
 }
 
-/* Close Button Styling */
+/* 4. Center the text content */
+.bio-scroll-area .bio-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* 5. The Close Button (Stays pinned to the top right) */
 .close-bio {
   position: absolute;
   top: 20px;
   right: 30px;
+  z-index: 3; /* Keeps it above the scrolling text */
   background: transparent;
   border: none;
   color: #ffffff;
@@ -840,4 +828,21 @@ img.bio-hero-image {
 .close-bio:focus {
   color: #aaaaaa;
   outline: none;
+}
+
+/* 6. Image styles (Unchanged) */
+.bio-content picture.bio-hero-image,
+.bio-hero-image {
+  display: block;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.bio-content picture.bio-hero-image img,
+img.bio-hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 4px;
 }
