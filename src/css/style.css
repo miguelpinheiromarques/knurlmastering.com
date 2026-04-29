@@ -805,7 +805,7 @@ p.knoll {
   max-width: 800px;
   margin: 0 auto;
 }
-
+.bio-content h2{font-size:140%;}
 /* 5. The Close Button (Stays pinned to the top right) */
 .close-bio {
   position: absolute;
@@ -844,4 +844,26 @@ img.bio-hero-image {
   display: block;
   object-fit: cover;
   border-radius: 4px;
+}
+
+/* Remove default list styling and padding */
+.artist-list {
+  list-style: none;
+  padding: 0 0 80px 0;
+  margin: 0;
+  line-height: 1.25; /* Gives the block of text some breathing room */
+}
+
+/* Display items in a continuous line */
+.artist-list li {
+  display: inline;
+  white-space: nowrap; /* Forces the whole name to stay on one line */
+}
+
+/* Add the middot after every item EXCEPT the last one */
+.artist-list li:not(:last-child)::after {
+  content: "\00B7"; /* This is the CSS hex code for a middot */
+  margin: 0 4px; /* Adds space on the left and right of the dot */
+  color: #aaaaaa; /* Optional: makes the dot slightly faded */
+  font-weight: bold; /* Optional: gives the dot a bit more presence */
 }
