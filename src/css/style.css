@@ -767,12 +767,16 @@ p.knoll {
 .bio-overlay {
   position: fixed;
   top: 0;
-  width: 100%;
-  height: 100vh;
-  background: #282828;
+  left: 0;
+  right: 0;
+  bottom: 0; /* Anchors it to the absolute bottom of the screen */
+  height: 100vh; /* Fallback for older browsers */
+  height: 100dvh; /* The magic fix for modern mobile browsers */
+  background-color: #282828; /* Make sure this matches your desired color */
+  color: #ffffff;
   z-index: 9999;
-  overflow-y: auto; /* Allows scrolling if bio is long */
-  padding: 60px 20px 20px; /* Top padding ensures text doesn't overlap the close button */
+  overflow-y: auto; 
+  padding: 60px 20px 20px; 
   box-sizing: border-box;
   transition: transform 0.4s ease-in-out;
 }
