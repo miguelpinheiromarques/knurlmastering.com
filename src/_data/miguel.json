@@ -51,7 +51,7 @@
     "date": "March 2026",
     "image": "covers/copper_curios_time.jpg",
     "link": "https://music.apple.com/pt/album/time/1854446857?l=en-GB",
-    "featured": true
+    "featured": false
   },  
   {
     "artist": "Bossarenova Trio",
@@ -60,7 +60,7 @@
     "date": "February 2026",
     "image": "covers/bossarenova_trio_paula_morelenbaum_joo_kraus_ralf_schmid_nem_sei_single.jpg",
     "link": "https://music.apple.com/pt/album/nem-sei-single/1874112406?l=en-GB",
-    "featured": true
+    "featured": false
   },  
   {
     "artist": "Jorge Cruz",
