@@ -303,7 +303,7 @@
     "date": "October 2024",
     "image": "covers/spedro_tradicao.jpg",
     "link": "https://music.apple.com/pt/album/tradi%C3%A7%C3%A3o-single/1772131322?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "Call of Duty Black Ops 6",
@@ -717,7 +717,7 @@
     "date": "April 2018",
     "image": "covers/nuno_ribeiro_tu.jpg",
     "link": "https://music.apple.com/pt/album/tu-single/1362588167?l=en-GB",
-    "featured": true
+    "featured": false
   },
   {
     "artist": "Miguel Araújo",
