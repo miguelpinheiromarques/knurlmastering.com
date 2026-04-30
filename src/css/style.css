@@ -850,7 +850,9 @@ img.bio-hero-image {
   overflow-x: auto;
   scroll-snap-type: x mandatory; 
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; 
+  scrollbar-width: none;
+  /* NEW: Prevents the whole page from "bouncing" when you hit the loop point */
+  overscroll-behavior-x: none; 
 }
 
 /* Hides horizontal scrollbar on Chrome/Safari */
@@ -887,7 +889,12 @@ img.gallery-img {
   width: auto;
   height: auto;
   display: block;
-  object-fit: contain; 
+  object-fit: contain;
+  /* NEW: Keeps high-res images buttery smooth on mobile swipes */
+  transform: translateZ(0);
+  will-change: transform;
+  /* NEW: Helps with Retina crispness on some mobile browsers */
+  image-rendering: -webkit-optimize-contrast;
 }
 
 /* Navigation Arrows */
