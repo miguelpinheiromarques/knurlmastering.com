@@ -49,7 +49,7 @@ site_url: "https://knurlmastering.com"
   
   <p>Want to see the gear? <a href="#studio-gallery" class="overlay-trigger" data-target="studio-gallery">Click here for studio pictures</a></p>
   
-<div id="studio-gallery" class="fullscreen-overlay">
+  <div id="studio-gallery" class="fullscreen-overlay">
     <div class="overlay-bg"></div>
     <button class="close-overlay" aria-label="Close gallery">&times;</button>
     
@@ -66,6 +66,8 @@ site_url: "https://knurlmastering.com"
       <button class="gallery-arrow prev-arrow" aria-label="Previous image">&#10094;</button>
       <button class="gallery-arrow next-arrow" aria-label="Next image">&#10095;</button>
   
+      <div class="gallery-counter"><span class="current-slide">1</span> / <span class="total-slides">2</span></div>
+      
       <div class="gallery-hint">Swipe to view more &rarr;</div>
     </div>
   </div>
@@ -106,15 +108,14 @@ site_url: "https://knurlmastering.com"
         document.body.style.overflow = ''; 
       }
     });
+  
     // --- Gallery Arrow Navigation ---
     const prevArrows = document.querySelectorAll('.prev-arrow');
     const nextArrows = document.querySelectorAll('.next-arrow');
     
     prevArrows.forEach(arrow => {
       arrow.addEventListener('click', () => {
-        // Find the track inside the same container
         const track = arrow.parentElement.querySelector('.gallery-track');
-        // Scroll left by the width of one slide
         track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
       });
     });
@@ -122,9 +123,39 @@ site_url: "https://knurlmastering.com"
     nextArrows.forEach(arrow => {
       arrow.addEventListener('click', () => {
         const track = arrow.parentElement.querySelector('.gallery-track');
-        // Scroll right by the width of one slide
         track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
       });
+    });
+  
+    // --- NEW: Gallery Slide Counter ---
+    const galleryContainers = document.querySelectorAll('.gallery-container');
+    
+    galleryContainers.forEach(container => {
+      const track = container.querySelector('.gallery-track');
+      const slides = container.querySelectorAll('.gallery-slide');
+      const currentEl = container.querySelector('.current-slide');
+      const totalEl = container.querySelector('.total-slides');
+      
+      if (!track || slides.length === 0 || !currentEl || !totalEl) return;
+      
+      // Set total number of slides dynamically
+      totalEl.textContent = slides.length;
+      
+      // Observer checks which slide is currently in the center
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Get the 1-based index of the visible slide
+            const activeIndex = Array.from(slides).indexOf(entry.target) + 1;
+            currentEl.textContent = activeIndex;
+          }
+        });
+      }, {
+        root: track,
+        threshold: 0.5 // Triggers when the slide is at least 50% visible
+      });
+      
+      slides.forEach(slide => observer.observe(slide));
     });
   });
   </script>

@@ -943,7 +943,16 @@ img.gallery-img {
   .gallery-arrow { display: none; }
 }
 
-
+/* Slide Counter */
+.gallery-counter {
+  position: absolute;
+  bottom: calc(45px + env(safe-area-inset-bottom)); /* Sits just above the swipe hint */
+  color: #161616;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  z-index: 3;
+}
 /* ==========================================================================
    4. INLINE ARTIST LIST (Middot Separated)
    ========================================================================== */
@@ -1059,5 +1068,7 @@ img.gallery-img {
   .close-overlay:focus {
     color: #eee;
   }
-  
+ .gallery-counter {
+   color: #f0f0f0;
+ } 
 }
