@@ -848,11 +848,13 @@ img.bio-hero-image {
   height: 100%;
   align-items: center;
   overflow-x: auto;
+  /* Keep this, but we toggle it in JS if needed */
   scroll-snap-type: x mandatory; 
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  /* NEW: Prevents the whole page from "bouncing" when you hit the loop point */
-  overscroll-behavior-x: none; 
+  
+  /* CHANGE: Change 'none' to 'contain' to allow the JS to detect the pull */
+  overscroll-behavior-x: contain; 
 }
 
 /* Hides horizontal scrollbar on Chrome/Safari */

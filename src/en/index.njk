@@ -176,21 +176,35 @@ site_url: "https://knurlmastering.com"
       slides.forEach(slide => observer.observe(slide));
     });
     
-    // --- Mobile Swipe Looping ---
+// --- Mobile Swipe Looping (Snap-Safe Version) ---
     galleryContainers.forEach(container => {
       const track = container.querySelector('.gallery-track');
+      let isTeleporting = false;
       
       track.addEventListener('scroll', () => {
+        if (isTeleporting) return;
+    
         const maxScroll = track.scrollWidth - track.clientWidth;
-        
-        // If user swipes past the end (right), teleport to start
-        if (track.scrollLeft > maxScroll + 10) {
-          track.scrollTo({ left: 0 });
-        }
-        
-        // If user swipes past the start (left), teleport to end
-        if (track.scrollLeft < -10) {
-          track.scrollTo({ left: maxScroll });
+        const currentScroll = track.scrollLeft;
+    
+        // Check if we've swiped past the boundaries
+        if (currentScroll > maxScroll + 50 || currentScroll < -50) {
+          isTeleporting = true;
+          
+          // 1. Momentarily disable snapping so the browser doesn't fight the jump
+          track.style.scrollSnapType = 'none';
+          
+          if (currentScroll > maxScroll + 50) {
+            track.scrollLeft = 0;
+          } else {
+            track.scrollLeft = maxScroll;
+          }
+    
+          // 2. Turn snapping back on after a tiny delay
+          setTimeout(() => {
+            track.style.scrollSnapType = 'x mandatory';
+            isTeleporting = false;
+          }, 50); 
         }
       }, { passive: true });
     });
