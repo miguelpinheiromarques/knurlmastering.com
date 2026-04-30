@@ -175,6 +175,25 @@ site_url: "https://knurlmastering.com"
       
       slides.forEach(slide => observer.observe(slide));
     });
+    
+    // --- Mobile Swipe Looping ---
+    galleryContainers.forEach(container => {
+      const track = container.querySelector('.gallery-track');
+      
+      track.addEventListener('scroll', () => {
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        
+        // If user swipes past the end (right), teleport to start
+        if (track.scrollLeft > maxScroll + 10) {
+          track.scrollTo({ left: 0 });
+        }
+        
+        // If user swipes past the start (left), teleport to end
+        if (track.scrollLeft < -10) {
+          track.scrollTo({ left: maxScroll });
+        }
+      }, { passive: true });
+    });
   });
   </script>
 </section>
