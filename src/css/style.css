@@ -22,8 +22,6 @@ body {
   font-weight: 300;
 }
 
-img{image-rendering: -webkit-optimize-contrast;}
-
 .heading p,
 .credits .artwork p,
 .credits .artwork p span,
