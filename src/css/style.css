@@ -890,17 +890,6 @@ img.gallery-img {
   object-fit: contain; 
 }
 
-/* Swipe Hint */
-.gallery-hint {
-  position: absolute;
-  bottom: calc(20px + env(safe-area-inset-bottom));
-  color: #161616;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  z-index: 3;
-}
-
 /* Navigation Arrows */
 .gallery-arrow {
   position: absolute;
@@ -934,10 +923,7 @@ img.gallery-img {
 .prev-arrow { left: 20px; }
 .next-arrow { right: 20px; }
 
-/* Desktop vs Mobile logic */
-@media (hover: hover) and (pointer: fine) {
-  .gallery-hint { display: none; }
-}
+
 
 @media (hover: none) and (pointer: coarse) {
   .gallery-arrow { display: none; }
@@ -1014,7 +1000,6 @@ img.gallery-img {
     fill: #f0f0f0
   }
 
-  /**.heading .hero {background: linear-gradient(#161616, #161616) padding-box,linear-gradient(to right, #161616, #383838) border-box;border: 1px solid transparent;}**/
   .heading .hero h1 svg path {fill:#f2f2f2;}
   .heading .hero .logo svg{filter:invert(100%) saturate(0%)brightness(150%) contrast(100%);}
 
@@ -1047,7 +1032,7 @@ img.gallery-img {
   @media (min-width: 768px) {
     .split-col h3 a,.split-col h3 a:visited {color:#f0f0f0}
   }
-  h3.creditsheader{color:#f0f0f0;border-top:2px solid #f0f0f0;}
+  h3.creditsheader{color:#f0f0f0;}
   
   .bio-bg,
   .overlay-bg {
