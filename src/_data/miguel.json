@@ -1,5 +1,41 @@
 [
   {
+    "artist": "Soma Please",
+    "work": "I'm a Fan",
+    "service": "digital mastering",
+    "date": "April 2026",
+    "image": "covers/soma_please_i_m_a_fan_single.jpeg",
+    "link": "https://music.apple.com/pt/album/im-a-fan-single/1889255010?l=en-GB",
+    "featured": true
+  },  
+  {
+    "artist": "S. Pedro",
+    "work": "Dança Lenta",
+    "service": "digital mastering",
+    "date": "April 2026",
+    "image": "covers/s_pedro_danc_a_lenta_single.jpeg",
+    "link": "https://music.apple.com/pt/album/dan%C3%A7a-lenta-single/1893060578?l=en-GB",
+    "featured": false
+  },  
+  {
+    "artist": "Daniela Galhoz",
+    "work": "Either Way",
+    "service": "digital mastering",
+    "date": "April 2026",
+    "image": "covers/daniela_galhoz_either_way_single.jpeg",
+    "link": "https://music.apple.com/pt/album/either-way-single/1888518231?l=en-GB",
+    "featured": false
+  },
+  {
+    "artist": "puto bacoco",
+    "work": "Uma Noite Muito Estranha",
+    "service": "digital mastering",
+    "date": "March 2026",
+    "image": "covers/puto_bacoco_uma_noite_muito_estranha.jpeg",
+    "link": "https://music.apple.com/pt/album/uma-noite-muito-estranha/1881761022?l=en-GB",
+    "featured": false
+  },    
+  {
     "artist": "Líquen",
     "work": "Aurora",
     "service": "digital mastering",
