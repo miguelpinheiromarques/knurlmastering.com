@@ -56,11 +56,17 @@ site_url: "https://knurlmastering.com/pt/"
     <div class="gallery-container">
       <div class="gallery-track">
         <div class="gallery-slide">
-          {% image "./src/knurlmastering.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
-        </div>
-        <div class="gallery-slide">
-          {% image "./src/knurlmastering.jpg", "Gear", "100vw", "gallery-img", "lazy" %}
-        </div>
+        {% image "./src/images/knurlmastering.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>
+      <div class="gallery-slide">
+        {% image "./src/images/knurlmastering2.jpeg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>
+      <div class="gallery-slide">
+        {% image "./src/images/knurlmastering3.jpeg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>
+      <div class="gallery-slide">
+        {% image "./src/images/knurlmastering4.jpeg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>       
       </div>
       
       <button class="gallery-arrow prev-arrow" aria-label="Previous image">&#10094;</button>
@@ -107,21 +113,35 @@ site_url: "https://knurlmastering.com/pt/"
       }
     });
   
-    // --- Gallery Arrow Navigation ---
+    // --- Gallery Arrow Navigation (With Looping) ---
     const prevArrows = document.querySelectorAll('.prev-arrow');
     const nextArrows = document.querySelectorAll('.next-arrow');
     
     prevArrows.forEach(arrow => {
       arrow.addEventListener('click', () => {
         const track = arrow.parentElement.querySelector('.gallery-track');
-        track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
+        
+        // If at (or very close to) the beginning, jump to the end
+        // We use <= 5 as a small buffer for fractional pixel rounding errors in some browsers
+        if (track.scrollLeft <= 5) {
+          track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+        } else {
+          track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
+        }
       });
     });
     
     nextArrows.forEach(arrow => {
       arrow.addEventListener('click', () => {
         const track = arrow.parentElement.querySelector('.gallery-track');
-        track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        
+        // If at (or very close to) the end, jump back to the start
+        if (track.scrollLeft >= maxScroll - 5) {
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
+        }
       });
     });
   
