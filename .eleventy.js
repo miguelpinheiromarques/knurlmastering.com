@@ -31,15 +31,14 @@ module.exports = function(eleventyConfig) {
     let loadingStrategy = loading || "lazy";
 
     // Default to global widths if no specific list is passed
-    let targetWidths = widthsList || [450, 900, 1200, 1800, 2400, 3000];
+    let targetWidths = widthsList || [450, 900, 1200, 1800, 2400];
 
     let metadata = await Image(src, {
       widths: targetWidths,
-      formats: ["avif", "webp", "jpeg"],
+      formats: ["webp", "jpeg"],
       outputDir: "./_site/img/",
       urlPath: "/img/",
       // OPTIONAL: Slightly higher quality for professional photography
-      sharpAvifOptions: { quality: 80 },
       sharpWebpOptions: { quality: 85 },
       sharpJpegOptions: { quality: 85 }
     });
