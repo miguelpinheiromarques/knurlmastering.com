@@ -192,7 +192,8 @@ a:hover {
 
 .split-col h3{margin:0 0 10px 20px;padding:0;}
 .split-col h3 a,.split-col h3 a:visited {color:#181818}
-
+.split-col h3 a:hover{color:#EDA40E}
+  
 @media (min-width: 768px) {
   .split-col h3{margin:0 0 10px 0;padding:0}
   .split-col h3 a,.split-col h3 a:visited {color:#fff}
@@ -972,110 +973,6 @@ img.gallery-img {
   font-weight: bold; 
 }
 
-/* --- MUSIC MODAL / MINI-PLAYER STYLES --- */
-/* --- MUSIC MODAL / MINI-PLAYER STYLES --- */
-.am-modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  top: 0; left: 0; width: 100%; height: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-.am-modal.is-open {
-  display: flex;
-}
-
-/* ---------- MOBILE (default): full overlay ---------- */
-.am-modal-overlay {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  cursor: pointer;
-}
-
-.am-modal-container {
-  position: relative;
-  width: 90%;
-  max-width: 500px;
-  background: #1a1a1a;
-  border-radius: 12px;
-  padding: 43px 10px 10px;
-  z-index: 10000;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.am-modal-close {
-  position: absolute;
-  top: 0; right: 5px;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 28px;
-  cursor: pointer;
-  z-index: 10001;
-}
-
-.am-modal-close:hover {
-  color: #fa243c;
-}
-
-.am-modal-content iframe {
-  width: 100%;
-  border-radius: 8px;
-}
-
-/* ---------- DESKTOP: floating bottom-right mini-player ---------- */
-@media (min-width: 768px) {
-
-  /* Collapse the modal wrapper so it doesn't block the page */
-  .am-modal {
-    top: unset; left: unset;
-    bottom: 0; right: 0;
-    width: 0; height: 0;
-    pointer-events: none;
-    overflow: visible;
-  }
-
-  /* Hide the darkening overlay */
-  .am-modal-overlay {
-    display: none;
-  }
-
-  /* 
-    KEY FIX: position: fixed here so top/left set by JS
-    are always relative to the viewport, not the parent.
-  */
-  .am-modal-container {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    top: unset;
-    left: unset;
-    width: 320px;
-    max-width: 320px;
-    pointer-events: all;
-    cursor: grab;
-    user-select: none;
-    animation: slideUp 0.25s ease;
-  }
-
-  .am-modal-container:active {
-    cursor: grabbing;
-  }
-
-  /* Close button keeps a normal pointer cursor */
-  .am-modal-close {
-    cursor: pointer;
-  }
-
-  @keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to   { transform: translateY(0);    opacity: 1; }
-  }
-}
-
 /* --- DARK MODE --- */
 
 @media (prefers-color-scheme: dark) {
@@ -1148,7 +1045,7 @@ img.gallery-img {
     .split-col h3 a,.split-col h3 a:visited {color:#f0f0f0}
   }
   h3.creditsheader{color:#f0f0f0;}
-  
+    
   .bio-bg,
   .overlay-bg {
     background-color: rgba(22, 22, 22, 0.99);

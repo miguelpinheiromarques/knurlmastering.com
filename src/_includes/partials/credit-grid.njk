@@ -57,9 +57,80 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', () => {
 
-  // 1. Helper: Parse "December 2025" into 202512
+  // ==========================================================================
+  // 1. BIO OVERLAY LOGIC
+  // ==========================================================================
+  const bioTriggers = document.querySelectorAll('.bio-trigger');
+  const closeButtons = document.querySelectorAll('.close-bio');
+  const overlays = document.querySelectorAll('.bio-overlay');
+
+  // Open the corresponding overlay
+  bioTriggers.forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault(); 
+      const targetId = trigger.getAttribute('data-target');
+      const targetOverlay = document.getElementById(targetId);
+      
+      if (targetOverlay) {
+        targetOverlay.classList.add('is-open');
+        document.body.style.overflow = 'hidden'; 
+      }
+    });
+  });
+
+  // Close the overlay when clicking X
+  closeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      overlays.forEach(overlay => overlay.classList.remove('is-open'));
+      document.body.style.overflow = ''; 
+    });
+  });
+
+
+  // ==========================================================================
+  // 2. DYNAMIC IMESSAGE LOGIC
+  // ==========================================================================
+  const isAppleDevice = () => {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) return true;
+    if (/Macintosh|Mac OS X/.test(userAgent)) return true;
+    return false;
+  };
+
+  // If on an Apple device, find all iMessage containers and inject the buttons
+  if (isAppleDevice()) {
+    const iMessageContainers = document.querySelectorAll('.imessage-container');
+    const iMessageSvg = `
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" class="btn-icon">
+        <path d="M12 2C6.477 2 2 6.14 2 11.25c0 2.87 1.455 5.43 3.738 7.152-.08.822-.44 2.115-1.503 3.256a.75.75 0 00.51 1.298c2.477-.042 4.496-1.134 5.577-1.921A10.74 10.74 0 0012 20.5c5.523 0 10-4.14 10-9.25S17.523 2 12 2z"/>
+      </svg>
+    `;
+
+    iMessageContainers.forEach(container => {
+      const user = container.getAttribute('data-user');
+      const domain = container.getAttribute('data-domain');
+      const label = container.getAttribute('data-label') || "Message me on iMessage";
+      
+      if (user && domain) {
+        const fullEmail = user + "@" + domain;
+        
+        container.style.display = 'block'; 
+        container.innerHTML = `
+          <a href="sms:${fullEmail}" class="social-btn imessage-btn">
+            ${iMessageSvg}
+            ${label}
+          </a>
+        `;
+      }
+    });
+  }
+
+
+  // ==========================================================================
+  // 3. CREDITS SORTING LOGIC
+  // ==========================================================================
   const parseDate = (dateStr) => {
     if (!dateStr) return 0;
     const months = {
@@ -72,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function() {
     return parseInt(parts[1] + (months[parts[0]] || "00"));
   };
 
-  // 2. Loop through each credit section
   const sections = document.querySelectorAll('.innercredits');
 
   sections.forEach(section => {
@@ -133,7 +203,9 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
 
-  // --- 3. APPLE MUSIC & SPOTIFY MODAL LOGIC ---
+  // ==========================================================================
+  // 4. MEDIA MODAL LOGIC (Apple, Spotify, Bandcamp, YouTube)
+  // ==========================================================================
   const modal     = document.getElementById('am-modal');
   const iframe    = document.getElementById('am-iframe');
   const closeBtn  = document.getElementById('am-modal-close-btn');
@@ -144,15 +216,41 @@ document.addEventListener("DOMContentLoaded", function() {
   const getEmbedUrl = (url) => {
     try {
       const urlObj = new URL(url);
+      
+      // Apple Music
       if (urlObj.hostname.includes('music.apple.com')) {
         urlObj.hostname = 'embed.music.apple.com';
         return urlObj.toString();
       }
-      if (urlObj.hostname.includes('open.spotify.com')) {
+      
+      // Spotify
+      if (urlObj.hostname.includes('spotify.com')) {
         if (!urlObj.pathname.startsWith('/embed')) {
           urlObj.pathname = '/embed' + urlObj.pathname;
         }
         return urlObj.toString();
+      }
+
+      // YouTube (Forces privacy-enhanced mode)
+      if (urlObj.hostname.includes('youtube.com') || urlObj.hostname.includes('youtu.be') || urlObj.hostname.includes('youtube-nocookie.com')) {
+        let videoId = '';
+        
+        // Extract ID from youtu.be/ID
+        if (urlObj.hostname.includes('youtu.be')) {
+          videoId = urlObj.pathname.slice(1);
+        } 
+        // Extract ID from youtube.com/watch?v=ID
+        else if (urlObj.searchParams.has('v')) {
+          videoId = urlObj.searchParams.get('v');
+        } 
+        // Already an embed link
+        else if (urlObj.pathname.includes('/embed/')) {
+          return `https://www.youtube-nocookie.com${urlObj.pathname}`; 
+        }
+
+        if (videoId) {
+          return `https://www.youtube-nocookie.com/embed/${videoId}`;
+        }
       }
     } catch (e) {
       console.error("Invalid URL provided to embed parser.");
@@ -162,16 +260,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Reset container position back to CSS default (bottom-right)
   const resetPosition = () => {
-    container.style.top    = '';
-    container.style.left   = '';
-    container.style.bottom = '';
-    container.style.right  = '';
+    if (container) {
+      container.style.top    = '';
+      container.style.left   = '';
+      container.style.bottom = '';
+      container.style.right  = '';
+    }
   };
 
   const closeModal = () => {
-    modal.classList.remove('is-open');
-    iframe.src = '';
-    resetPosition();
+    if (modal) {
+      modal.classList.remove('is-open');
+      iframe.src = '';
+      resetPosition();
+    }
   };
 
   triggers.forEach(trigger => {
@@ -180,18 +282,24 @@ document.addEventListener("DOMContentLoaded", function() {
       const originalUrl = trigger.getAttribute('href');
 
       if (originalUrl) {
+        
+        // Safety net for Bandcamp standard links
         if (originalUrl.includes('bandcamp.com') && !originalUrl.includes('EmbeddedPlayer')) {
           window.open(originalUrl, '_blank', 'noopener,noreferrer');
           return;
         }
 
         let optimalHeight = 450;
+        
+        // Detect platform to set height
         if (originalUrl.includes('music.apple.com')) {
           optimalHeight = (originalUrl.includes('?i=') || originalUrl.includes('/song/')) ? 175 : 450;
         } else if (originalUrl.includes('spotify.com')) {
           optimalHeight = originalUrl.includes('/track/') ? 152 : 352;
         } else if (originalUrl.includes('bandcamp.com/EmbeddedPlayer')) {
           optimalHeight = originalUrl.includes('track=') ? 120 : 472;
+        } else if (originalUrl.includes('youtube') || originalUrl.includes('youtu.be')) {
+          optimalHeight = 220; // 16:9 sweet spot
         }
 
         iframe.setAttribute('height', optimalHeight);
@@ -210,50 +318,58 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // Close via Escape key
+
+  // ==========================================================================
+  // 5. GLOBAL ESCAPE KEY LOGIC
+  // ==========================================================================
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('is-open')) {
-      closeModal();
+    if (e.key === 'Escape') {
+      // Close Media Player
+      if (modal && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+      // Close Bio Overlays
+      overlays.forEach(overlay => overlay.classList.remove('is-open'));
+      document.body.style.overflow = ''; 
     }
   });
 
 
-  // --- 4. DESKTOP DRAG LOGIC ---
+  // ==========================================================================
+  // 6. DESKTOP DRAG LOGIC (For Media Player)
+  // ==========================================================================
   let isDragging = false;
   let offsetX = 0;
   let offsetY = 0;
 
-  container.addEventListener('mousedown', (e) => {
-    if (window.innerWidth < 768) return;
-    if (e.target === closeBtn) return;
+  if (container) {
+    container.addEventListener('mousedown', (e) => {
+      if (window.innerWidth < 768) return;
+      if (e.target === closeBtn) return;
 
-    isDragging = true;
+      isDragging = true;
 
-    // Since container is position:fixed on desktop, getBoundingClientRect()
-    // gives us true viewport coordinates — no parent offset confusion.
-    const rect = container.getBoundingClientRect();
-    container.style.bottom = 'unset';
-    container.style.right  = 'unset';
-    container.style.top    = rect.top + 'px';
-    container.style.left   = rect.left + 'px';
+      const rect = container.getBoundingClientRect();
+      container.style.bottom = 'unset';
+      container.style.right  = 'unset';
+      container.style.top    = rect.top + 'px';
+      container.style.left   = rect.left + 'px';
 
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
 
-    // KEY FIX: disable pointer events on the iframe so it doesn't
-    // swallow mousemove/mouseup events during drag.
-    iframe.style.pointerEvents = 'none';
+      iframe.style.pointerEvents = 'none';
 
-    e.preventDefault();
-  });
+      e.preventDefault();
+    });
+  }
 
   document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
+    if (!isDragging || !container) return;
 
     let newLeft = e.clientX - offsetX;
     let newTop  = e.clientY - offsetY;
 
-    // Clamp to viewport so it can't be dragged off screen
     const rect = container.getBoundingClientRect();
     newLeft = Math.max(0, Math.min(newLeft, window.innerWidth  - rect.width));
     newTop  = Math.max(0, Math.min(newTop,  window.innerHeight - rect.height));
@@ -263,8 +379,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   document.addEventListener('mouseup', () => {
-    if (isDragging) {
-      // Restore iframe interactivity once dragging stops
+    if (isDragging && iframe) {
       iframe.style.pointerEvents = '';
     }
     isDragging = false;
@@ -272,3 +387,108 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 </script>
+<style>
+  /* --- MUSIC MODAL / MINI-PLAYER STYLES --- */
+.am-modal {
+  display: none;
+  position: fixed;
+  z-index: 10005;
+  top: 0; left: 0; width: 100%; height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.am-modal.is-open {
+  display: flex;
+}
+
+/* ---------- MOBILE (default): full overlay ---------- */
+.am-modal-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+}
+
+.am-modal-container {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 43px 10px 10px;
+  z-index: 10006;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.am-modal-close {
+  position: absolute;
+  top: 0; right: 5px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 10007;
+}
+
+.am-modal-close:hover {
+  color: #fa243c;
+}
+
+.am-modal-content iframe {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* ---------- DESKTOP: floating bottom-right mini-player ---------- */
+@media (min-width: 768px) {
+
+  /* Collapse the modal wrapper so it doesn't block the page */
+  .am-modal {
+    top: unset; left: unset;
+    bottom: 0; right: 0;
+    width: 0; height: 0;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  /* Hide the darkening overlay */
+  .am-modal-overlay {
+    display: none;
+  }
+
+  /* 
+    KEY FIX: position: fixed here so top/left set by JS
+    are always relative to the viewport, not the parent.
+  */
+  .am-modal-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    top: unset;
+    left: unset;
+    width: 320px;
+    max-width: 320px;
+    pointer-events: all;
+    cursor: grab;
+    user-select: none;
+    animation: slideUp 0.25s ease;
+  }
+
+  .am-modal-container:active {
+    cursor: grabbing;
+  }
+
+  /* Close button keeps a normal pointer cursor */
+  .am-modal-close {
+    cursor: pointer;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+}
+  
+</style>
