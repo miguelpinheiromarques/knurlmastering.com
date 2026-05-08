@@ -95,10 +95,10 @@ document.addEventListener("DOMContentLoaded", function() {
             item.style.display = ''; // Show
             itemsToSort.push(item);
           } else {
-            item.style.display = 'none'; // Hide non-featured securely without deleting them
+            item.style.display = 'none'; // Hide non-featured
           }
         } else {
-          item.style.display = ''; // Show everything for Latest/Oldest
+          item.style.display = ''; // Show everything
           itemsToSort.push(item);
         }
       });
@@ -126,10 +126,7 @@ document.addEventListener("DOMContentLoaded", function() {
       itemsToSort.forEach(item => grid.appendChild(item));
       
       // Step D: Reset scroll
-      grid.scrollTo({
-        left: 0,
-        behavior: 'smooth'
-      });
+      grid.scrollTo({ left: 0, behavior: 'smooth' });
     };
 
     // --- CLICK HANDLERS ---
@@ -143,40 +140,50 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // --- AUTO-SORT ON LOAD ---
     runSort('featured');
-
   });
 
-  // --- 3. APPLE MUSIC MODAL LOGIC ---
+  // --- 3. APPLE MUSIC & SPOTIFY MODAL LOGIC ---
   const modal = document.getElementById('am-modal');
   const iframe = document.getElementById('am-iframe');
   const closeBtn = document.getElementById('am-modal-close-btn');
   const modalBg = document.getElementById('am-modal-bg');
-  const triggers = document.querySelectorAll('.am-trigger');
+  const triggers = document.querySelectorAll('.am-trigger'); // Kept class name the same so you don't have to change HTML
 
-  // Convert "music.apple.com" to "embed.music.apple.com"
+  // Convert standard URLs to Embed URLs
   const getEmbedUrl = (url) => {
     try {
       const urlObj = new URL(url);
+      
+      // Handle Apple Music
       if (urlObj.hostname.includes('music.apple.com')) {
         urlObj.hostname = 'embed.music.apple.com';
         return urlObj.toString();
       }
+      
+      // Handle Spotify
+      if (urlObj.hostname.includes('open.spotify.com')) {
+        // Ensure we don't accidentally double-embed if the link is already formatted
+        if (!urlObj.pathname.startsWith('/embed')) {
+          urlObj.pathname = '/embed' + urlObj.pathname;
+        }
+        return urlObj.toString();
+      }
+      
     } catch (e) {
       console.error("Invalid URL provided to embed parser.");
     }
-    return url;
+    return url; // Fallback if it's an unrecognized format
   };
 
   // Open Modal when a credit item is clicked
   triggers.forEach(trigger => {
     trigger.addEventListener('click', (e) => {
-      e.preventDefault(); // Prevents the browser from leaving your site
+      e.preventDefault(); 
       const originalUrl = trigger.getAttribute('href');
       
       if (originalUrl) {
-        // Apply the Apple Music embed URL to the iframe
+        // Automatically converts Apple Music or Spotify links
         iframe.src = getEmbedUrl(originalUrl);
-        // Show the modal
         modal.classList.add('is-open');
       }
     });
@@ -185,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Function to close modal and stop audio playing
   const closeModal = () => {
     modal.classList.remove('is-open');
-    iframe.src = ''; // Clear iframe src to instantly stop the music
+    iframe.src = ''; 
   };
 
   // Close when clicking the "X" or the dark background
