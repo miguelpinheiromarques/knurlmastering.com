@@ -1229,6 +1229,7 @@ img.gallery-img {
  .gallery-counter {
    color: #f0f0f0;
  }
+ h3.creditsheader{color:#f0f0f0}
  @media (hover: hover) and (pointer: fine) {
 .bio-trigger::before {
    background-color: #f0f0f0;
