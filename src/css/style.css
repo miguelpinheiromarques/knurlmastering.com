@@ -191,12 +191,10 @@ a:hover {
 }
 
 .split-col h3{margin:0 0 10px 20px;padding:0;}
-.split-col h3 a,.split-col h3 a:visited {color:#181818}
-.split-col h3 a:hover{color:#EDA40E}
+.split-col h3 {color:#181818}
   
 @media (min-width: 768px) {
-  .split-col h3{margin:0 0 10px 0;padding:0}
-  .split-col h3 a,.split-col h3 a:visited {color:#fff}
+  .split-col h3{margin:0 0 10px 0;padding:0;color:#fff}
 }
 .split-col img {
   width: 100%;
@@ -1146,14 +1144,7 @@ img.gallery-img {
     fill:#f0f0f0;
   }
   .tab__label, .tab__content p, .tab__content ul, .tab__content li{color:#f0f0f0}
-  
-  .split-col h3 a,.split-col h3 a:visited {color:#f0f0f0}
-  
-  @media (min-width: 768px) {
-    .split-col h3 a,.split-col h3 a:visited {color:#f0f0f0}
-  }
-  h3.creditsheader{color:#f0f0f0;}
-    
+      
   .bio-bg,
   .overlay-bg {
     background-color: rgba(22, 22, 22, 0.99);
