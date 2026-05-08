@@ -469,7 +469,7 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
 .contact textarea::placeholder {
   color: #aaa;
   font-size: 0.8rem;
-  font-weight: 200;
+  font-weight: 400;
 }
 
 .contact button {
