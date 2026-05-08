@@ -1066,3 +1066,55 @@ img.gallery-img {
    color: #f0f0f0;
  } 
 }
+
+/* --- APPLE MUSIC MODAL STYLES --- */
+.am-modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0; width: 100%; height: 100%;
+  align-items: center; 
+  justify-content: center;
+}
+
+/* Toggled via JS */
+.am-modal.is-open {
+  display: flex;
+}
+
+.am-modal-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
+  cursor: pointer;
+}
+
+.am-modal-container {
+  position: relative;
+  width: 90%; 
+  max-width: 500px; /* Fits the standard Apple Music embed size well */
+  background: #1a1a1a; /* Dark border to blend with player */
+  border-radius: 12px;
+  padding: 40px 10px 10px;
+  z-index: 10000;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.am-modal-close {
+  position: absolute;
+  top: 5px; right: 15px;
+  background: none; 
+  border: none;
+  color: white; 
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.am-modal-close:hover {
+  color: #fa243c; /* Apple Music Pink/Red */
+}
+
+.am-modal-content iframe {
+  width: 100%;
+  border-radius: 8px;
+}

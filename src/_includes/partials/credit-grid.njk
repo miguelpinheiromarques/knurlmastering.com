@@ -1,5 +1,4 @@
 <div class="innercredits">
-
   <div class="credits-header">
     <div class="sort-controls">
       <button class="sort-btn active" data-sort="featured">{% if locale == "en" %}Featured{% else %}Em Destaque{% endif %}</button>
@@ -11,9 +10,7 @@
   <div class="artwork gallery-grid">
   {% for item in creditList %}
     <a href="{{ item.link }}" 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       class="grid-item"
+       class="grid-item am-trigger"
        data-date="{{ item.date }}" 
        data-artist="{{ item.artist }}"
        data-featured="{{ item.featured }}">
@@ -46,6 +43,16 @@
       </p>
     </a>
   {% endfor %}
+  </div>
+</div>
+
+<div id="am-modal" class="am-modal">
+  <div class="am-modal-overlay" id="am-modal-bg"></div>
+  <div class="am-modal-container">
+    <button class="am-modal-close" id="am-modal-close-btn">&times;</button>
+    <div class="am-modal-content">
+      <iframe id="am-iframe" allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+    </div>
   </div>
 </div>
 
@@ -98,10 +105,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Step B: Sort the active items
       if (sortType === 'featured') {
-        // Randomize
         itemsToSort.sort(() => Math.random() - 0.5);
       } else {
-        // Date sorting
         itemsToSort.sort((a, b) => {
           const valA = parseDate(a.dataset.date);
           const valB = parseDate(b.dataset.date);
@@ -140,5 +145,59 @@ document.addEventListener("DOMContentLoaded", function() {
     runSort('featured');
 
   });
+
+  // --- 3. APPLE MUSIC MODAL LOGIC ---
+  const modal = document.getElementById('am-modal');
+  const iframe = document.getElementById('am-iframe');
+  const closeBtn = document.getElementById('am-modal-close-btn');
+  const modalBg = document.getElementById('am-modal-bg');
+  const triggers = document.querySelectorAll('.am-trigger');
+
+  // Convert "music.apple.com" to "embed.music.apple.com"
+  const getEmbedUrl = (url) => {
+    try {
+      const urlObj = new URL(url);
+      if (urlObj.hostname.includes('music.apple.com')) {
+        urlObj.hostname = 'embed.music.apple.com';
+        return urlObj.toString();
+      }
+    } catch (e) {
+      console.error("Invalid URL provided to embed parser.");
+    }
+    return url;
+  };
+
+  // Open Modal when a credit item is clicked
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevents the browser from leaving your site
+      const originalUrl = trigger.getAttribute('href');
+      
+      if (originalUrl) {
+        // Apply the Apple Music embed URL to the iframe
+        iframe.src = getEmbedUrl(originalUrl);
+        // Show the modal
+        modal.classList.add('is-open');
+      }
+    });
+  });
+
+  // Function to close modal and stop audio playing
+  const closeModal = () => {
+    modal.classList.remove('is-open');
+    iframe.src = ''; // Clear iframe src to instantly stop the music
+  };
+
+  // Close when clicking the "X" or the dark background
+  if(closeBtn) closeBtn.addEventListener('click', closeModal);
+  if(modalBg) modalBg.addEventListener('click', closeModal);
+
+  // Close when pressing the Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+      closeModal();
+    }
+  });
+
 });
 </script>
