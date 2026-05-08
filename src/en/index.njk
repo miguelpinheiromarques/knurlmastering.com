@@ -279,7 +279,25 @@ site_url: "https://knurlmastering.com"
   <div>
     <h2>{{ site.en.contact_title }}</h2>
     <p>You might have a project in mind or simply be looking for more info, either way we'd be happy to hear
-      from you. If you'd like details on pricing, availability, or lead times, feel free to reach out.</p>
+      from you. If you'd like details on pricing, availability, or lead times, feel free to reach out. You can use the form below or reach us at <span id="email-container"></span>.</p>
+      
+      <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // 1. Break your email into parts so bots don't recognize it in the source code
+        const user = "info";
+        const domain = "knurlmastering.com";
+        const fullEmail = user + "@" + domain;
+        
+        // 2. Find the empty container
+        const container = document.getElementById('email-container');
+        
+        // 3. Inject the fully selectable, clickable link into the page
+        if (container) {
+          container.innerHTML = `<a href="mailto:${fullEmail}">${fullEmail}</a>`;
+        }
+      });
+      </script>
+
     <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
 
       <input type="hidden" name="access_key" value="778e917c-c0da-4467-bc1d-9dfc0bdf938e" />
