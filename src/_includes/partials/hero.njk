@@ -306,9 +306,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	`;
 
 	iMessageContainers.forEach(container => {
-	  // Pull the specific email data from the HTML dataset
+	  // Pull the specific email data AND the translated label from the HTML dataset
 	  const user = container.getAttribute('data-user');
 	  const domain = container.getAttribute('data-domain');
+	  const label = container.getAttribute('data-label') || "Message me on iMessage"; // Fallback just in case
 	  
 	  if (user && domain) {
 		const fullEmail = user + "@" + domain;
@@ -317,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		container.innerHTML = `
 		  <a href="sms:${fullEmail}" class="social-btn imessage-btn">
 			${iMessageSvg}
-			Message me on iMessage
+			${label}
 		  </a>
 		`;
 	  }
