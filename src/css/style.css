@@ -1126,6 +1126,21 @@ img.gallery-img {
   }
 }
 
+#about p:last-of-type {
+  margin-top: 40px; 
+}
+
+.overlay-trigger {
+  color: #EDA40E;
+  border: 1px solid #EDA40E;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+}
+
 /* --- DARK MODE --- */
 
 @media (prefers-color-scheme: dark) {
