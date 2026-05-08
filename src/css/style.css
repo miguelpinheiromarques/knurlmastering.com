@@ -1095,14 +1095,14 @@ img.gallery-img {
   max-width: 500px; /* Fits the standard Apple Music embed size well */
   background: #1a1a1a; /* Dark border to blend with player */
   border-radius: 12px;
-  padding: 40px 10px 10px;
+  padding: 43px 10px 10px;
   z-index: 10000;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .am-modal-close {
   position: absolute;
-  top: 5px; right: 15px;
+  top: 0; right: 5px;
   background: none; 
   border: none;
   color: white; 
