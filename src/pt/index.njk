@@ -269,8 +269,24 @@ site_url: "https://knurlmastering.com/pt/"
 <section id="contact" class="contact" class="full-section">
   <div>
     <h2>{{ site.pt.contact_title }}</h2>
-      <p>Quer tenhas um projeto em mente ou apenas procures esclarecer dúvidas, teremos todo o gosto em ouvir-te.
-    Se quiseres saber mais sobre preços, disponibilidade ou prazos de entrega, estamos deste lado.</p>
+      <p>Quer tenhas um projeto em mente ou apenas procures esclarecer dúvidas, teremos todo o gosto em ouvir-te. Se quiseres saber mais sobre preços, disponibilidade ou prazos de entrega, estamos deste lado. Podes usar o formulário de contacto em baixo ou atráves do nosso email <span id="email-container"></span>.</p>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // 1. Break your email into parts so bots don't recognize it in the source code
+      const user = "info";
+      const domain = "knurlmastering.com";
+      const fullEmail = user + "@" + domain;
+      
+      // 2. Find the empty container
+      const container = document.getElementById('email-container');
+      
+      // 3. Inject the fully selectable, clickable link into the page
+      if (container) {
+        container.innerHTML = `<a href="mailto:${fullEmail}">${fullEmail}</a>`;
+      }
+    });
+    </script>
       <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
     
       <input type="hidden" name="access_key" value="778e917c-c0da-4467-bc1d-9dfc0bdf938e" />
