@@ -1178,3 +1178,11 @@ img.gallery-img {
    border-right-color: #161616;  /* DARK MODE BORDER */
  }
 }
+
+/* --- MOBILE BIO TRIGGER (DOTTED UNDERLINE) --- */
+@media (hover: none) and (pointer: coarse) {
+  .bio-trigger {
+    text-decoration: underline dotted #EDA40E 2px !important;
+    text-underline-offset: 4px; /* Gives it some breathing room */
+  }
+}
