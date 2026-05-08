@@ -176,13 +176,36 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 
   // Open Modal when a credit item is clicked
+// Open Modal when a credit item is clicked
   triggers.forEach(trigger => {
     trigger.addEventListener('click', (e) => {
       e.preventDefault(); 
       const originalUrl = trigger.getAttribute('href');
       
       if (originalUrl) {
-        // Automatically converts Apple Music or Spotify links
+        let optimalHeight = 450; // Default fallback height
+        
+        // 1. Detect platform and content type to set the perfect height
+        if (originalUrl.includes('music.apple.com')) {
+          // Apple Music: '?i=' indicates a specific track. 
+          if (originalUrl.includes('?i=') || originalUrl.includes('/song/')) {
+            optimalHeight = 175; // Apple Music Track height
+          } else {
+            optimalHeight = 450; // Apple Music Album height
+          }
+        } else if (originalUrl.includes('spotify.com')) {
+          // Spotify: uses /track/ or /album/ in the path
+          if (originalUrl.includes('/track/')) {
+            optimalHeight = 152; // Spotify Track height
+          } else {
+            optimalHeight = 352; // Spotify Album height
+          }
+        }
+  
+        // 2. Apply the dynamic height directly to the iframe
+        iframe.setAttribute('height', optimalHeight);
+  
+        // 3. Automatically converts Apple Music or Spotify links
         iframe.src = getEmbedUrl(originalUrl);
         modal.classList.add('is-open');
       }
