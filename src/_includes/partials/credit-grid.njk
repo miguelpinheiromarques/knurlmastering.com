@@ -176,36 +176,50 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 
   // Open Modal when a credit item is clicked
-// Open Modal when a credit item is clicked
   triggers.forEach(trigger => {
     trigger.addEventListener('click', (e) => {
       e.preventDefault(); 
       const originalUrl = trigger.getAttribute('href');
       
       if (originalUrl) {
+        
+        // --- SAFETY NET: Standard Bandcamp Links ---
+        // If it's a Bandcamp link but NOT an embed link, open in a new tab securely
+        if (originalUrl.includes('bandcamp.com') && !originalUrl.includes('EmbeddedPlayer')) {
+          window.open(originalUrl, '_blank', 'noopener,noreferrer');
+          return; // Stop here, don't open the modal
+        }
+  
         let optimalHeight = 450; // Default fallback height
         
         // 1. Detect platform and content type to set the perfect height
         if (originalUrl.includes('music.apple.com')) {
-          // Apple Music: '?i=' indicates a specific track. 
+          // Apple Music
           if (originalUrl.includes('?i=') || originalUrl.includes('/song/')) {
-            optimalHeight = 175; // Apple Music Track height
+            optimalHeight = 175; // Track height
           } else {
-            optimalHeight = 450; // Apple Music Album height
+            optimalHeight = 450; // Album height
           }
         } else if (originalUrl.includes('spotify.com')) {
-          // Spotify: uses /track/ or /album/ in the path
+          // Spotify
           if (originalUrl.includes('/track/')) {
-            optimalHeight = 152; // Spotify Track height
+            optimalHeight = 152; // Track height
           } else {
-            optimalHeight = 352; // Spotify Album height
+            optimalHeight = 352; // Album height
+          }
+        } else if (originalUrl.includes('bandcamp.com/EmbeddedPlayer')) {
+          // Bandcamp
+          if (originalUrl.includes('track=')) {
+            optimalHeight = 120; // Standard Bandcamp single track height
+          } else {
+            optimalHeight = 472; // Standard Bandcamp album height
           }
         }
   
         // 2. Apply the dynamic height directly to the iframe
         iframe.setAttribute('height', optimalHeight);
   
-        // 3. Automatically converts Apple Music or Spotify links
+        // 3. Load the URL and open the modal
         iframe.src = getEmbedUrl(originalUrl);
         modal.classList.add('is-open');
       }
