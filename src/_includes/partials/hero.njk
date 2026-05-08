@@ -127,6 +127,107 @@
 	  <li>Virgem Suta</li>
 	  <li>Memória de Peixe</li>
 	</ul>
+	
+	<div class="contact-buttons">
+	  
+	  <a href="https://instagram.com/miguel.pinheiro.marques" target="_blank" rel="noopener noreferrer" class="social-btn ig-btn">
+		<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" class="btn-icon">
+		  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+		</svg>
+		Find me on Instagram
+	  </a>
+	
+	  <div id="imessage-container" style="display: none;"></div>
+	
+	</div>
+	
+	
+	<style>
+	  .contact-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		align-items: center;
+		/* justify-content: center; /* Uncomment if you want them centered */
+		margin: 20px 0 80px 0;
+	  }
+	
+	  .social-btn {
+		display: inline-flex;
+		align-items: center;
+		padding: 10px 20px;
+		color: #ffffff !important;
+		text-decoration: none;
+		border-radius: 20px;
+		font-weight: 500;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+		transition: transform 0.2s ease, opacity 0.2s ease;
+	  }
+	
+	  .social-btn:hover {
+		transform: translateY(-2px);
+		opacity: 0.9;
+	  }
+	
+	  .btn-icon {
+		margin-right: 8px;
+		flex-shrink: 0;
+	  }
+	
+	  /* Instagram Brand Gradient */
+	  .ig-btn {
+		background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+	  }
+	
+	  /* iMessage Brand Color */
+	  .imessage-btn {
+		background-color: #007aff;
+	  }
+	</style>
+	
+	
+	<script>
+	document.addEventListener("DOMContentLoaded", function() {
+	  
+	  // A. Function to check if the user is on an Apple device
+	  const isAppleDevice = () => {
+		const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+		if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) return true;
+		if (/Macintosh|Mac OS X/.test(userAgent)) return true;
+		return false;
+	  };
+	
+	  const container = document.getElementById('imessage-container');
+	
+	  // B. If it's an Apple device AND the container exists on the page
+	  if (isAppleDevice() && container) {
+		
+		// Break the email into parts to hide from bots
+		const user = "miguel";
+		const domain = "knurlmastering.com";
+		const fullEmail = user + "@" + domain;
+		
+		// The SVG code for the iMessage bubble icon
+		const iMessageSvg = `
+		  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" class="btn-icon">
+			<path d="M12 2C6.477 2 2 6.14 2 11.25c0 2.87 1.455 5.43 3.738 7.152-.08.822-.44 2.115-1.503 3.256a.75.75 0 00.51 1.298c2.477-.042 4.496-1.134 5.577-1.921A10.74 10.74 0 0012 20.5c5.523 0 10-4.14 10-9.25S17.523 2 12 2z"/>
+		  </svg>
+		`;
+		
+		// Make the container visible
+		container.style.display = 'block'; 
+		
+		// Inject the fully functional iMessage link with the SVG and shared CSS classes
+		container.innerHTML = `
+		  <a href="sms:${fullEmail}" class="social-btn imessage-btn">
+			${iMessageSvg}
+			Message me on iMessage
+		  </a>
+		`;
+	  }
+	
+	});
+	</script>
   </div>
 </div>
 </div>
