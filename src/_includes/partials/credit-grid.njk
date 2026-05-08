@@ -231,6 +231,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // Apple Music
       if (urlObj.hostname.includes('music.apple.com')) {
         urlObj.hostname = 'embed.music.apple.com';
+        
+        // NEW: Force dark mode or let it adapt automatically
+        urlObj.searchParams.set('theme', 'auto'); // Change to 'dark' to force it always
+        
         return urlObj.toString();
       }
       
@@ -467,8 +471,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 .am-modal-content iframe {
   width: 100%;
-  border-radius: 8px;
+  border-radius: 12px;
 }
+
+@media (prefers-color-scheme: dark) {
+  .am-modal-content iframe{border:1px solid #282828}
+  .am-modal-container {background: rgba(28,28,30,0.98);}
+}
+
 
 /* ---------- DESKTOP: floating bottom-right mini-player ---------- */
 @media (min-width: 768px) {
