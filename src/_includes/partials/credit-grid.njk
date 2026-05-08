@@ -346,23 +346,25 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-// ==========================================================================
+  // ==========================================================================
   // 6. DESKTOP DRAG LOGIC (For Media Player)
   // ==========================================================================
   let isDragging = false;
   let offsetX = 0;
   let offsetY = 0;
   
+  // Helper to detect touchscreens (iPads, Android tablets, phones)
+  const isTouchDevice = () => window.matchMedia("(pointer: coarse)").matches;
+  
   if (container) {
     // 1. Start Drag
     container.addEventListener('mousedown', (e) => {
-      if (window.innerWidth < 768) return;
+      // Disable on small screens AND all touchscreens
+      if (window.innerWidth < 768 || isTouchDevice()) return;
       if (e.target === closeBtn) return;
   
       isDragging = true;
   
-      // Since container is position:fixed on desktop, getBoundingClientRect()
-      // gives us true viewport coordinates — no parent offset confusion.
       const rect = container.getBoundingClientRect();
       container.style.bottom = 'unset';
       container.style.right  = 'unset';
@@ -372,7 +374,6 @@ document.addEventListener('DOMContentLoaded', () => {
       offsetX = e.clientX - rect.left;
       offsetY = e.clientY - rect.top;
   
-      // Disable pointer events on the iframe so it doesn't swallow mouse movements
       iframe.style.pointerEvents = 'none';
   
       e.preventDefault();
@@ -380,14 +381,13 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // 2. Double-Click to Snap Back to Default
     container.addEventListener('dblclick', (e) => {
-      if (window.innerWidth < 768) return;
+      // Disable on small screens AND all touchscreens
+      if (window.innerWidth < 768 || isTouchDevice()) return;
       if (e.target === closeBtn) return;
   
-      // Stop any lingering drag states
       isDragging = false;
       if (iframe) iframe.style.pointerEvents = '';
       
-      // Instantly wipe the top/left drag coordinates so the CSS bottom/right take over again
       resetPosition();
     });
   }
@@ -399,7 +399,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let newLeft = e.clientX - offsetX;
     let newTop  = e.clientY - offsetY;
   
-    // Clamp to viewport so it can't be dragged off screen
     const rect = container.getBoundingClientRect();
     newLeft = Math.max(0, Math.min(newLeft, window.innerWidth  - rect.width));
     newTop  = Math.max(0, Math.min(newTop,  window.innerHeight - rect.height));
@@ -411,7 +410,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. End Drag
   document.addEventListener('mouseup', () => {
     if (isDragging && iframe) {
-      // Restore iframe interactivity once dragging stops
       iframe.style.pointerEvents = '';
     }
     isDragging = false;
