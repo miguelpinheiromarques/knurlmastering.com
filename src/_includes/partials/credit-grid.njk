@@ -81,55 +81,46 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (!grid || buttons.length === 0) return;
 
-    // Store ALL original DOM elements securely
     const allItems = Array.from(grid.querySelectorAll('.grid-item'));
 
-    // --- CORE SORT FUNCTION ---
     const runSort = (sortType) => {
       let itemsToSort = [];
 
-      // Step A: Toggle visibility based on mode
       allItems.forEach(item => {
         if (sortType === 'featured') {
           if (item.dataset.featured === 'true') {
-            item.style.display = ''; // Show
+            item.style.display = '';
             itemsToSort.push(item);
           } else {
-            item.style.display = 'none'; // Hide non-featured
+            item.style.display = 'none';
           }
         } else {
-          item.style.display = ''; // Show everything
+          item.style.display = '';
           itemsToSort.push(item);
         }
       });
 
-      // Step B: Sort the active items
       if (sortType === 'featured') {
         itemsToSort.sort(() => Math.random() - 0.5);
       } else {
         itemsToSort.sort((a, b) => {
           const valA = parseDate(a.dataset.date);
           const valB = parseDate(b.dataset.date);
-          
           if (sortType === 'latest') {
-            if (valA !== valB) return valB - valA; 
-            return a.dataset.artist.localeCompare(b.dataset.artist); 
+            if (valA !== valB) return valB - valA;
+            return a.dataset.artist.localeCompare(b.dataset.artist);
           }
           if (sortType === 'oldest') {
-            if (valA !== valB) return valA - valB; 
+            if (valA !== valB) return valA - valB;
             return a.dataset.artist.localeCompare(b.dataset.artist);
           }
         });
       }
 
-      // Step C: Move items to their new visual position in the grid
       itemsToSort.forEach(item => grid.appendChild(item));
-      
-      // Step D: Reset scroll
       grid.scrollTo({ left: 0, behavior: 'smooth' });
     };
 
-    // --- CLICK HANDLERS ---
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.remove('active'));
@@ -138,109 +129,145 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     });
 
-    // --- AUTO-SORT ON LOAD ---
     runSort('featured');
   });
 
-  // --- 3. APPLE MUSIC & SPOTIFY MODAL LOGIC ---
-  const modal = document.getElementById('am-modal');
-  const iframe = document.getElementById('am-iframe');
-  const closeBtn = document.getElementById('am-modal-close-btn');
-  const modalBg = document.getElementById('am-modal-bg');
-  const triggers = document.querySelectorAll('.am-trigger'); // Kept class name the same so you don't have to change HTML
 
-  // Convert standard URLs to Embed URLs
+  // --- 3. APPLE MUSIC & SPOTIFY MODAL LOGIC ---
+  const modal     = document.getElementById('am-modal');
+  const iframe    = document.getElementById('am-iframe');
+  const closeBtn  = document.getElementById('am-modal-close-btn');
+  const modalBg   = document.getElementById('am-modal-bg');
+  const container = document.querySelector('.am-modal-container');
+  const triggers  = document.querySelectorAll('.am-trigger');
+
   const getEmbedUrl = (url) => {
     try {
       const urlObj = new URL(url);
-      
-      // Handle Apple Music
       if (urlObj.hostname.includes('music.apple.com')) {
         urlObj.hostname = 'embed.music.apple.com';
         return urlObj.toString();
       }
-      
-      // Handle Spotify
       if (urlObj.hostname.includes('open.spotify.com')) {
-        // Ensure we don't accidentally double-embed if the link is already formatted
         if (!urlObj.pathname.startsWith('/embed')) {
           urlObj.pathname = '/embed' + urlObj.pathname;
         }
         return urlObj.toString();
       }
-      
     } catch (e) {
       console.error("Invalid URL provided to embed parser.");
     }
-    return url; // Fallback if it's an unrecognized format
+    return url;
   };
 
-  // Open Modal when a credit item is clicked
+  // Reset container position back to CSS default (bottom-right)
+  const resetPosition = () => {
+    container.style.top    = '';
+    container.style.left   = '';
+    container.style.bottom = '';
+    container.style.right  = '';
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('is-open');
+    iframe.src = '';
+    resetPosition();
+  };
+
   triggers.forEach(trigger => {
     trigger.addEventListener('click', (e) => {
-      e.preventDefault(); 
+      e.preventDefault();
       const originalUrl = trigger.getAttribute('href');
-      
+
       if (originalUrl) {
-        
-        // --- SAFETY NET: Standard Bandcamp Links ---
-        // If it's a Bandcamp link but NOT an embed link, open in a new tab securely
         if (originalUrl.includes('bandcamp.com') && !originalUrl.includes('EmbeddedPlayer')) {
           window.open(originalUrl, '_blank', 'noopener,noreferrer');
-          return; // Stop here, don't open the modal
+          return;
         }
-  
-        let optimalHeight = 450; // Default fallback height
-        
-        // 1. Detect platform and content type to set the perfect height
+
+        let optimalHeight = 450;
         if (originalUrl.includes('music.apple.com')) {
-          // Apple Music
-          if (originalUrl.includes('?i=') || originalUrl.includes('/song/')) {
-            optimalHeight = 175; // Track height
-          } else {
-            optimalHeight = 450; // Album height
-          }
+          optimalHeight = (originalUrl.includes('?i=') || originalUrl.includes('/song/')) ? 175 : 450;
         } else if (originalUrl.includes('spotify.com')) {
-          // Spotify
-          if (originalUrl.includes('/track/')) {
-            optimalHeight = 152; // Track height
-          } else {
-            optimalHeight = 352; // Album height
-          }
+          optimalHeight = originalUrl.includes('/track/') ? 152 : 352;
         } else if (originalUrl.includes('bandcamp.com/EmbeddedPlayer')) {
-          // Bandcamp
-          if (originalUrl.includes('track=')) {
-            optimalHeight = 120; // Standard Bandcamp single track height
-          } else {
-            optimalHeight = 472; // Standard Bandcamp album height
-          }
+          optimalHeight = originalUrl.includes('track=') ? 120 : 472;
         }
-  
-        // 2. Apply the dynamic height directly to the iframe
+
         iframe.setAttribute('height', optimalHeight);
-  
-        // 3. Load the URL and open the modal
         iframe.src = getEmbedUrl(originalUrl);
         modal.classList.add('is-open');
       }
     });
   });
 
-  // Function to close modal and stop audio playing
-  const closeModal = () => {
-    modal.classList.remove('is-open');
-    iframe.src = ''; 
-  };
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
-  // Close when clicking the "X" or the dark background
-  if(closeBtn) closeBtn.addEventListener('click', closeModal);
-  if(modalBg) modalBg.addEventListener('click', closeModal);
+  // Close via overlay — mobile only
+  if (modalBg) {
+    modalBg.addEventListener('click', () => {
+      if (window.innerWidth < 768) closeModal();
+    });
+  }
 
-  // Close when pressing the Escape key
+  // Close via Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('is-open')) {
       closeModal();
     }
+  });
+
+
+  // --- 4. DESKTOP DRAG LOGIC ---
+  let isDragging = false;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  container.addEventListener('mousedown', (e) => {
+    if (window.innerWidth < 768) return;
+    if (e.target === closeBtn) return;
+
+    isDragging = true;
+
+    // Since container is position:fixed on desktop, getBoundingClientRect()
+    // gives us true viewport coordinates — no parent offset confusion.
+    const rect = container.getBoundingClientRect();
+    container.style.bottom = 'unset';
+    container.style.right  = 'unset';
+    container.style.top    = rect.top + 'px';
+    container.style.left   = rect.left + 'px';
+
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+
+    // KEY FIX: disable pointer events on the iframe so it doesn't
+    // swallow mousemove/mouseup events during drag.
+    iframe.style.pointerEvents = 'none';
+
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    let newLeft = e.clientX - offsetX;
+    let newTop  = e.clientY - offsetY;
+
+    // Clamp to viewport so it can't be dragged off screen
+    const rect = container.getBoundingClientRect();
+    newLeft = Math.max(0, Math.min(newLeft, window.innerWidth  - rect.width));
+    newTop  = Math.max(0, Math.min(newTop,  window.innerHeight - rect.height));
+
+    container.style.left = newLeft + 'px';
+    container.style.top  = newTop  + 'px';
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (isDragging) {
+      // Restore iframe interactivity once dragging stops
+      iframe.style.pointerEvents = '';
+    }
+    isDragging = false;
   });
 
 });
