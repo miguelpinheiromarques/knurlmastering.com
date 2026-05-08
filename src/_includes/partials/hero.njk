@@ -27,10 +27,15 @@
 	</div>
 	
 	{% if locale == "en" %}	
-	<p>Knurl Mastering is a music mastering studio founded by engineers <a href="#bio-miguel" class="bio-trigger" data-target="bio-miguel" data-tooltip="View Bio">Miguel Pinheiro Marques</a> and <a href="#bio-clara" class="bio-trigger" data-target="bio-clara" data-tooltip="View Bio">Clara Araújo</a>, driven by a deep respect for records, sonics, and the pursuit of high fidelity.</p>
+	<p>Knurl Mastering is a music mastering studio founded by engineers <a href="#bio-miguel" class="bio-trigger desktop-only-link" data-target="bio-miguel" data-tooltip="View Bio">Miguel Pinheiro Marques</a> and <a href="#bio-clara" class="bio-trigger desktop-only-link" data-target="bio-clara" data-tooltip="View Bio">Clara Araújo</a>, driven by a deep respect for records, sonics, and the pursuit of high fidelity.</p>
 	{% else %}
-	<p>Knurl Mastering é um estúdio de masterização fundado por <a href="#bio-miguel" class="bio-trigger" data-target="bio-miguel" data-tooltip="Ver Bio">Miguel Pinheiro Marques</a> e <a href="#bio-clara" class="bio-trigger" data-target="bio-clara" data-tooltip="Ver Bio">Clara Araújo</a>. Nascido de uma ligação profunda aos discos, ao som e à música, procuramos realçar o melhor de cada canção e álbum que passa por nós.</p>
-	{% endif %}  
+	<p>Knurl Mastering é um estúdio de masterização fundado por <a href="#bio-miguel" class="bio-trigger desktop-only-link" data-target="bio-miguel" data-tooltip="Ver Bio">Miguel Pinheiro Marques</a> e <a href="#bio-clara" class="bio-trigger desktop-only-link" data-target="bio-clara" data-tooltip="Ver Bio">Clara Araújo</a>. Nascido de uma ligação profunda aos discos, ao som e à música, procuramos realçar o melhor de cada canção e álbum que passa por nós.</p>
+	{% endif %} 
+	
+	<div class="mobile-bio-buttons">
+	  <button class="bio-trigger mobile-bio-btn" data-target="bio-miguel">{% if locale == "en" %}About Miguel{% else %}Sobre o Miguel{% endif %}</button>
+	  <button class="bio-trigger mobile-bio-btn" data-target="bio-clara">{% if locale == "en" %}About Clara{% else %}Sobre a Clara{% endif %}</button>
+	</div>
 	
 	<p class="social">
 	{% if locale == "en" %}	

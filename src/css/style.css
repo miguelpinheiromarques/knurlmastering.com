@@ -1079,6 +1079,53 @@ img.gallery-img {
     transform: translateY(0) rotate(45deg); /* Keeps the rotation intact while sliding up */
   }
 }
+
+/* --- TOUCHSCREEN BIO BUTTONS & UX --- */
+
+/* Hidden by default (for devices with a mouse/trackpad) */
+.mobile-bio-buttons {
+  display: none; 
+}
+
+/* Target devices that primarily use touch (no hover, coarse pointer like a finger) */
+@media (hover: none) and (pointer: coarse) {
+  
+  /* 1. Show the dedicated touch buttons */
+  .mobile-bio-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .mobile-bio-btn {
+    flex: 1; /* Makes both buttons equal width */
+    background-color: transparent;
+    color: #EDA40E;
+    border: 1px solid #EDA40E;
+    padding: 10px 0;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+  
+  .mobile-bio-btn:active {
+    background-color: #EDA40E;
+    color: #ffffff;
+  }
+
+  /* 2. Neutralize the inline text links on touchscreens */
+  .desktop-only-link {
+    pointer-events: none; /* Prevents tapping entirely */
+    color: inherit;       /* Makes the text color match the paragraph */
+    text-decoration: none;
+    font-weight: inherit;
+  }
+}
+
 /* --- DARK MODE --- */
 
 @media (prefers-color-scheme: dark) {
@@ -1167,6 +1214,7 @@ img.gallery-img {
  .gallery-counter {
    color: #f0f0f0;
  }
+ @media (hover: hover) and (pointer: fine) {
 .bio-trigger::before {
    background-color: #f0f0f0;
    border-color: #161616; /* DARK MODE BORDER */
@@ -1178,11 +1226,4 @@ img.gallery-img {
    border-right-color: #161616;  /* DARK MODE BORDER */
  }
 }
-
-/* --- MOBILE BIO TRIGGER (DOTTED UNDERLINE) --- */
-@media (hover: none) and (pointer: coarse) {
-  .bio-trigger {
-    text-decoration: underline dotted #EDA40E 2px !important;
-    text-underline-offset: 4px; /* Gives it some breathing room */
-  }
 }
