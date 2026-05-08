@@ -648,6 +648,15 @@
     "featured": false
   },
   {
+    "artist": "Angélica Salvi",
+    "work": "Phantone",
+    "service": "vinyl & digital mastering",
+    "date": "October 2019",
+    "image": "covers/angelica_salvi_phantone.jpeg",
+    "link": "https://music.apple.com/pt/album/phantone/1686260759?l=en-GB",
+    "featured": true
+  },
+  {
     "artist": "White Haus",
     "work": "Body",
     "service": "vinyl & digital mastering",
