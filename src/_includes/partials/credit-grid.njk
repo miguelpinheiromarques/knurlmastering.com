@@ -15,8 +15,15 @@
        data-artist="{{ item.artist }}"
        data-featured="{{ item.featured }}">
        
-      {% image "./src/_data/" + item.image, item.artist + " - " + item.work, "150px", "", "lazy", [450] %}
-      <h3>{{ item.artist }}</h3>
+       <div class="cover-wrapper">
+         {% image "./src/_data/" + item.image, item.artist + " - " + item.work, "150px", "", "lazy", [450] %}
+         <div class="play-overlay">
+           <svg viewBox="0 0 24 24" fill="currentColor">
+             <path d="M8 5v14l11-7z"/>
+           </svg>
+         </div>
+       </div>
+       <h3>{{ item.artist }}</h3>
       <h4>{{ item.work }}</h4>
       
       <p>{{ item.service }}
