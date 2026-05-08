@@ -246,6 +246,23 @@ document.addEventListener('DOMContentLoaded', () => {
         return urlObj.toString();
       }
 
+      // Bandcamp (Dynamic Dark Mode & Custom Brand Colors)
+      if (urlObj.hostname.includes('bandcamp.com') && urlObj.pathname.includes('/EmbeddedPlayer')) {
+        // Check if the user's system is currently in Dark Mode
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Use your exact website CSS colors (without the '#' symbol)
+        const bgCol = isDark ? '161616' : 'f7f7f7'; 
+        const linkCol = 'EDA40E'; // Your signature Knurl Mastering orange
+        
+        // Swap out whatever colors are in the JSON link with your dynamic colors
+        urlObj.pathname = urlObj.pathname
+          .replace(/bgcol=[a-fA-F0-9]+/, `bgcol=${bgCol}`)
+          .replace(/linkcol=[a-fA-F0-9]+/, `linkcol=${linkCol}`);
+          
+        return urlObj.toString();
+      }
+
       // YouTube (Forces privacy-enhanced mode)
       if (urlObj.hostname.includes('youtube.com') || urlObj.hostname.includes('youtu.be') || urlObj.hostname.includes('youtube-nocookie.com')) {
         let videoId = '';
@@ -420,6 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+
 <style>
   /* --- MUSIC MODAL / MINI-PLAYER STYLES --- */
 .am-modal {
