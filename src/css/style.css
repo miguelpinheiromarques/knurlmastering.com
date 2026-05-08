@@ -1015,6 +1015,72 @@ img.gallery-img {
   opacity: 1;
 }
 
+/* --- INLINE BIO TOOLTIP --- */
+.bio-trigger {
+  position: relative;
+  display: inline-block; 
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* 1. The Tooltip Bubble */
+  .bio-trigger::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: 8px; /* Spaced perfectly for the new arrow */
+    transform: translate(-50%, 10px); 
+    background-color: #181818;
+    border: 1px solid #f0f0f0; /* LIGHT MODE BORDER */
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 10px; 
+    border-radius: 6px; 
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 10;
+  }
+
+  /* 2. The Tooltip Arrow (Now a rotated square for border support) */
+  .bio-trigger::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px; /* Centers the 10px square perfectly */
+    margin-bottom: 3px; /* Overlaps exactly with the bubble's bottom border */
+    width: 10px;
+    height: 10px;
+    background-color: #181818;
+    border-bottom: 1px solid #f0f0f0; /* LIGHT MODE BORDER */
+    border-right: 1px solid #f0f0f0;  /* LIGHT MODE BORDER */
+    transform: translateY(10px) rotate(45deg); /* Rotates it to point down */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 11; /* Sits 1 layer above the bubble to hide the intersecting border */
+  }
+
+  /* 3. The Hover Animation */
+  .bio-trigger:hover::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+  .bio-trigger:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) rotate(45deg); /* Keeps the rotation intact while sliding up */
+  }
+}
 /* --- DARK MODE --- */
 
 @media (prefers-color-scheme: dark) {
@@ -1109,5 +1175,15 @@ img.gallery-img {
   }
  .gallery-counter {
    color: #f0f0f0;
- } 
+ }
+.bio-trigger::before {
+   background-color: #f0f0f0;
+   border-color: #161616; /* DARK MODE BORDER */
+   color: #161616;
+ }
+ .bio-trigger::after {
+   background-color: #f0f0f0;
+   border-bottom-color: #161616; /* DARK MODE BORDER */
+   border-right-color: #161616;  /* DARK MODE BORDER */
+ }
 }
