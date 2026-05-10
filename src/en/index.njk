@@ -58,31 +58,53 @@ site_url: "https://knurlmastering.com"
           {% image "./src/images/knurlmastering.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
         </div>
         <div class="gallery-slide">
-          {% image "./src/images/knurlmastering2.jpeg", "Studio view", "100vw", "gallery-img", "eager" %}
+          {% image "./src/images/knurlmastering2.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
         </div>
         <div class="gallery-slide">
-          {% image "./src/images/knurlmastering3.jpeg", "Studio view", "100vw", "gallery-img", "eager" %}
+          {% image "./src/images/knurlmastering3.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
         </div>
         <div class="gallery-slide">
-          {% image "./src/images/knurlmastering4.jpeg", "Studio view", "100vw", "gallery-img", "eager" %}
-        </div>                
+          {% image "./src/images/knurlmastering4.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>    
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering5.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>      
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering6.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>      
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering7.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>      
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering8.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>      
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering9.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>      
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering10.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>  
       </div>
       
       <button class="gallery-arrow prev-arrow" aria-label="Previous image">&#10094;</button>
       <button class="gallery-arrow next-arrow" aria-label="Next image">&#10095;</button>
   
-      <div class="gallery-counter"><span class="current-slide">1</span> / <span class="total-slides">4</span></div>
-      </div>
+      <div class="gallery-counter"><span class="current-slide">1</span> / <span class="total-slides">10</span></div>
+    </div>
   </div>
   
-  <script>
+<script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Grab all triggers (bios and galleries) and all close buttons
-    const triggers = document.querySelectorAll('.bio-trigger, .overlay-trigger');
-    const closeButtons = document.querySelectorAll('.close-bio, .close-overlay');
-    const overlays = document.querySelectorAll('.bio-overlay, .fullscreen-overlay');
+    // --- Overlay Management ---
+    const triggers = document.querySelectorAll('.overlay-trigger');
+    const closeButtons = document.querySelectorAll('.close-overlay');
+    const overlays = document.querySelectorAll('.fullscreen-overlay');
   
-    // Open the corresponding overlay
+    const closeAllOverlays = () => {
+      overlays.forEach(overlay => overlay.classList.remove('is-open'));
+      document.body.style.overflow = ''; 
+    };
+  
     triggers.forEach(trigger => {
       trigger.addEventListener('click', (e) => {
         e.preventDefault(); 
@@ -96,116 +118,64 @@ site_url: "https://knurlmastering.com"
       });
     });
   
-    // Close overlays
-    closeButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        overlays.forEach(overlay => overlay.classList.remove('is-open'));
-        document.body.style.overflow = ''; 
-      });
-    });
-  
-    // Close on Escape key
+    closeButtons.forEach(button => button.addEventListener('click', closeAllOverlays));
+    
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        overlays.forEach(overlay => overlay.classList.remove('is-open'));
-        document.body.style.overflow = ''; 
-      }
+      if (e.key === 'Escape') closeAllOverlays();
     });
   
-    // --- Gallery Arrow Navigation (With Looping) ---
-    const prevArrows = document.querySelectorAll('.prev-arrow');
-    const nextArrows = document.querySelectorAll('.next-arrow');
-    
-    prevArrows.forEach(arrow => {
-      arrow.addEventListener('click', () => {
-        const track = arrow.parentElement.querySelector('.gallery-track');
-        
-        // If at (or very close to) the beginning, jump to the end
-        // We use <= 5 as a small buffer for fractional pixel rounding errors in some browsers
-        if (track.scrollLeft <= 5) {
-          track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
-        } else {
-          track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
-        }
-      });
-    });
-    
-    nextArrows.forEach(arrow => {
-      arrow.addEventListener('click', () => {
-        const track = arrow.parentElement.querySelector('.gallery-track');
-        const maxScroll = track.scrollWidth - track.clientWidth;
-        
-        // If at (or very close to) the end, jump back to the start
-        if (track.scrollLeft >= maxScroll - 5) {
-          track.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
-        }
-      });
-    });
-  
-    // --- NEW: Gallery Slide Counter ---
+    // --- Robust Gallery Logic ---
     const galleryContainers = document.querySelectorAll('.gallery-container');
     
     galleryContainers.forEach(container => {
       const track = container.querySelector('.gallery-track');
-      const slides = container.querySelectorAll('.gallery-slide');
+      const slides = Array.from(container.querySelectorAll('.gallery-slide'));
+      const prevArrow = container.querySelector('.prev-arrow');
+      const nextArrow = container.querySelector('.next-arrow');
       const currentEl = container.querySelector('.current-slide');
       const totalEl = container.querySelector('.total-slides');
       
-      if (!track || slides.length === 0 || !currentEl || !totalEl) return;
+      if (!track || slides.length === 0) return;
       
-      // Set total number of slides dynamically
-      totalEl.textContent = slides.length;
+      let currentIndex = 0;
+      if (totalEl) totalEl.textContent = slides.length;
       
-      // Observer checks which slide is currently in the center
+      // 1. Keep track of the active slide via Intersection Observer
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Get the 1-based index of the visible slide
-            const activeIndex = Array.from(slides).indexOf(entry.target) + 1;
-            currentEl.textContent = activeIndex;
+            currentIndex = slides.indexOf(entry.target);
+            if (currentEl) currentEl.textContent = currentIndex + 1;
           }
         });
       }, {
         root: track,
-        threshold: 0.5 // Triggers when the slide is at least 50% visible
+        threshold: 0.6 // Trigger when slide is 60% visible to avoid mid-scroll glitches
       });
       
       slides.forEach(slide => observer.observe(slide));
-    });
-    
-// --- Mobile Swipe Looping (Snap-Safe Version) ---
-    galleryContainers.forEach(container => {
-      const track = container.querySelector('.gallery-track');
-      let isTeleporting = false;
       
-      track.addEventListener('scroll', () => {
-        if (isTeleporting) return;
-    
-        const maxScroll = track.scrollWidth - track.clientWidth;
-        const currentScroll = track.scrollLeft;
-    
-        // Check if we've swiped past the boundaries
-        if (currentScroll > maxScroll + 50 || currentScroll < -50) {
-          isTeleporting = true;
-          
-          // 1. Momentarily disable snapping so the browser doesn't fight the jump
-          track.style.scrollSnapType = 'none';
-          
-          if (currentScroll > maxScroll + 50) {
-            track.scrollLeft = 0;
-          } else {
-            track.scrollLeft = maxScroll;
-          }
-    
-          // 2. Turn snapping back on after a tiny delay
-          setTimeout(() => {
-            track.style.scrollSnapType = 'x mandatory';
-            isTeleporting = false;
-          }, 50); 
-        }
-      }, { passive: true });
+      // 2. Exact navigation function (Fixes Android jump & smooth loops)
+      const goToSlide = (index) => {
+        // Handle Loop boundaries
+        if (index < 0) index = slides.length - 1; // Loop to end
+        if (index >= slides.length) index = 0;    // Loop to start
+        
+        // Using offsetLeft directly prevents scrollBy from fighting with scroll-snap
+        track.scrollTo({
+          left: slides[index].offsetLeft, 
+          behavior: 'smooth'
+        });
+      };
+      
+      // 3. Attach Arrow Listeners
+      if (prevArrow) {
+        prevArrow.addEventListener('click', () => goToSlide(currentIndex - 1));
+      }
+      
+      if (nextArrow) {
+        nextArrow.addEventListener('click', () => goToSlide(currentIndex + 1));
+      }
     });
   });
   </script>

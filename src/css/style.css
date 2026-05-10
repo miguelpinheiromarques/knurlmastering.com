@@ -763,14 +763,15 @@ p.knoll {
   top: 20px;
   right: 30px;
   z-index: 5;
-  background: transparent;
+  background: rgba(255,255,255,0.75);
+  border-radius:100%;
   border: none;
-  color: #161616;
-  font-size: 2.5rem; 
-  font-weight: 300; 
+  color: #686868;
+  font-size: 2rem; 
+  font-weight: 200; 
   cursor: pointer;
   line-height: 1;
-  padding: 0;
+  padding: 0 9px 5px 9px;
   transition: color 0.2s ease;
 }
 
@@ -1230,6 +1231,7 @@ img.gallery-img {
    color: #f0f0f0;
  }
  h3.creditsheader{color:#f0f0f0;}
+ .close-bio,.close-overlay {background: rgba(22,22,22,0.75);}
  
  @media (hover: hover) and (pointer: fine) {
 .bio-trigger::before {
