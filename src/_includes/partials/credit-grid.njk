@@ -465,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
   .credits {padding:20px;}
 }  
 .credits .innercredits {
-  background-image: linear-gradient(to right, #383838, #363636, #353535, #333333, #323232);
+  background-color:#242424;
   border-top: 4px solid #EDA40E;
 }
 
@@ -487,19 +487,18 @@ document.addEventListener('DOMContentLoaded', () => {
   .split-col {
     width: calc(50% - 10px); 
     box-sizing: border-box;
-    padding:10px;
+    padding:10px 0 0 0;
     margin:0 10px 0 0;
     background-color: #202020;
-    border:1px solid #282828;
   }
-  .split-col:last-child {padding-left:10px;margin:0 0 0 10px;}
+  .split-col:last-child {padding-left:0;margin:0 0 0 10px;}
 }
 
 .split-col h3{margin:0 0 10px 20px;padding:0;}
 .split-col h3 {color:#181818}
   
 @media (min-width: 768px) {
-  .split-col h3{margin:0 0 10px 0;padding:0;color:#fff}
+  .split-col h3{margin:0 0 10px 0;padding:0 20px;color:#fff}
 }
 .split-col img {
   width: 100%;
@@ -531,17 +530,22 @@ document.addEventListener('DOMContentLoaded', () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding:1px 5px 0 0;
+  padding:1px 5px 0 20px;
 }
-@media (max-width: 768px) {
-  .credits-header {padding:1px 15px 0 10px;}
-}
+
 
 .credits-header a{color:#fff}
 .sort-controls {
   display: flex;
   gap: 1rem;
-  padding:10px 10px 7px 10px;
+  padding:10px 10px 7px 0;
+}
+
+@media (max-width: 768px) {
+  .credits-header {padding:1px 15px 0 10px;}
+  .sort-controls {
+    padding:10px 10px 7px 10px;
+  }
 }
 
 .sort-btn {
@@ -592,12 +596,13 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
   margin: 0;
   padding: 30px 20px; 
   
-  background-color: #242424;
-  box-shadow: inset 0px 0px 10px 10px rgba(20,20,20,0.15);
+  background-color: #282828;
   color: #fff;
   
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  
+  box-shadow: inset 0px 10px 10px 0px rgba(20,20,20,0.4),inset 0px -10px 10px 0px rgba(20,20,20,0.4);
 }
 
 >>>>>>> main
@@ -612,8 +617,8 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
   gap: 0.5rem;
   /* Thin padding to pull the arrows tightly against the grid */
   padding: 4px 15px 5px 15px;
-  background-color:#262626;
-  border:1px solid #282828;
+  border-bottom:4px solid #EDA40E;
+  background-color:#242424;
 }
 
 @media (hover: none) and (pointer: coarse) {
