@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let optimalHeight = 450;
         
         if (originalUrl.includes('music.apple.com')) {
-          optimalHeight = (originalUrl.includes('?i=') || originalUrl.includes('/song/')) ? 175 : 450;
+          optimalHeight = (originalUrl.includes('?i=') || originalUrl.includes('/song/')) ? 152 : 450;
         } else if (originalUrl.includes('spotify.com')) {
           optimalHeight = originalUrl.includes('/track/') ? 152 : 352;
         } else if (originalUrl.includes('bandcamp.com/EmbeddedPlayer')) {
@@ -747,7 +747,7 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
   width: 90%;
   max-width: 500px;
   background: rgba(25,25,25,0.98);
-  border-radius: 12px;
+  border-radius: 15px;
   padding: 43px 10px 10px;
   z-index: 10006;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -770,7 +770,7 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
 
 .am-modal-content iframe {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 15px;
 }
 
 @media (prefers-color-scheme: dark) {
