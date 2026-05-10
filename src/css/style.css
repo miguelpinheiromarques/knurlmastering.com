@@ -689,8 +689,7 @@ p.knoll {
    ========================================================================== */
 
 /* The Main Wrapper (Instant load for mobile to prevent Safari glitches) */
-.bio-overlay,
-.fullscreen-overlay {
+.bio-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: 9999;
@@ -699,8 +698,7 @@ p.knoll {
 }
 
 /* Open State (Mobile) */
-.bio-overlay.is-open,
-.fullscreen-overlay.is-open {
+.bio-overlay.is-open {
   opacity: 1;
   visibility: visible;
 }
@@ -711,8 +709,7 @@ p.knoll {
   -------------------------------------------------------------------------- 
 */
 @media (min-width: 768px) and (hover: hover) {
-  .bio-overlay,
-  .fullscreen-overlay {
+  .bio-overlay {
     /* Adds the transition back ONLY for desktop */
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease, visibility 0.5s ease;
   }
@@ -727,11 +724,6 @@ p.knoll {
     transform: translateX(100%);
   }
 
-  /* Gallery slides from bottom */
-  #studio-gallery {
-    transform: translateY(100%);
-  }
-
   /* When triggered, all overlays slide into the center */
   #bio-miguel.is-open,
   #bio-clara.is-open,
@@ -742,8 +734,7 @@ p.knoll {
 /* -------------------------------------------------------------------------- */
 
 /* The Static Safari-Proof Background */
-.bio-bg,
-.overlay-bg {
+.bio-bg {
   position: absolute;
   top: -20vh; bottom: -20vh; left: 0; right: 0; 
   background-color: rgba(255, 255, 255, 0.99);
@@ -756,8 +747,7 @@ p.knoll {
 
 
 /* The Close Button */
-.close-bio,
-.close-overlay {
+.close-bio{
   position: absolute;
   top: 20px;
   right: 30px;
@@ -775,9 +765,7 @@ p.knoll {
 }
 
 .close-bio:hover,
-.close-bio:focus,
-.close-overlay:hover,
-.close-overlay:focus {
+.close-bio:focus{
   color: #282828;
   outline: none;
 }
@@ -825,128 +813,6 @@ img.bio-hero-image {
 }
 
 
-/* ==========================================================================
-   3. STUDIO GALLERY SPECIFICS (Scroll Snapping)
-   ========================================================================== */
-
-/* Gallery Layout Container */
-.gallery-container {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; 
-  align-items: center;
-}
-
-/* The Horizontal Scroll Track */
-.gallery-track {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  overflow-x: auto;
-  /* Keep this, but we toggle it in JS if needed */
-  scroll-snap-type: x mandatory; 
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  
-  /* CHANGE: Change 'none' to 'contain' to allow the JS to detect the pull */
-  overscroll-behavior-x: contain; 
-}
-
-/* Hides horizontal scrollbar on Chrome/Safari */
-.gallery-track::-webkit-scrollbar {
-  display: none; 
-}
-
-/* Individual Slides */
-.gallery-slide {
-  flex: 0 0 100%; 
-  height: 100%;
-  scroll-snap-align: center; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 60px 20px calc(20px + env(safe-area-inset-bottom)); 
-  box-sizing: border-box;
-}
-
-/* Fix for 11ty picture tags in flexbox */
-.gallery-slide picture.gallery-img,
-.gallery-slide img.gallery-img {
-  display: flex; 
-  justify-content: center;
-  align-items: center;
-  max-width: 100%;
-  max-height: 75dvh;
-}
-
-.gallery-slide picture.gallery-img img,
-img.gallery-img {
-  max-width: 100%;
-  max-height: 75dvh;
-  width: auto;
-  height: auto;
-  display: block;
-  object-fit: contain;
-  /* NEW: Keeps high-res images buttery smooth on mobile swipes */
- /* transform: translateZ(0);
-  will-change: transform; */
-  /* NEW: Helps with Retina crispness on some mobile browsers */
-  image-rendering: -webkit-optimize-contrast;
-}
-
-/* Navigation Arrows */
-.gallery-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 4;
-  background: rgba(0, 0, 0, 0.4); 
-  color: #ffffff;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.gallery-arrow:hover,
-.gallery-arrow:focus {
-  background: rgba(0, 0, 0, 0.8);
-  outline: none;
-}
-
-.gallery-arrow:active {
-  transform: translateY(-50%) scale(0.95);
-}
-
-.prev-arrow { left: 20px; }
-.next-arrow { right: 20px; }
-
-
-
-@media (hover: none) and (pointer: coarse) {
-  .gallery-arrow { display: none; }
-}
-
-/* Slide Counter */
-.gallery-counter {
-  position: absolute;
-  bottom: calc(45px + env(safe-area-inset-bottom)); /* Sits just above the swipe hint */
-  color: #161616;
-  font-size: 1rem;
-  font-weight: 300;
-  letter-spacing: 2px;
-  z-index: 3;
-}
 /* ==========================================================================
    4. INLINE ARTIST LIST (Middot Separated)
    ========================================================================== */
@@ -1207,30 +1073,26 @@ img.gallery-img {
   }
   .tab__label, .tab__content p, .tab__content ul, .tab__content li{color:#f0f0f0}
       
-  .bio-bg,
-  .overlay-bg {
+  .bio-bg {
     background-color: rgba(22, 22, 22, 0.99);
   }
   .bio-scroll-area {
     color:#f0f0f0;
   }
   
-  .close-bio,
-  .close-overlay {
+  .close-bio {
     color: #f0f0f0;
   }
   
   .close-bio:hover,
-  .close-bio:focus,
-  .close-overlay:hover,
-  .close-overlay:focus {
+  .close-bio:focus{
     color: #eee;
   }
  .gallery-counter {
    color: #f0f0f0;
  }
  h3.creditsheader{color:#f0f0f0;}
- .close-bio,.close-overlay {background: rgba(22,22,22,0.75);}
+ .close-bio {background: rgba(22,22,22,0.75);}
  
  @media (hover: hover) and (pointer: fine) {
 .bio-trigger::before {

@@ -1,172 +1,402 @@
-  <div id="studio-gallery" class="fullscreen-overlay">
-    <div class="overlay-bg"></div>
-    <button class="close-overlay" aria-label="Close gallery">&times;</button>
-    
-    <div class="gallery-container">
-      <div class="gallery-track">
-        <div class="gallery-slide">
-          {% image "./src/images/knurlmastering.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
-        </div>
-        <div class="gallery-slide">
-          {% image "./src/images/knurlmastering2.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
-        </div>
-        <div class="gallery-slide">
-          {% image "./src/images/knurlmastering3.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
-        </div>
-        <div class="gallery-slide">
-          {% image "./src/images/knurlmastering4.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
-        </div>    
-        <div class="gallery-slide">
-          {% image "./src/images/knurlmastering5.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
-        </div>      
-        <div class="gallery-slide">
-          {% image "./src/images/knurlmastering6.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
-        </div>      
-        <div class="gallery-slide">
-          {% image "./src/images/knurlmastering7.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
-        </div>      
-        <div class="gallery-slide">
-          {% image "./src/images/knurlmastering8.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
-        </div>      
-        <div class="gallery-slide">
-          {% image "./src/images/knurlmastering9.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
-        </div>      
-        <div class="gallery-slide">
-          {% image "./src/images/knurlmastering10.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
-        </div>  
-      </div>
-      
-      <button class="gallery-arrow prev-arrow" aria-label="Previous image">&#10094;</button>
-      <button class="gallery-arrow next-arrow" aria-label="Next image">&#10095;</button>
+<div id="studio-gallery" class="fullscreen-overlay">
+  <div class="overlay-bg"></div>
+  <button class="close-overlay" aria-label="Close gallery">&times;</button>
   
-      <div class="gallery-counter"><span class="current-slide">1</span> / <span class="total-slides">10</span></div>
+  <div class="gallery-container">
+    <div class="gallery-track">
+      <div class="gallery-slide">
+        {% image "./src/images/knurlmastering.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>
+      <div class="gallery-slide">
+        {% image "./src/images/knurlmastering2.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>
+      <div class="gallery-slide">
+        {% image "./src/images/knurlmastering3.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>
+      <div class="gallery-slide">
+        {% image "./src/images/knurlmastering4.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>    
+      <div class="gallery-slide">
+        {% image "./src/images/knurlmastering5.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>      
+      <div class="gallery-slide">
+        {% image "./src/images/knurlmastering6.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>      
+      <div class="gallery-slide">
+        {% image "./src/images/knurlmastering7.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>      
+      <div class="gallery-slide">
+        {% image "./src/images/knurlmastering8.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>      
+      <div class="gallery-slide">
+        {% image "./src/images/knurlmastering9.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>      
+      <div class="gallery-slide">
+        {% image "./src/images/knurlmastering10.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+      </div>  
+    </div>
+    
+    <button class="gallery-arrow prev-arrow" aria-label="Previous image">&#10094;</button>
+    <button class="gallery-arrow next-arrow" aria-label="Next image">&#10095;</button>
+
+    <div class="thumbnail-container">
+      <div class="thumbnail-track"></div>
     </div>
   </div>
-  
+</div>
+
+<style>
+/* Base Overlay Structure */
+.fullscreen-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden; 
+}
+
+.fullscreen-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Desktop Slide-up Animation */
+@media (min-width: 768px) and (hover: hover) {
+  .fullscreen-overlay {
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease, visibility 0.5s ease;
+  }
+  #studio-gallery {
+    transform: translateY(100%);
+  }
+  #studio-gallery.is-open {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.overlay-bg {
+  position: absolute;
+  top: -20vh; bottom: -20vh; left: 0; right: 0; 
+  background-color: rgba(255, 255, 255, 0.99);
+  z-index: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .overlay-bg {
+    background-color: rgba(22, 22, 22, 0.99);
+  }
+}
+
+.close-overlay {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  z-index: 10;
+  background: rgba(255,255,255,0.75);
+  border-radius: 100%;
+  border: none;
+  color: #686868;
+  font-size: 2rem; 
+  font-weight: 200; 
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 9px 5px 9px;
+  transition: color 0.2s ease;
+}
+
+.close-overlay:hover,
+.close-overlay:focus { 
+  color: #282828; 
+  outline: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .close-overlay { background: rgba(22,22,22,0.75); color: #f0f0f0; }
+  .close-overlay:hover { color: #eee; }
+}
+
+/* Main Gallery Structure */
+.gallery-container {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Image Track (Takes up the top portion) */
+.gallery-track {
+  display: flex;
+  width: 100%;
+  flex-grow: 1; /* Fills available space above thumbnails */
+  align-items: center;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory; 
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain; 
+  scroll-behavior: auto !important; /* Prevents global CSS smooth scroll conflicts */
+}
+.gallery-track::-webkit-scrollbar { display: none; }
+
+.gallery-slide {
+  flex: 0 0 100%; 
+  height: 100%;
+  scroll-snap-align: center; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px 20px; 
+  box-sizing: border-box;
+}
+
+.gallery-slide picture.gallery-img,
+.gallery-slide img.gallery-img {
+  max-width: 100%;
+  max-height: 70dvh;
+  width: auto;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Navigation Arrows */
+.gallery-arrow {
+  position: absolute;
+  top: calc(50% - 50px); /* Adjusts for thumbnail bar */
+  transform: translateY(-50%);
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.4); 
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.gallery-arrow:hover,
+.gallery-arrow:focus { 
+  background: rgba(0, 0, 0, 0.8); 
+  outline: none;
+}
+.gallery-arrow:active { transform: translateY(-50%) scale(0.95); }
+.prev-arrow { left: 20px; }
+.next-arrow { right: 20px; }
+
+@media (hover: none) and (pointer: coarse) {
+  .gallery-arrow { display: none; }
+}
+
+/* --- Thumbnail Navigation Bar --- */
+.thumbnail-container {
+  width: 100%;
+  height: 100px;
+  padding: 10px 20px calc(20px + env(safe-area-inset-bottom));
+  background: transparent;
+  z-index: 5;
+}
+
+.thumbnail-track {
+  display: flex;
+  justify-content: center; 
+  gap: 12px;
+  height: 100%;
+  overflow-x: auto;
+  align-items: center;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.thumbnail-track::-webkit-scrollbar { display: none; }
+
+.thumbnail-item {
+  flex: 0 0 60px; /* Fixed width for thumbnails */
+  height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.thumbnail-item:hover { opacity: 0.8; }
+
+.thumbnail-item.is-active {
+  opacity: 1;
+  border-color: #EDA40E;
+  transform: scale(1.05);
+}
+
+.thumbnail-item img,
+.thumbnail-item picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Forces the thumb into a neat square */
+  pointer-events: none; /* Stops the image from hijacking the click event */
+}
+</style>
+
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // --- Overlay Management ---
-      const triggers = document.querySelectorAll('.overlay-trigger');
-      const closeButtons = document.querySelectorAll('.close-overlay');
-      const overlays = document.querySelectorAll('.fullscreen-overlay');
-  
-      const closeAllOverlays = () => {
-        overlays.forEach(overlay => overlay.classList.remove('is-open'));
-        document.body.style.overflow = ''; 
-      };
-  
-      triggers.forEach(trigger => {
-        trigger.addEventListener('click', (e) => {
-          e.preventDefault(); 
-          const targetId = trigger.getAttribute('data-target');
-          const targetOverlay = document.getElementById(targetId);
-          
-          if (targetOverlay) {
-            targetOverlay.classList.add('is-open');
-            document.body.style.overflow = 'hidden'; 
-          }
-        });
-      });
-  
-      closeButtons.forEach(button => button.addEventListener('click', closeAllOverlays));
+document.addEventListener('DOMContentLoaded', () => {
+  // --- Overlay Management ---
+  const triggers = document.querySelectorAll('.overlay-trigger');
+  const closeButtons = document.querySelectorAll('.close-overlay');
+  const overlays = document.querySelectorAll('.fullscreen-overlay');
+
+  const closeAllOverlays = () => {
+    overlays.forEach(overlay => overlay.classList.remove('is-open'));
+    document.body.style.overflow = ''; 
+  };
+
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault(); 
+      const targetId = trigger.getAttribute('data-target');
+      const targetOverlay = document.getElementById(targetId);
+      if (targetOverlay) {
+        targetOverlay.classList.add('is-open');
+        document.body.style.overflow = 'hidden'; 
+      }
+    });
+  });
+
+  closeButtons.forEach(button => button.addEventListener('click', closeAllOverlays));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAllOverlays();
+  });
+
+  // --- Custom Smooth Scroll Engine (Safari Bypass) ---
+  const customSmoothScroll = (track, target, duration, callback) => {
+    const start = track.scrollLeft;
+    const change = target - start;
+    let startTime = null;
+
+    track.style.scrollSnapType = 'none'; 
+    void track.offsetWidth; 
+
+    const animateScroll = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
       
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeAllOverlays();
-      });
-  
-      // --- Custom Smooth Scroll Engine ---
-      // This bypasses Safari's broken native smooth scrolling entirely
-      const customSmoothScroll = (track, target, duration, callback) => {
-        const start = track.scrollLeft;
-        const change = target - start;
-        let startTime = null;
-  
-        // Kill snap so Safari doesn't fight our animation
-        track.style.scrollSnapType = 'none'; 
-  
-        const animateScroll = (currentTime) => {
-          if (!startTime) startTime = currentTime;
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          
-          // Easing function for a natural "swipe" feel
-          const ease = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-          
-          track.scrollLeft = start + change * ease;
-  
-          if (progress < 1) {
-            requestAnimationFrame(animateScroll);
-          } else {
-            // Restore snap once perfectly landed
-            track.style.scrollSnapType = ''; 
-            if (callback) callback();
-          }
-        };
-        
+      track.scrollLeft = start + change * ease;
+
+      if (progress < 1) {
         requestAnimationFrame(animateScroll);
-      };
+      } else {
+        track.style.scrollSnapType = ''; 
+        if (callback) callback();
+      }
+    };
+    requestAnimationFrame(animateScroll);
+  };
+
+  // --- Core Gallery Logic ---
+  const galleryContainers = document.querySelectorAll('.gallery-container');
   
-      // --- Gallery Logic ---
-      const galleryContainers = document.querySelectorAll('.gallery-container');
+  galleryContainers.forEach(container => {
+    const mainTrack = container.querySelector('.gallery-track');
+    const thumbTrack = container.querySelector('.thumbnail-track');
+    const slides = Array.from(mainTrack.querySelectorAll('.gallery-slide'));
+    const prevArrow = container.querySelector('.prev-arrow');
+    const nextArrow = container.querySelector('.next-arrow');
+    
+    if (!mainTrack || slides.length === 0) return;
+    
+    let currentIndex = 0;
+    let isAnimating = false;
+
+    // 1. Generate Thumbnails Dynamically
+    const thumbnails = [];
+    slides.forEach((slide, index) => {
+      const thumbDiv = document.createElement('div');
+      thumbDiv.className = 'thumbnail-item';
       
-      galleryContainers.forEach(container => {
-        const track = container.querySelector('.gallery-track');
-        const slides = Array.from(container.querySelectorAll('.gallery-slide'));
-        const prevArrow = container.querySelector('.prev-arrow');
-        const nextArrow = container.querySelector('.next-arrow');
-        const currentEl = container.querySelector('.current-slide');
-        const totalEl = container.querySelector('.total-slides');
-        
-        if (!track || slides.length === 0) return;
-        
-        let currentIndex = 0;
-        let isAnimating = false;
-        
-        if (totalEl) totalEl.textContent = slides.length;
-        
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const visibleIndex = slides.indexOf(entry.target);
-              if (currentEl) currentEl.textContent = visibleIndex + 1;
-              
-              if (!isAnimating) {
-                currentIndex = visibleIndex; 
-              }
-            }
-          });
-        }, {
-          root: track,
-          threshold: 0.6 
+      // Clone the 11ty image into the thumbnail div
+      const img = slide.querySelector('img, picture');
+      if (img) thumbDiv.appendChild(img.cloneNode(true));
+      
+      thumbDiv.addEventListener('click', () => goToSlide(index));
+      thumbTrack.appendChild(thumbDiv);
+      thumbnails.push(thumbDiv);
+    });
+
+    // 2. Sync Active States
+    const updateUI = (index) => {
+      thumbnails.forEach((th, i) => {
+        th.classList.toggle('is-active', i === index);
+      });
+      
+      // Auto-scroll the thumbnail bar to keep the active thumb in view
+      if (thumbnails[index]) {
+        thumbnails[index].scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
         });
-        
-        slides.forEach(slide => observer.observe(slide));
-        
-        const goToSlide = (index) => {
-          if (isAnimating) return; // Locks arrows until animation finishes
-          isAnimating = true;
-          
-          // Handle Loop boundaries
-          if (index < 0) index = slides.length - 1; 
-          if (index >= slides.length) index = 0;    
-          
-          currentIndex = index; 
-          
-          const targetScroll = track.scrollLeft + (slides[index].getBoundingClientRect().left - track.getBoundingClientRect().left);
-          
-          // Trigger our custom animation over 450ms
-          customSmoothScroll(track, targetScroll, 450, () => {
-            isAnimating = false; // Unlock arrows
-          });
-        };
-        
-        if (prevArrow) {
-          prevArrow.addEventListener('click', () => goToSlide(currentIndex - 1));
+      }
+    };
+
+    // 3. The Observer (Tracks Swipes)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const visibleIndex = slides.indexOf(entry.target);
+          if (!isAnimating) {
+            currentIndex = visibleIndex; 
+            updateUI(currentIndex);
+          }
         }
-        
-        if (nextArrow) {
-          nextArrow.addEventListener('click', () => goToSlide(currentIndex + 1));
+      });
+    }, { root: mainTrack, threshold: 0.6 });
+    
+    slides.forEach(slide => observer.observe(slide));
+    
+    // 4. Navigation Engine
+    const goToSlide = (index) => {
+      if (isAnimating) return; 
+      isAnimating = true;
+      
+      if (index < 0) index = slides.length - 1; 
+      if (index >= slides.length) index = 0;    
+      
+      currentIndex = index; 
+      updateUI(currentIndex);
+      
+      const targetScroll = mainTrack.scrollLeft + (slides[index].getBoundingClientRect().left - mainTrack.getBoundingClientRect().left);
+      
+      customSmoothScroll(mainTrack, targetScroll, 400, () => {
+        isAnimating = false; 
+      });
+    };
+    
+    // 5. Event Listeners
+    if (prevArrow) prevArrow.addEventListener('click', () => goToSlide(currentIndex - 1));
+    if (nextArrow) nextArrow.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+    slides.forEach(slide => {
+      slide.addEventListener('click', (e) => {
+        if (isAnimating) return;
+        const rect = slide.getBoundingClientRect();
+        if (e.clientX - rect.left > rect.width / 2) {
+          goToSlide(currentIndex + 1);
+        } else {
+          goToSlide(currentIndex - 1);
         }
       });
     });
-  </script>
+    
+    // Initialize first thumbnail state
+    updateUI(0);
+  });
+});
+</script>
