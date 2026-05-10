@@ -74,7 +74,39 @@
         if (e.key === 'Escape') closeAllOverlays();
       });
   
-      // --- Bulletproof iOS Gallery Logic ---
+      // --- Custom Smooth Scroll Engine ---
+      // This bypasses Safari's broken native smooth scrolling entirely
+      const customSmoothScroll = (track, target, duration, callback) => {
+        const start = track.scrollLeft;
+        const change = target - start;
+        let startTime = null;
+  
+        // Kill snap so Safari doesn't fight our animation
+        track.style.scrollSnapType = 'none'; 
+  
+        const animateScroll = (currentTime) => {
+          if (!startTime) startTime = currentTime;
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          // Easing function for a natural "swipe" feel
+          const ease = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+          
+          track.scrollLeft = start + change * ease;
+  
+          if (progress < 1) {
+            requestAnimationFrame(animateScroll);
+          } else {
+            // Restore snap once perfectly landed
+            track.style.scrollSnapType = ''; 
+            if (callback) callback();
+          }
+        };
+        
+        requestAnimationFrame(animateScroll);
+      };
+  
+      // --- Gallery Logic ---
       const galleryContainers = document.querySelectorAll('.gallery-container');
       
       galleryContainers.forEach(container => {
@@ -88,19 +120,16 @@
         if (!track || slides.length === 0) return;
         
         let currentIndex = 0;
-        let snapTimeout;
-        let isAnimating = false; // NEW: Prevents rapid-click desyncs
+        let isAnimating = false;
         
         if (totalEl) totalEl.textContent = slides.length;
         
-        // 1. Observer purely for the visual text counter now
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               const visibleIndex = slides.indexOf(entry.target);
               if (currentEl) currentEl.textContent = visibleIndex + 1;
               
-              // Only let the swipe-scroll update the index if we aren't using the arrows
               if (!isAnimating) {
                 currentIndex = visibleIndex; 
               }
@@ -113,40 +142,24 @@
         
         slides.forEach(slide => observer.observe(slide));
         
-        // 2. The iOS-Safe scroll function
         const goToSlide = (index) => {
+          if (isAnimating) return; // Locks arrows until animation finishes
           isAnimating = true;
           
           // Handle Loop boundaries
           if (index < 0) index = slides.length - 1; 
           if (index >= slides.length) index = 0;    
           
-          currentIndex = index; // Immediately update our internal tracker
+          currentIndex = index; 
           
-          // Absolute coordinate calculation to avoid CSS positioning bugs
           const targetScroll = track.scrollLeft + (slides[index].getBoundingClientRect().left - track.getBoundingClientRect().left);
           
-          // iOS Bug Fix 1: Disable snapping momentarily
-          track.style.scrollSnapType = 'none';
-          
-          // iOS Bug Fix 2: CRITICAL DOM REFLOW HACK
-          // This forces Safari to process the 'none' rule above BEFORE scrolling.
-          void track.offsetWidth; 
-          
-          track.scrollTo({
-            left: targetScroll, 
-            behavior: 'smooth'
+          // Trigger our custom animation over 450ms
+          customSmoothScroll(track, targetScroll, 450, () => {
+            isAnimating = false; // Unlock arrows
           });
-  
-          // Restore scroll-snap safely after the scroll animation
-          clearTimeout(snapTimeout);
-          snapTimeout = setTimeout(() => {
-            track.style.scrollSnapType = ''; // Returns control to your CSS
-            isAnimating = false; // Unlocks observer syncing
-          }, 600);
         };
         
-        // 3. Attach Arrow Listeners
         if (prevArrow) {
           prevArrow.addEventListener('click', () => goToSlide(currentIndex - 1));
         }
