@@ -9,7 +9,6 @@ body {
 }
 
 html {
-  scroll-behavior: smooth;
   color-scheme: light dark;
 }
 
@@ -893,8 +892,8 @@ img.gallery-img {
   display: block;
   object-fit: contain;
   /* NEW: Keeps high-res images buttery smooth on mobile swipes */
-  transform: translateZ(0);
-  will-change: transform;
+ /* transform: translateZ(0);
+  will-change: transform; */
   /* NEW: Helps with Retina crispness on some mobile browsers */
   image-rendering: -webkit-optimize-contrast;
 }
