@@ -1,0 +1,143 @@
+  <div id="studio-gallery" class="fullscreen-overlay">
+    <div class="overlay-bg"></div>
+    <button class="close-overlay" aria-label="Close gallery">&times;</button>
+    
+    <div class="gallery-container">
+      <div class="gallery-track">
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering2.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering3.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering4.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>    
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering5.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>      
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering6.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>      
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering7.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>      
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering8.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>      
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering9.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>      
+        <div class="gallery-slide">
+          {% image "./src/images/knurlmastering10.jpg", "Studio view", "100vw", "gallery-img", "eager" %}
+        </div>  
+      </div>
+      
+      <button class="gallery-arrow prev-arrow" aria-label="Previous image">&#10094;</button>
+      <button class="gallery-arrow next-arrow" aria-label="Next image">&#10095;</button>
+  
+      <div class="gallery-counter"><span class="current-slide">1</span> / <span class="total-slides">10</span></div>
+    </div>
+  </div>
+  
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- Overlay Management ---
+      const triggers = document.querySelectorAll('.overlay-trigger');
+      const closeButtons = document.querySelectorAll('.close-overlay');
+      const overlays = document.querySelectorAll('.fullscreen-overlay');
+  
+      const closeAllOverlays = () => {
+        overlays.forEach(overlay => overlay.classList.remove('is-open'));
+        document.body.style.overflow = ''; 
+      };
+  
+      triggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault(); 
+          const targetId = trigger.getAttribute('data-target');
+          const targetOverlay = document.getElementById(targetId);
+          
+          if (targetOverlay) {
+            targetOverlay.classList.add('is-open');
+            document.body.style.overflow = 'hidden'; 
+          }
+        });
+      });
+  
+      closeButtons.forEach(button => button.addEventListener('click', closeAllOverlays));
+      
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeAllOverlays();
+      });
+  
+      // --- Robust Gallery Logic (iOS Fixed) ---
+      const galleryContainers = document.querySelectorAll('.gallery-container');
+      
+      galleryContainers.forEach(container => {
+        const track = container.querySelector('.gallery-track');
+        const slides = Array.from(container.querySelectorAll('.gallery-slide'));
+        const prevArrow = container.querySelector('.prev-arrow');
+        const nextArrow = container.querySelector('.next-arrow');
+        const currentEl = container.querySelector('.current-slide');
+        const totalEl = container.querySelector('.total-slides');
+        
+        if (!track || slides.length === 0) return;
+        
+        let currentIndex = 0;
+        let snapTimeout; // Variable to manage iOS snap restoration
+        if (totalEl) totalEl.textContent = slides.length;
+        
+        // 1. Keep track of the active slide via Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              currentIndex = slides.indexOf(entry.target);
+              if (currentEl) currentEl.textContent = currentIndex + 1;
+            }
+          });
+        }, {
+          root: track,
+          threshold: 0.6 // Trigger when slide is 60% visible
+        });
+        
+        slides.forEach(slide => observer.observe(slide));
+        
+        // 2. Exact navigation function 
+        const goToSlide = (index) => {
+          // Handle Loop boundaries
+          if (index < 0) index = slides.length - 1; 
+          if (index >= slides.length) index = 0;    
+          
+          // Bulletproof calculation: finds exact scroll target regardless of CSS positioning rules
+          const targetLeft = slides[index].getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft;
+          
+          // iOS WebKit Bug Fix: Disable snapping momentarily so Safari doesn't block the long jump
+          track.style.scrollSnapType = 'none';
+          
+          track.scrollTo({
+            left: targetLeft, 
+            behavior: 'smooth'
+          });
+  
+          // Restore scroll-snap safely after the scroll animation completes (approx 600ms)
+          clearTimeout(snapTimeout);
+          snapTimeout = setTimeout(() => {
+            track.style.scrollSnapType = ''; // Clears inline style, returning control to your CSS
+          }, 600);
+        };
+        
+        // 3. Attach Arrow Listeners
+        if (prevArrow) {
+          prevArrow.addEventListener('click', () => goToSlide(currentIndex - 1));
+        }
+        
+        if (nextArrow) {
+          nextArrow.addEventListener('click', () => goToSlide(currentIndex + 1));
+        }
+      });
+    });
+  </script>
