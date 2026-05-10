@@ -68,7 +68,7 @@
     <button class="am-modal-close" id="am-modal-close-btn">×</button>
     <div class="am-modal-content">
       <iframe id="am-iframe" 
-              allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write; picture-in-picture" 
+              allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write; picture-in-picture;" 
               frameborder="0" 
               height="450" 
               style="width:100%;max-width:660px;overflow:hidden;background:transparent;" 
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let optimalHeight = 450;
         
         if (originalUrl.includes('music.apple.com')) {
-          optimalHeight = (originalUrl.includes('?i=') || originalUrl.includes('/song/')) ? 152 : 450;
+          optimalHeight = (originalUrl.includes('?i=') || originalUrl.includes('/song/')) ? 152 : 452;
         } else if (originalUrl.includes('spotify.com')) {
           optimalHeight = originalUrl.includes('/track/') ? 152 : 352;
         } else if (originalUrl.includes('bandcamp.com/EmbeddedPlayer')) {
@@ -747,10 +747,12 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
   width: 90%;
   max-width: 500px;
   background: rgba(25,25,25,0.98);
-  border-radius: 15px;
+  border-radius: 12px;
   padding: 43px 10px 10px;
   z-index: 10006;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  overflow: hidden; /* This clips the "white" triangles */
+  line-height: 0;
 }
 
 .am-modal-close {
@@ -770,7 +772,9 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
 
 .am-modal-content iframe {
   width: 100%;
-  border-radius: 15px;
+  border-radius: 12px;
+  background-color: transparent; 
+  overscroll-behavior: none;
 }
 
 @media (prefers-color-scheme: dark) {
