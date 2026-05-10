@@ -197,14 +197,17 @@
 .thumbnail-container {
   width: 100%;
   height: 100px;
-  padding: 10px 20px calc(20px + env(safe-area-inset-bottom));
+  padding: 10px 0 calc(20px + env(safe-area-inset-bottom));
   background: transparent;
   z-index: 5;
+  
+  /* Gradient fade on the left and right edges */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%);
 }
 
 .thumbnail-track {
   display: flex;
-  justify-content: center; 
   gap: 12px;
   height: 100%;
   overflow-x: auto;
@@ -212,21 +215,35 @@
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  
+  /* Aligns left on mobile to prevent clipping */
+  justify-content: flex-start;
+  /* Padding so the first/last items clear the gradient mask */
+  padding: 0 25px; 
 }
-
 .thumbnail-track::-webkit-scrollbar { display: none; }
 
+@media (min-width: 900px) {
+  .thumbnail-track {
+    justify-content: center;
+  }
+}
+
 .thumbnail-item {
-  flex: 0 0 60px; /* Fixed width for thumbnails */
+  flex: 0 0 60px; 
   height: 60px;
   border-radius: 4px;
   overflow: hidden;
   cursor: pointer;
   opacity: 0.4;
   transition: all 0.2s ease;
-  border: 2px solid transparent;
+  
+  /* Bulletproof borders without scaling */
+  box-sizing: border-box;
+  border: 2px solid transparent; 
 }
 
+/* Fixes the mobile "sticky grey" tap bug */
 @media (hover: hover) {
   .thumbnail-item:hover { opacity: 0.8; }
 }
@@ -234,15 +251,14 @@
 .thumbnail-item.is-active {
   opacity: 1;
   border-color: #EDA40E;
-  transform: scale(1.05);
 }
 
 .thumbnail-item img,
 .thumbnail-item picture {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Forces the thumb into a neat square */
-  pointer-events: none; /* Stops the image from hijacking the click event */
+  object-fit: cover; 
+  pointer-events: none; 
 }
 </style>
 
@@ -323,7 +339,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const thumbDiv = document.createElement('div');
       thumbDiv.className = 'thumbnail-item';
       
-      // Clone the 11ty image into the thumbnail div
       const img = slide.querySelector('img, picture');
       if (img) thumbDiv.appendChild(img.cloneNode(true));
       
@@ -338,7 +353,6 @@ document.addEventListener('DOMContentLoaded', () => {
         th.classList.toggle('is-active', i === index);
       });
       
-      // Auto-scroll the thumbnail bar to keep the active thumb in view
       if (thumbnails[index]) {
         thumbnails[index].scrollIntoView({
           behavior: 'smooth',
@@ -385,16 +399,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prevArrow) prevArrow.addEventListener('click', () => goToSlide(currentIndex - 1));
     if (nextArrow) nextArrow.addEventListener('click', () => goToSlide(currentIndex + 1));
 
-    slides.forEach(slide => {
-      slide.addEventListener('click', (e) => {
-        if (isAnimating) return;
-        const rect = slide.getBoundingClientRect();
-        if (e.clientX - rect.left > rect.width / 2) {
-          goToSlide(currentIndex + 1);
-        } else {
-          goToSlide(currentIndex - 1);
-        }
-      });
+    // Keyboard Arrow Navigation
+    document.addEventListener('keydown', (e) => {
+      const overlay = container.closest('.fullscreen-overlay');
+      if (overlay && overlay.classList.contains('is-open')) {
+        if (e.key === 'ArrowRight') goToSlide(currentIndex + 1);
+        if (e.key === 'ArrowLeft') goToSlide(currentIndex - 1);
+      }
     });
     
     // Initialize first thumbnail state
