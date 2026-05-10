@@ -238,9 +238,15 @@
   opacity: 0.4;
   transition: all 0.2s ease;
   
+<<<<<<< HEAD
   /* Bulletproof borders without scaling */
   box-sizing: border-box;
   border: 2px solid transparent; 
+=======
+  /* NEW: Use outline instead of border to fix iOS clipping */
+  box-sizing: border-box;
+  outline: 2px solid transparent; 
+>>>>>>> main
 }
 
 /* Fixes the mobile "sticky grey" tap bug */
@@ -250,7 +256,14 @@
 
 .thumbnail-item.is-active {
   opacity: 1;
+<<<<<<< HEAD
   border-color: #EDA40E;
+=======
+  transform: scale(1.05);
+  
+  /* NEW: Use outline instead of border */
+  outline: 2px solid #EDA40E;
+>>>>>>> main
 }
 
 .thumbnail-item img,
@@ -399,13 +412,34 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prevArrow) prevArrow.addEventListener('click', () => goToSlide(currentIndex - 1));
     if (nextArrow) nextArrow.addEventListener('click', () => goToSlide(currentIndex + 1));
 
+<<<<<<< HEAD
     // Keyboard Arrow Navigation
     document.addEventListener('keydown', (e) => {
+=======
+    // NEW: Keyboard Arrow Navigation
+    document.addEventListener('keydown', (e) => {
+      // Only trigger if this specific gallery overlay is open
+>>>>>>> main
       const overlay = container.closest('.fullscreen-overlay');
       if (overlay && overlay.classList.contains('is-open')) {
         if (e.key === 'ArrowRight') goToSlide(currentIndex + 1);
         if (e.key === 'ArrowLeft') goToSlide(currentIndex - 1);
       }
+<<<<<<< HEAD
+=======
+    });
+
+    slides.forEach(slide => {
+      slide.addEventListener('click', (e) => {
+        if (isAnimating) return;
+        const rect = slide.getBoundingClientRect();
+        if (e.clientX - rect.left > rect.width / 2) {
+          goToSlide(currentIndex + 1);
+        } else {
+          goToSlide(currentIndex - 1);
+        }
+      });
+>>>>>>> main
     });
     
     // Initialize first thumbnail state
