@@ -148,238 +148,7 @@ a:hover {
 }
 
 /* Main Container */
-.credits {
-  margin: 0;
-  padding:20px 0 0 0;
-  background-color:#f0f0f0;
-}
-@media screen and (min-width: 768px) {
-  .credits {padding:20px;}
-}  
-.credits .innercredits {
-  background-image: linear-gradient(to right, #383838, #363636, #353535, #333333, #323232);
-  border-top: 4px solid #EDA40E;
-}
 
-/* Section Title */
-.credits h3 {
-  margin: 0;
-  padding: 3px 0 5px 6px;
-  font-optical-sizing: auto;
-  font-size: 1rem;
-  white-space:nowrap;
-  font-weight: 600;
-}
-
-/* The 50/50 Split */
-.split-container {
-  display: flex;
-  flex-wrap: wrap; /* Allows stacking on mobile */
-  width: 100%;
-}
-@media (min-width: 768px) {
-  .split-col {
-    width: calc(50% - 10px); /* Desktop default */
-    box-sizing: border-box;
-    padding:10px;
-    margin:0 10px 0 0;
-    background-color: #202020;
-    border:1px solid #282828;
-  }
-  .split-col:last-child {padding-left:10px;margin:0 0 0 10px;}
-}
-
-.split-col h3{margin:0 0 10px 20px;padding:0;}
-.split-col h3 {color:#181818}
-  
-@media (min-width: 768px) {
-  .split-col h3{margin:0 0 10px 0;padding:0;color:#fff}
-}
-.split-col img {
-  width: 100%;
-  height: 350px;
-  object-fit: cover;
-  display: block;
-}
-.split-col img.pos-right {
-  /* Aligns to the Right edge, vertically Centered */
-  object-position: right center; 
-  
-  /* Or use percentages: 80% horizontal, 50% vertical */
-  /* object-position: 80% 50%; */
-}
-.split-col img.pos-left {
-  /* Aligns to the Right edge, vertically Centered */
-  object-position: left center; 
-  
-  /* Or use percentages: 80% horizontal, 50% vertical */
-  /* object-position: 80% 50%; */
-}
-/* Full Width Sections */
-.full-section {
-  padding: 0;
-  margin: 0 auto;
-}
-
-/* Mobile: Stack columns */
-@media (max-width: 768px) {
-  .split-col {
-    width: 100%;
-    padding:0;
-    margin:0 0 40px 0;
-    border:none;
-  }
-}
-
-/* Header container to align title and buttons */
-.credits-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding:1px 5px 0 0;
-}
-@media (max-width: 768px) {
-  .credits-header {padding:1px 15px 0 10px;}
-}
-
-.credits-header a{color:#fff}
-.sort-controls {
-  display: flex;
-  gap: 1rem;
-  padding:10px 10px 7px 10px;
-}
-
-.sort-btn {
-  background: transparent;
-  border: 0;
-  padding: 0;
-  font-size: 0.6rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  cursor: pointer;
-  color:#999;
-  white-space: nowrap;
-}
-
-.sort-btn:hover {
-  color: #666;
-}
-.bio-trigger {white-space:nowrap;}
-/* The Active State */
-.sort-btn.active {
-    color: #EDA40E;          /* Uses your blue brand color */         /* Makes it slightly thicker */
-    opacity: 1;                  /* Ensures it's fully visible */
-}
-
-h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid #EDA40E;font-size:140%}
-
-/* THE SCROLL GRID */
-.credits .artwork {
-  /* Use Grid instead of Flex */
-  display: grid;
-  
-  /* 1. Define 3 rows that fit their content height */
-  grid-template-rows: repeat(2, min-content);
-  
-  /* 2. Force items to fill vertically (Col 1: Row 1,2,3) then move to Col 2 */
-  grid-auto-flow: column;
-  
-  /* 3. Define the width of the columns (matches your image size) */
-  grid-auto-columns: 150px;
-  
-  /* 4. Gap replaces margins (First Value: Row Gap, Second: Col Gap) */
-  gap: 30px 25px;
-
-  /* Scroll Behavior */
-  overflow-x: auto;
-  overflow-y: hidden;
-  
-  /* Container Styling */
-  width: 100%;
-  height: auto; /* Allow height to grow to fit 3 rows */
-  margin: 0;
-  padding: 30px 20px; /* Add side padding so items don't touch edge */
-  background-color: #242424;
-  box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.15) inset, 0px -10px 10px -10px rgba(0, 0, 0, 0.25) inset;
-  color: #fff;
-  
-  /* Smooth Scrolling on mobile */
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
-}
-
-/* The Grid Item (The Anchor Tag) */
-/* Note: We style the 'a' now, because your HTML removed the 'div' wrapper */
-.credits .artwork a {
-  width: 150px; /* Fixed width matching the grid column */
-  text-decoration: none;
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-}
-
-/* The Image */
-.credits .artwork img {
-  width: 150px;
-  height: 150px;
-  object-fit: contain; /* or 'cover' if you want to crop to fill square */
-  margin-bottom: 8px; /* Space between img and text */
-  outline: 1px solid #181818;
-  outline-offset: -1px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  transition: all .1s linear;
-  display: block;
-  border-radius:2px;
-}
-
-/* Hover Effect */
-.credits .artwork a:hover img {
-  outline: 2px solid rgba(237, 164, 14, 0.8);
-}
-
-/* Typography inside the card */
-.credits .artwork h3 {
-  font-weight: 300;
-  margin: 0;
-  padding: 0;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #fff;
-}
-
-.credits .artwork h4 {
-  font-weight: 600;
-  margin: 0;
-  padding: 2px 0 0 0;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #fff;
-}
-
-.credits .artwork p {
-  font-size: 0.7rem;
-  font-weight: 400;
-  margin: 0;
-  padding: 2px 0 0 0;
-  color: #888;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.credits .artwork p span {
-  display: block;
-  font-style: normal;
-  font-weight: 400;
-  text-transform: uppercase;
-  font-size: 0.5rem;
-  margin: 4px 0 0 0;
-}
 .studio {
   background-color: #f7f7f7;
   color: #181818;
@@ -836,48 +605,7 @@ img.bio-hero-image {
   color: #aaaaaa; 
   font-weight: bold; 
 }
-/* --- PLAY ICON HOVER EFFECT --- */
-.cover-wrapper {
-  position: relative;
-  display: block;
-  width: 150px;
-  height: 150px;
-  margin-bottom: 8px;
-}
 
-/* Override your previous image margin since the wrapper handles it now */
-.credits .artwork img {
-  margin-bottom: 0; 
-  width: 100%;
-  height: 100%;
-}
-
-.play-overlay {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Subtle dark tint */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0; /* Hidden by default */
-  transition: opacity 0.2s ease;
-  border-radius: 2px;
-  pointer-events: none; /* Prevents the overlay from eating clicks */
-}
-
-.play-overlay svg {
-  width: 48px;
-  height: 48px;
-  color: #EDA40E; /* Your brand color */
-  filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.1)); /* Makes it pop */
-  opacity:0;
-  transition: opacity 0.5s ease;
-}
-
-/* Trigger the effect when hovering anywhere on the grid item */
-.credits .artwork a:hover .play-overlay, .credits .artwork a:hover .play-overlay svg{
-  opacity: 1;
-}
 
 /* --- INLINE BIO TOOLTIP --- */
 .bio-trigger {
@@ -1017,14 +745,11 @@ img.bio-hero-image {
     color: #f0f0f0
   }
 
-  .credits,
   .contact input,
   .contact textarea {
     border-color: #282828;
     color: #f0f0f0
   }
-  
-  .credits {background-color: #191919;}
 
   footer .language {border-top:4px solid #282828}
 
@@ -1061,9 +786,6 @@ img.bio-hero-image {
   }
 
   h1,
-  .credits h2,
-  .contact h2,
-  .credits h3,
   .contact p {
     color: #f0f0f0
   }
@@ -1091,7 +813,6 @@ img.bio-hero-image {
  .gallery-counter {
    color: #f0f0f0;
  }
- h3.creditsheader{color:#f0f0f0;}
  .close-bio {background: rgba(22,22,22,0.75);}
  
  @media (hover: hover) and (pointer: fine) {

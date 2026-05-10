@@ -7,47 +7,50 @@
     </div>
   </div>
   
-  <div class="artwork gallery-grid">
-  {% for item in creditList %}
-    <a href="{{ item.link }}" 
-       class="grid-item am-trigger"
-       data-date="{{ item.date }}" 
-       data-artist="{{ item.artist }}"
-       data-featured="{{ item.featured }}">
-       
-       <div class="cover-wrapper">
-         {% image "./src/_data/" + item.image, item.artist + " - " + item.work, "150px", "", "lazy", [450] %}
-         <div class="play-overlay">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#EDA40E" viewBox="0 -960 960 960"><path d="m380-300 280-180-280-180zM480-80q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80"/></svg>
+  <div class="artwork-wrapper">
+    <div class="artwork gallery-grid">
+    {% for item in creditList %}
+      <a href="{{ item.link }}" 
+         class="grid-item am-trigger"
+         data-date="{{ item.date }}" 
+         data-artist="{{ item.artist }}"
+         data-featured="{{ item.featured }}">
+         
+         <div class="cover-wrapper">
+           {% image "./src/_data/" + item.image, item.artist + " - " + item.work, "150px", "", "lazy", [450] %}
+           <div class="play-overlay">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#EDA40E" viewBox="0 -960 960 960"><path d="m380-300 280-180-280-180zM480-80q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80"/></svg>
+           </div>
          </div>
-       </div>
-       <h3>{{ item.artist }}</h3>
-      <h4>{{ item.work }}</h4>
-      
-      <p>{{ item.service }}
-        <span>
-          {% if locale == "en" %}
-             {{ item.date }}
-          {% else %}
-             {{ item.date 
-                | replace("January", "Janeiro")
-                | replace("February", "Fevereiro")
-                | replace("March", "Março")
-                | replace("April", "Abril")
-                | replace("May", "Maio")
-                | replace("June", "Junho")
-                | replace("July", "Julho")
-                | replace("August", "Agosto")
-                | replace("September", "Setembro")
-                | replace("October", "Outubro")
-                | replace("November", "Novembro")
-                | replace("December", "Dezembro") 
-             }}
-          {% endif %}
-        </span>
-      </p>
-    </a>
-  {% endfor %}
+         <h3>{{ item.artist }}</h3>
+        <h4>{{ item.work }}</h4>
+        
+        <p>{{ item.service }}
+          <span>
+            {% if locale == "en" %}
+               {{ item.date }}
+            {% else %}
+               {{ item.date 
+                  | replace("January", "Janeiro")
+                  | replace("February", "Fevereiro")
+                  | replace("March", "Março")
+                  | replace("April", "Abril")
+                  | replace("May", "Maio")
+                  | replace("June", "Junho")
+                  | replace("July", "Julho")
+                  | replace("August", "Agosto")
+                  | replace("September", "Setembro")
+                  | replace("October", "Outubro")
+                  | replace("November", "Novembro")
+                  | replace("December", "Dezembro") 
+               }}
+            {% endif %}
+          </span>
+        </p>
+      </a>
+    {% endfor %}
+    </div>
+    <div class="scroll-fade"></div>
   </div>
 </div>
 
@@ -77,13 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeButtons = document.querySelectorAll('.close-bio');
   const overlays = document.querySelectorAll('.bio-overlay');
 
-  // Open the corresponding overlay
   bioTriggers.forEach(trigger => {
     trigger.addEventListener('click', (e) => {
       e.preventDefault(); 
       const targetId = trigger.getAttribute('data-target');
       const targetOverlay = document.getElementById(targetId);
-      
       if (targetOverlay) {
         targetOverlay.classList.add('is-open');
         document.body.style.overflow = 'hidden'; 
@@ -91,14 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Close the overlay when clicking X
   closeButtons.forEach(button => {
     button.addEventListener('click', () => {
       overlays.forEach(overlay => overlay.classList.remove('is-open'));
       document.body.style.overflow = ''; 
     });
   });
-
 
   // ==========================================================================
   // 2. DYNAMIC IMESSAGE LOGIC
@@ -110,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return false;
   };
 
-  // If on an Apple device, find all iMessage containers and inject the buttons
   if (isAppleDevice()) {
     const iMessageContainers = document.querySelectorAll('.imessage-container');
     const iMessageSvg = `
@@ -126,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
       
       if (user && domain) {
         const fullEmail = user + "@" + domain;
-        
         container.style.display = 'block'; 
         container.innerHTML = `
           <a href="sms:${fullEmail}" class="social-btn imessage-btn">
@@ -138,9 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-
   // ==========================================================================
-  // 3. CREDITS SORTING LOGIC
+  // 3. CREDITS SORTING, DRAG, & SHADOW FADE LOGIC
   // ==========================================================================
   const parseDate = (dateStr) => {
     if (!dateStr) return 0;
@@ -159,8 +155,63 @@ document.addEventListener('DOMContentLoaded', () => {
   sections.forEach(section => {
     const grid = section.querySelector('.gallery-grid');
     const buttons = section.querySelectorAll('.sort-btn');
+    const scrollFade = section.querySelector('.scroll-fade');
 
     if (!grid || buttons.length === 0) return;
+
+    // --- Dynamic Shadow Fade Logic ---
+    const handleScrollFade = () => {
+      if (!scrollFade) return;
+      const maxScroll = grid.scrollWidth - grid.clientWidth;
+      // If we are within 10px of the end, fade out the shadow
+      if (grid.scrollLeft >= maxScroll - 10) {
+        scrollFade.style.opacity = '0';
+      } else {
+        scrollFade.style.opacity = '1';
+      }
+    };
+
+    grid.addEventListener('scroll', handleScrollFade);
+    window.addEventListener('resize', handleScrollFade);
+
+    // --- Desktop Drag-to-Scroll UX ---
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let dragDistance = 0;
+
+    grid.addEventListener('mousedown', (e) => {
+      isDown = true;
+      dragDistance = 0;
+      grid.style.cursor = 'grabbing';
+      startX = e.pageX - grid.offsetLeft;
+      scrollLeft = grid.scrollLeft;
+    });
+
+    grid.addEventListener('mouseleave', () => {
+      isDown = false;
+      grid.style.cursor = 'grab';
+      grid.classList.remove('is-dragging');
+    });
+
+    grid.addEventListener('mouseup', () => {
+      isDown = false;
+      grid.style.cursor = 'grab';
+      setTimeout(() => grid.classList.remove('is-dragging'), 50);
+    });
+
+    grid.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - grid.offsetLeft;
+      const walk = (x - startX) * 1.5; 
+      grid.scrollLeft = scrollLeft - walk;
+      
+      dragDistance += Math.abs(walk);
+      if (dragDistance > 5) { 
+         grid.classList.add('is-dragging');
+      }
+    });
 
     const allItems = Array.from(grid.querySelectorAll('.grid-item'));
 
@@ -200,6 +251,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       itemsToSort.forEach(item => grid.appendChild(item));
       grid.scrollTo({ left: 0, behavior: 'smooth' });
+      
+      // Reset the shadow fade when a sort tab is clicked
+      if (scrollFade) {
+        scrollFade.style.opacity = '1';
+        setTimeout(handleScrollFade, 100); // Verify state after smooth scroll ends
+      }
     };
 
     buttons.forEach(btn => {
@@ -212,7 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     runSort('featured');
   });
-
 
   // ==========================================================================
   // 4. MEDIA MODAL LOGIC (Apple, Spotify, Bandcamp, YouTube)
@@ -228,17 +284,12 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const urlObj = new URL(url);
       
-      // Apple Music
       if (urlObj.hostname.includes('music.apple.com')) {
         urlObj.hostname = 'embed.music.apple.com';
-        
-        // NEW: Force dark mode or let it adapt automatically
-        urlObj.searchParams.set('theme', 'auto'); // Change to 'dark' to force it always
-        
+        urlObj.searchParams.set('theme', 'auto');
         return urlObj.toString();
       }
       
-      // Spotify
       if (urlObj.hostname.includes('spotify.com')) {
         if (!urlObj.pathname.startsWith('/embed')) {
           urlObj.pathname = '/embed' + urlObj.pathname;
@@ -246,37 +297,23 @@ document.addEventListener('DOMContentLoaded', () => {
         return urlObj.toString();
       }
 
-      // Bandcamp (Dynamic Dark Mode & Custom Brand Colors)
       if (urlObj.hostname.includes('bandcamp.com') && urlObj.pathname.includes('/EmbeddedPlayer')) {
-        // Check if the user's system is currently in Dark Mode
         const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        // Use your exact website CSS colors (without the '#' symbol)
         const bgCol = isDark ? '161616' : 'f7f7f7'; 
-        const linkCol = 'EDA40E'; // Your signature Knurl Mastering orange
-        
-        // Swap out whatever colors are in the JSON link with your dynamic colors
+        const linkCol = 'EDA40E'; 
         urlObj.pathname = urlObj.pathname
           .replace(/bgcol=[a-fA-F0-9]+/, `bgcol=${bgCol}`)
           .replace(/linkcol=[a-fA-F0-9]+/, `linkcol=${linkCol}`);
-          
         return urlObj.toString();
       }
 
-      // YouTube (Forces privacy-enhanced mode)
       if (urlObj.hostname.includes('youtube.com') || urlObj.hostname.includes('youtu.be') || urlObj.hostname.includes('youtube-nocookie.com')) {
         let videoId = '';
-        
-        // Extract ID from youtu.be/ID
         if (urlObj.hostname.includes('youtu.be')) {
           videoId = urlObj.pathname.slice(1);
-        } 
-        // Extract ID from youtube.com/watch?v=ID
-        else if (urlObj.searchParams.has('v')) {
+        } else if (urlObj.searchParams.has('v')) {
           videoId = urlObj.searchParams.get('v');
-        } 
-        // Already an embed link
-        else if (urlObj.pathname.includes('/embed/')) {
+        } else if (urlObj.pathname.includes('/embed/')) {
           return `https://www.youtube-nocookie.com${urlObj.pathname}`; 
         }
 
@@ -290,7 +327,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return url;
   };
 
-  // Reset container position back to CSS default (bottom-right)
   const resetPosition = () => {
     if (container) {
       container.style.top    = '';
@@ -310,12 +346,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   triggers.forEach(trigger => {
     trigger.addEventListener('click', (e) => {
+      const grid = trigger.closest('.gallery-grid');
+      if (grid && grid.classList.contains('is-dragging')) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+
       e.preventDefault();
       const originalUrl = trigger.getAttribute('href');
 
       if (originalUrl) {
-        
-        // Safety net for Bandcamp standard links
         if (originalUrl.includes('bandcamp.com') && !originalUrl.includes('EmbeddedPlayer')) {
           window.open(originalUrl, '_blank', 'noopener,noreferrer');
           return;
@@ -323,7 +364,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let optimalHeight = 450;
         
-        // Detect platform to set height
         if (originalUrl.includes('music.apple.com')) {
           optimalHeight = (originalUrl.includes('?i=') || originalUrl.includes('/song/')) ? 175 : 450;
         } else if (originalUrl.includes('spotify.com')) {
@@ -331,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (originalUrl.includes('bandcamp.com/EmbeddedPlayer')) {
           optimalHeight = originalUrl.includes('track=') ? 120 : 472;
         } else if (originalUrl.includes('youtube') || originalUrl.includes('youtu.be')) {
-          optimalHeight = 220; // 16:9 sweet spot
+          optimalHeight = 220; 
         }
 
         iframe.setAttribute('height', optimalHeight);
@@ -343,48 +383,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
-  // Close via overlay — mobile only
   if (modalBg) {
     modalBg.addEventListener('click', () => {
       if (window.innerWidth < 768) closeModal();
     });
   }
 
-
   // ==========================================================================
   // 5. GLOBAL ESCAPE KEY LOGIC
   // ==========================================================================
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      // Close Media Player
-      if (modal && modal.classList.contains('is-open')) {
-        closeModal();
-      }
-      // Close Bio Overlays
+      if (modal && modal.classList.contains('is-open')) closeModal();
       overlays.forEach(overlay => overlay.classList.remove('is-open'));
       document.body.style.overflow = ''; 
     }
   });
 
-
   // ==========================================================================
   // 6. DESKTOP DRAG LOGIC (For Media Player)
   // ==========================================================================
-  let isDragging = false;
-  let offsetX = 0;
-  let offsetY = 0;
+  let isDraggingPlayer = false;
+  let offsetPlayerX = 0;
+  let offsetPlayerY = 0;
   
-  // Helper to detect touchscreens (iPads, Android tablets, phones)
   const isTouchDevice = () => window.matchMedia("(pointer: coarse)").matches;
   
   if (container) {
-    // 1. Start Drag
     container.addEventListener('mousedown', (e) => {
-      // Disable on small screens AND all touchscreens
       if (window.innerWidth < 768 || isTouchDevice()) return;
       if (e.target === closeBtn) return;
   
-      isDragging = true;
+      isDraggingPlayer = true;
   
       const rect = container.getBoundingClientRect();
       container.style.bottom = 'unset';
@@ -392,33 +422,28 @@ document.addEventListener('DOMContentLoaded', () => {
       container.style.top    = rect.top + 'px';
       container.style.left   = rect.left + 'px';
   
-      offsetX = e.clientX - rect.left;
-      offsetY = e.clientY - rect.top;
+      offsetPlayerX = e.clientX - rect.left;
+      offsetPlayerY = e.clientY - rect.top;
   
       iframe.style.pointerEvents = 'none';
-  
       e.preventDefault();
     });
   
-    // 2. Double-Click to Snap Back to Default
     container.addEventListener('dblclick', (e) => {
-      // Disable on small screens AND all touchscreens
       if (window.innerWidth < 768 || isTouchDevice()) return;
       if (e.target === closeBtn) return;
   
-      isDragging = false;
+      isDraggingPlayer = false;
       if (iframe) iframe.style.pointerEvents = '';
-      
       resetPosition();
     });
   }
   
-  // 3. Handle the Dragging
   document.addEventListener('mousemove', (e) => {
-    if (!isDragging || !container) return;
+    if (!isDraggingPlayer || !container) return;
   
-    let newLeft = e.clientX - offsetX;
-    let newTop  = e.clientY - offsetY;
+    let newLeft = e.clientX - offsetPlayerX;
+    let newTop  = e.clientY - offsetPlayerY;
   
     const rect = container.getBoundingClientRect();
     newLeft = Math.max(0, Math.min(newLeft, window.innerWidth  - rect.width));
@@ -428,17 +453,249 @@ document.addEventListener('DOMContentLoaded', () => {
     container.style.top  = newTop  + 'px';
   });
   
-  // 4. End Drag
   document.addEventListener('mouseup', () => {
-    if (isDragging && iframe) {
+    if (isDraggingPlayer && iframe) {
       iframe.style.pointerEvents = '';
     }
-    isDragging = false;
+    isDraggingPlayer = false;
   });
 });
 </script>
 
 <style>
+.credits {
+  margin: 0;
+  padding:20px 0 0 0;
+  background-color:#f0f0f0;
+}
+@media screen and (min-width: 768px) {
+  .credits {padding:20px;}
+}  
+.credits .innercredits {
+  background-image: linear-gradient(to right, #383838, #363636, #353535, #333333, #323232);
+  border-top: 4px solid #EDA40E;
+}
+
+.credits h3 {
+  margin: 0;
+  padding: 3px 0 5px 6px;
+  font-optical-sizing: auto;
+  font-size: 1rem;
+  white-space:nowrap;
+  font-weight: 600;
+}
+
+.split-container {
+  display: flex;
+  flex-wrap: wrap; 
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .split-col {
+    width: calc(50% - 10px); 
+    box-sizing: border-box;
+    padding:10px;
+    margin:0 10px 0 0;
+    background-color: #202020;
+    border:1px solid #282828;
+  }
+  .split-col:last-child {padding-left:10px;margin:0 0 0 10px;}
+}
+
+.split-col h3{margin:0 0 10px 20px;padding:0;}
+.split-col h3 {color:#181818}
+  
+@media (min-width: 768px) {
+  .split-col h3{margin:0 0 10px 0;padding:0;color:#fff}
+}
+.split-col img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  display: block;
+}
+.split-col img.pos-right {
+  object-position: right center; 
+}
+.split-col img.pos-left {
+  object-position: left center; 
+}
+.full-section {
+  padding: 0;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .split-col {
+    width: 100%;
+    padding:0;
+    margin:0 0 40px 0;
+    border:none;
+  }
+}
+
+.credits-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:1px 5px 0 0;
+}
+@media (max-width: 768px) {
+  .credits-header {padding:1px 15px 0 10px;}
+}
+
+.credits-header a{color:#fff}
+.sort-controls {
+  display: flex;
+  gap: 1rem;
+  padding:10px 10px 7px 10px;
+}
+
+.sort-btn {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: 0.6rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  color:#999;
+  white-space: nowrap;
+}
+
+.sort-btn:hover {
+  color: #666;
+}
+.bio-trigger {white-space:nowrap;}
+
+.sort-btn.active {
+    color: #EDA40E;          
+    opacity: 1;                  
+}
+
+h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid #EDA40E;font-size:140%}
+
+/* --- THE SCROLL GRID UPDATES --- */
+
+/* NEW: Wrapper relative positioning to hold the absolute shadow fade */
+.artwork-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.credits .artwork {
+  display: grid;
+  grid-template-rows: repeat(2, min-content);
+  grid-auto-flow: column;
+  grid-auto-columns: 150px;
+  gap: 30px 25px;
+
+  /* Prevents grid swiping from accidentally swiping the whole page back/forward */
+  overscroll-behavior-x: contain; 
+  cursor: grab; 
+  overflow-x: auto;
+  overflow-y: hidden;
+  
+  width: 100%;
+  height: auto; 
+  margin: 0;
+  
+  /* Restored original padding exactly as requested */
+  padding: 30px 20px; 
+  
+  background-color: #242424;
+  box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.15) inset, 0px -10px 10px -10px rgba(0, 0, 0, 0.25) inset;
+  color: #fff;
+  
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* NEW: The dynamic right-side shadow fade */
+.scroll-fade {
+  position: absolute;
+  top: 0;
+  right: -1px;
+  bottom: 0;
+  width: 25px; /* Width of the shadow */
+  /* Perfect blend into the #242424 background */
+  background: linear-gradient(to right, rgba(36, 36, 36, 0) 0%, rgba(36, 36, 36, 1) 100%);
+  pointer-events: none; /* Allows clicks to pass through to the underlying images */
+  z-index: 5;
+  transition: opacity 0.3s ease;
+}
+
+.credits .artwork:active {
+  cursor: grabbing;
+}
+
+.credits .artwork a {
+  width: 150px; 
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.credits .artwork img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain; 
+  margin-bottom: 8px; 
+  outline: 1px solid #181818;
+  outline-offset: -1px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  transition: all .1s linear;
+  display: block;
+  border-radius:2px;
+}
+
+.credits .artwork a:hover img {
+  outline: 2px solid rgba(237, 164, 14, 0.8);
+}
+
+.credits .artwork h3 {
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+}
+
+.credits .artwork h4 {
+  font-weight: 600;
+  margin: 0;
+  padding: 2px 0 0 0;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+}
+
+.credits .artwork p {
+  font-size: 0.7rem;
+  font-weight: 400;
+  margin: 0;
+  padding: 2px 0 0 0;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.credits .artwork p span {
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  margin: 4px 0 0 0;
+}
   /* --- MUSIC MODAL / MINI-PLAYER STYLES --- */
 .am-modal {
   display: none;
@@ -500,8 +757,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ---------- DESKTOP: floating bottom-right mini-player ---------- */
 @media (min-width: 768px) {
-
-  /* Collapse the modal wrapper so it doesn't block the page */
   .am-modal {
     top: unset; left: unset;
     bottom: 0; right: 0;
@@ -510,15 +765,10 @@ document.addEventListener('DOMContentLoaded', () => {
     overflow: visible;
   }
 
-  /* Hide the darkening overlay */
   .am-modal-overlay {
     display: none;
   }
 
-  /* 
-    KEY FIX: position: fixed here so top/left set by JS
-    are always relative to the viewport, not the parent.
-  */
   .am-modal-container {
     position: fixed;
     bottom: 24px;
@@ -537,7 +787,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cursor: grabbing;
   }
 
-  /* Close button keeps a normal pointer cursor */
   .am-modal-close {
     cursor: pointer;
   }
@@ -547,5 +796,61 @@ document.addEventListener('DOMContentLoaded', () => {
     to   { transform: translateY(0);    opacity: 1; }
   }
 }
+/* --- PLAY ICON HOVER EFFECT --- */
+.cover-wrapper {
+  position: relative;
+  display: block;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 8px;
+}
+
+.credits .artwork img {
+  margin-bottom: 0; 
+  width: 100%;
+  height: 100%;
+}
+
+.play-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0; 
+  transition: opacity 0.2s ease;
+  border-radius: 2px;
+  pointer-events: none; 
+}
+
+.play-overlay svg {
+  width: 48px;
+  height: 48px;
+  color: #EDA40E; 
+  filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.1)); 
+  opacity:0;
+  transition: opacity 0.5s ease;
+}
+
+.credits .artwork a:hover .play-overlay, .credits .artwork a:hover .play-overlay svg{
+  opacity: 1;
+}
+@media (prefers-color-scheme: dark) {
+  .credits {
+    border-color: #282828;
+    color: #f0f0f0
+  }
   
+  .credits {background-color: #191919;}
+
+  .credits h2,
+  .contact h2,
+  .credits h3{
+    color: #f0f0f0
+  }
+
+ h3.creditsheader{color:#f0f0f0;}
+
+}  
 </style>
