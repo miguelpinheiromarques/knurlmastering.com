@@ -50,7 +50,15 @@
       </a>
     {% endfor %}
     </div>
-    <div class="scroll-fade"></div>
+  </div>
+
+  <div class="credits-footer">
+    <button class="grid-nav left-nav" aria-label="Scroll left">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    </button>
+    <button class="grid-nav right-nav" aria-label="Scroll right">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </button>
   </div>
 </div>
 
@@ -74,33 +82,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================================================
-  // 1. BIO OVERLAY LOGIC
-  // ==========================================================================
-  const bioTriggers = document.querySelectorAll('.bio-trigger');
-  const closeButtons = document.querySelectorAll('.close-bio');
-  const overlays = document.querySelectorAll('.bio-overlay');
-
-  bioTriggers.forEach(trigger => {
-    trigger.addEventListener('click', (e) => {
-      e.preventDefault(); 
-      const targetId = trigger.getAttribute('data-target');
-      const targetOverlay = document.getElementById(targetId);
-      if (targetOverlay) {
-        targetOverlay.classList.add('is-open');
-        document.body.style.overflow = 'hidden'; 
-      }
-    });
-  });
-
-  closeButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      overlays.forEach(overlay => overlay.classList.remove('is-open'));
-      document.body.style.overflow = ''; 
-    });
-  });
-
-  // ==========================================================================
-  // 2. DYNAMIC IMESSAGE LOGIC
+  // 1. DYNAMIC IMESSAGE LOGIC
   // ==========================================================================
   const isAppleDevice = () => {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -136,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // 3. CREDITS SORTING, DRAG, & SHADOW FADE LOGIC
+  // 2. CREDITS SORTING, DRAG, & ARROW LOGIC
   // ==========================================================================
   const parseDate = (dateStr) => {
     if (!dateStr) return 0;
@@ -155,26 +137,43 @@ document.addEventListener('DOMContentLoaded', () => {
   sections.forEach(section => {
     const grid = section.querySelector('.gallery-grid');
     const buttons = section.querySelectorAll('.sort-btn');
-    const scrollFade = section.querySelector('.scroll-fade');
+    const leftArrow = section.querySelector('.left-nav');
+    const rightArrow = section.querySelector('.right-nav');
 
     if (!grid || buttons.length === 0) return;
 
-    // --- Dynamic Shadow Fade Logic ---
-    const handleScrollFade = () => {
-      if (!scrollFade) return;
+    const updateArrows = () => {
+      if (!leftArrow || !rightArrow) return;
       const maxScroll = grid.scrollWidth - grid.clientWidth;
-      // If we are within 10px of the end, fade out the shadow
-      if (grid.scrollLeft >= maxScroll - 10) {
-        scrollFade.style.opacity = '0';
+
+      if (grid.scrollLeft > 10) {
+        leftArrow.classList.add('is-visible');
       } else {
-        scrollFade.style.opacity = '1';
+        leftArrow.classList.remove('is-visible');
+      }
+
+      if (grid.scrollLeft < maxScroll - 10 && maxScroll > 0) {
+        rightArrow.classList.add('is-visible');
+      } else {
+        rightArrow.classList.remove('is-visible');
       }
     };
 
-    grid.addEventListener('scroll', handleScrollFade);
-    window.addEventListener('resize', handleScrollFade);
+    grid.addEventListener('scroll', updateArrows);
+    window.addEventListener('resize', updateArrows);
 
-    // --- Desktop Drag-to-Scroll UX ---
+    if (leftArrow) {
+      leftArrow.addEventListener('click', () => {
+        grid.scrollBy({ left: -350, behavior: 'smooth' }); 
+      });
+    }
+    
+    if (rightArrow) {
+      rightArrow.addEventListener('click', () => {
+        grid.scrollBy({ left: 350, behavior: 'smooth' }); 
+      });
+    }
+
     let isDown = false;
     let startX;
     let scrollLeft;
@@ -252,11 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
       itemsToSort.forEach(item => grid.appendChild(item));
       grid.scrollTo({ left: 0, behavior: 'smooth' });
       
-      // Reset the shadow fade when a sort tab is clicked
-      if (scrollFade) {
-        scrollFade.style.opacity = '1';
-        setTimeout(handleScrollFade, 100); // Verify state after smooth scroll ends
-      }
+      setTimeout(updateArrows, 100); 
     };
 
     buttons.forEach(btn => {
@@ -271,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================================================
-  // 4. MEDIA MODAL LOGIC (Apple, Spotify, Bandcamp, YouTube)
+  // 3. MEDIA MODAL LOGIC (Apple, Spotify, Bandcamp, YouTube)
   // ==========================================================================
   const modal     = document.getElementById('am-modal');
   const iframe    = document.getElementById('am-iframe');
@@ -390,18 +385,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // 5. GLOBAL ESCAPE KEY LOGIC
+  // 4. GLOBAL ESCAPE KEY LOGIC
   // ==========================================================================
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (modal && modal.classList.contains('is-open')) closeModal();
-      overlays.forEach(overlay => overlay.classList.remove('is-open'));
-      document.body.style.overflow = ''; 
     }
   });
 
   // ==========================================================================
-  // 6. DESKTOP DRAG LOGIC (For Media Player)
+  // 5. DESKTOP DRAG LOGIC (For Media Player)
   // ==========================================================================
   let isDraggingPlayer = false;
   let offsetPlayerX = 0;
@@ -575,9 +568,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid #EDA40E;font-size:140%}
 
-/* --- THE SCROLL GRID UPDATES --- */
+/* --- THE SCROLL GRID --- */
 
-/* NEW: Wrapper relative positioning to hold the absolute shadow fade */
 .artwork-wrapper {
   position: relative;
   width: 100%;
@@ -590,7 +582,6 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
   grid-auto-columns: 150px;
   gap: 30px 25px;
 
-  /* Prevents grid swiping from accidentally swiping the whole page back/forward */
   overscroll-behavior-x: contain; 
   cursor: grab; 
   overflow-x: auto;
@@ -599,8 +590,6 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
   width: 100%;
   height: auto; 
   margin: 0;
-  
-  /* Restored original padding exactly as requested */
   padding: 30px 20px; 
   
   background-color: #242424;
@@ -611,23 +600,51 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
   scroll-behavior: smooth;
 }
 
-/* NEW: The dynamic right-side shadow fade */
-.scroll-fade {
-  position: absolute;
-  top: 0;
-  right: -1px;
-  bottom: 0;
-  width: 25px; /* Width of the shadow */
-  /* Perfect blend into the #242424 background */
-  background: linear-gradient(to right, rgba(36, 36, 36, 0) 0%, rgba(36, 36, 36, 1) 100%);
-  pointer-events: none; /* Allows clicks to pass through to the underlying images */
-  z-index: 5;
-  transition: opacity 0.3s ease;
-}
-
 .credits .artwork:active {
   cursor: grabbing;
 }
+
+/* --- BOTTOM NAVIGATION BAR --- */
+.credits-footer {
+  display: flex;
+  justify-content: flex-end; 
+  gap: 0.5rem;
+  /* Thin padding to pull the arrows tightly against the grid */
+  padding: 4px 15px; 
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .credits-footer { display: none !important; }
+}
+
+.credits-footer button svg{height:18px;width:18px;}
+
+.grid-nav {
+  background: transparent;
+  color: #999;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Minimal padding to keep the buttons small */
+  padding: 2px;
+  transition: all 0.2s ease;
+  
+  opacity: 0;
+  visibility: hidden;
+}
+
+.grid-nav:hover {
+  color: #EDA40E;
+  transform: scale(1.1);
+}
+
+.grid-nav.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
 
 .credits .artwork a {
   width: 150px; 
@@ -710,7 +727,6 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
   display: flex;
 }
 
-/* ---------- MOBILE (default): full overlay ---------- */
 .am-modal-overlay {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -754,8 +770,6 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
   .am-modal-container {background: rgba(28,28,30,0.98);}
 }
 
-
-/* ---------- DESKTOP: floating bottom-right mini-player ---------- */
 @media (min-width: 768px) {
   .am-modal {
     top: unset; left: unset;
@@ -796,6 +810,7 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
     to   { transform: translateY(0);    opacity: 1; }
   }
 }
+
 /* --- PLAY ICON HOVER EFFECT --- */
 .cover-wrapper {
   position: relative;
@@ -836,6 +851,7 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
 .credits .artwork a:hover .play-overlay, .credits .artwork a:hover .play-overlay svg{
   opacity: 1;
 }
+
 @media (prefers-color-scheme: dark) {
   .credits {
     border-color: #282828;
@@ -851,6 +867,5 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
   }
 
  h3.creditsheader{color:#f0f0f0;}
-
 }  
 </style>

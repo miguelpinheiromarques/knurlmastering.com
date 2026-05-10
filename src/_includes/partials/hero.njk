@@ -69,7 +69,10 @@
 	<h2>Miguel Pinheiro Marques</h2>
 	{% image "./src/images/miguelpinheiromarques3.jpg", "Miguel Pinheiro Marques", "100vw", "bio-hero-image", "eager" %}
 	{% if locale == "en" %}	
-	<p>I have been mastering records since 2010. Throughout my career, I have had the privilege of working with both major and independent labels, collaborating with emerging artists as well as established acts across a wide variety of genres.</p><p>Before starting Knurl Mastering, I was a founding member of Estúdios Sá da Bandeira, Bender Mastering Studio, and Arda Recorders.</p>
+	<p>I wanted to be involved in record-making from the time I was a teenager. Mastering turned out to be the right fit.</p>
+	<p>I've been at it since 2010, first as a founding member of Estúdios Sá da Bandeira, Bender Mastering Studio, and Arda Recorders, and now at Knurl Mastering. Over those fifteen years, I've worked with major and independent labels across a wide range of genres, from well-known Portuguese artists to international acts and newer musicians still finding their sound.</p><p>
+	It's a hard job to complain about. You spend your days listening to music on a system that lets you hear all of it, and there's a moment that comes with every record, once the work is done, when I listen through the finished master from start to finish before anyone else. Sometimes even before the artist. Just me and the record.</p><p>
+	<p>What's stayed constant through all of it is the approach: listen carefully, respect the mix, and know when to add something and when to stay out of the way.</p>
 	<h4>Some of the artists I've worked with</h4>
 	{% else %}
 	<p>Dedico-me à masterização de discos desde 2010. Ao longo do meu percurso, tive o privilégio de trabalhar com editoras multinacionais e independentes, colaborando tanto com artistas emergentes como consagrados, numa grande diversidade de géneros.</p><p>Sou membro fundador dos Estúdios Sá da Bandeira, do Bender Mastering Studio e da Arda Recorders. Sou também fundador do Knurl Mastering, estúdio de masterização onde atualmente trabalho.</p>
@@ -256,12 +259,13 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- 1. BIO OVERLAY LOGIC ---
+  // ==========================================================================
+  // 1. BIO OVERLAY LOGIC
+  // ==========================================================================
   const bioTriggers = document.querySelectorAll('.bio-trigger');
   const closeButtons = document.querySelectorAll('.close-bio');
   const overlays = document.querySelectorAll('.bio-overlay');
 
-  // Open the corresponding overlay
   bioTriggers.forEach(trigger => {
 	trigger.addEventListener('click', (e) => {
 	  e.preventDefault(); 
@@ -275,7 +279,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
   });
 
-  // Close the overlay
   closeButtons.forEach(button => {
 	button.addEventListener('click', () => {
 	  overlays.forEach(overlay => overlay.classList.remove('is-open'));
@@ -291,7 +294,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // --- 2. DYNAMIC IMESSAGE LOGIC ---
+  // ==========================================================================
+  // 2. DYNAMIC IMESSAGE LOGIC
+  // ==========================================================================
   const isAppleDevice = () => {
 	const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 	if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) return true;
@@ -299,11 +304,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	return false;
   };
 
-  // If the user is on an Apple device, find all iMessage containers and inject the buttons
   if (isAppleDevice()) {
 	const iMessageContainers = document.querySelectorAll('.imessage-container');
 	
-	// Shared SVG for all iMessage buttons
 	const iMessageSvg = `
 	  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" class="btn-icon">
 		<path d="M12 2C6.477 2 2 6.14 2 11.25c0 2.87 1.455 5.43 3.738 7.152-.08.822-.44 2.115-1.503 3.256a.75.75 0 00.51 1.298c2.477-.042 4.496-1.134 5.577-1.921A10.74 10.74 0 0012 20.5c5.523 0 10-4.14 10-9.25S17.523 2 12 2z"/>
@@ -311,14 +314,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	`;
 
 	iMessageContainers.forEach(container => {
-	  // Pull the specific email data AND the translated label from the HTML dataset
 	  const user = container.getAttribute('data-user');
 	  const domain = container.getAttribute('data-domain');
-	  const label = container.getAttribute('data-label') || "Message me on iMessage"; // Fallback just in case
+	  const label = container.getAttribute('data-label') || "Message me on iMessage"; 
 	  
 	  if (user && domain) {
 		const fullEmail = user + "@" + domain;
-		
 		container.style.display = 'block'; 
 		container.innerHTML = `
 		  <a href="sms:${fullEmail}" class="social-btn imessage-btn">
