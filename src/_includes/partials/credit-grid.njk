@@ -142,6 +142,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!grid || buttons.length === 0) return;
 
+    grid.addEventListener('wheel', (e) => {
+      const isVertical = Math.abs(e.deltaY) > Math.abs(e.deltaX);
+      if (isVertical) {
+        e.preventDefault();
+        window.scrollBy(0, e.deltaY);
+      }
+      // horizontal: do nothing — browser handles it natively, momentum and all
+    }, { passive: false });
+
     const updateArrows = () => {
       if (!leftArrow || !rightArrow) return;
       const maxScroll = grid.scrollWidth - grid.clientWidth;
@@ -586,10 +595,13 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
   grid-auto-columns: 150px;
   gap: 30px 25px;
 
-  overscroll-behavior-x: contain; 
   cursor: grab; 
+  overscroll-behavior: auto; 
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: clip;    /* 1. CHANGE 'hidden' to 'clip' */
+  touch-action: pan-x; /* 2. ADD this line */
   
   width: 100%;
   height: auto; 
@@ -598,8 +610,6 @@ h3.creditsheader{color:#161616;margin:0 20px;padding:20px 0;border-top:3px solid
   
   background-color: #282828;
   color: #fff;
-  
-  -webkit-overflow-scrolling: touch;
   
   box-shadow: inset 0px 10px 10px 0px rgba(20,20,20,0.4),inset 0px -10px 10px 0px rgba(20,20,20,0.4);
 }
