@@ -1,5 +1,14 @@
 [
   {
+    "artist": "emmy Curl",
+    "work": "Lembra-me Um Sonho Lindo",
+    "service": "digital mastering",
+    "date": "May 2026",
+    "image": "covers/emmy_curl_lembra_me_um_sonho_lindo.jpg",
+    "link": "https://music.apple.com/pt/album/lembra-me-um-sonho-lindo/6768600668?i=6768600671&l=en-GB",
+    "featured": true
+  },   
+  {
     "artist": "Asa Cobra",
     "work": "Revolta & Amor",
     "service": "vinyl & digital mastering",
@@ -24,7 +33,7 @@
     "date": "March 2026",
     "image": "covers/emmy_curl_encanto.jpg",
     "link": "https://music.apple.com/pt/album/encanto/1888147353?i=1888147548&l=en-GB",
-    "featured": true
+    "featured": false
   },  
   {
     "artist": "Neon Soho",
