@@ -1,0 +1,219 @@
+<span class="overlay-trigger legal-trigger-text" data-target="legal-modal">
+  {{ 'Legal Info & Privacy' if locale != 'pt' else 'Informações Legais e RGPD' }}
+</span>
+
+<div id="legal-modal" class="fullscreen-overlay">
+  <div class="overlay-bg"></div>
+  <button class="close-overlay" aria-label="Close legal information">&times;</button>
+  
+  <div class="legal-container">
+	<div class="legal-content">
+	  
+	  {% if locale != 'pt' %}
+		<section class="legal-section">
+		  <h2>Terms of Service & Legal Notice</h2>
+		  <p><strong>Business Identity:</strong> Knurl Mastering is a commercial brand owned and operated by Miguel Pinheiro Marques, registered as an individual entrepreneur (Empresário em Nome Individual) in Portugal, with fiscal identification number (NIF) <strong>220270694</strong>. Registered address: Rua Conselheiro Costa Braga 487 - 4.5, 4450-102 Matosinhos, Portugal.</p>
+		  <p><strong>Services:</strong> Knurl Mastering provides professional audio mastering and related post-production engineering services. By submitting audio material to us, you warrant that you own or control all necessary rights to the material and that it does not infringe on any third-party intellectual property.</p>
+		  <p><strong>Payment & Delivery:</strong> Payment terms are detailed upon project booking. Mastered files are delivered digitally upon full receipt of payment unless stated otherwise in writing. All sales of digital services are final once engineering work has commenced.</p>
+		</section>
+
+		<section class="legal-section">
+		  <h2>Privacy Policy & GDPR Compliance</h2>
+		  <p>In accordance with the General Data Protection Regulation (EU 2016/679), data controller Miguel Pinheiro Marques ensures the processing of your personal data is handled securely and transparently.</p>
+		  <p><strong>Data We Collect:</strong> We collect only the information necessary to fulfill your audio project and comply with statutory accounting requirements. This includes your name, artistic name, email address, physical address, and fiscal/VAT number (where applicable).</p>
+		  <p><strong>Audio Asset Storage:</strong> Your uploaded source files, intermediate project sessions, and final mastered files are hosted on secure, private local systems and protected cloud backups. Files are stored to facilitate revisions and long-term project archives, but can be permanently deleted upon verified request.</p>
+		  <p><strong>Your Rights:</strong> You retain the absolute right to access, rectify, restrict, or demand the erasure of your personal data. To exercise these rights, or for any queries regarding your data privacy, contact us directly at your studio email.</p>
+		</section>
+
+		<section class="legal-section">
+		  <h2>Cookie Policy</h2>
+		  <p>This website is built with efficiency and user privacy in mind. We do not use intrusive tracking, behavioral advertising, or third-party marketing cookies. We only employ essential, technical, first-party storage solutions purely necessary for secure site navigation, performance caching, and basic language/localization preferences.</p>
+		</section>
+
+	  {% else %}
+		<section class="legal-section">
+		  <h2>Termos de Serviço e Aviso Legal</h2>
+		  <p><strong>Identidade Comercial:</strong> O Knurl Mastering é uma marca comercial detida e operada por Miguel Pinheiro Marques, registado como Empresário em Nome Individual em Portugal, com o Número de Identificação Fiscal (NIF) <strong>220270694</strong>. Sede e endereço postal: Rua Conselheiro Costa Braga 487 - 4.5, 4450-102 Matosinhos, Portugal.</p>
+		  <p><strong>Serviços:</strong> O Knurl Mastering presta serviços profissionais de masterização de áudio e engenharia de pós-produção. Ao submeter ficheiros de áudio, o cliente garante que possui ou controla todos os direitos necessários sobre o material enviado e que este não viola direitos de propriedade intelectual de terceiros.</p>
+		  <p><strong>Pagamento e Entrega:</strong> As condições de faturação são detalhadas no momento da adjudicação do trabalho. Os ficheiros masterizados finais serão entregues digitalmente após a receção integral do pagamento, salvo acordo em contrário por escrito.</p>
+		</section>
+
+		<section class="legal-section">
+		  <h2>Política de Privacidade e RGPD</h2>
+		  <p>Em conformidade com o Regulamento Geral sobre a Proteção de Dados (UE 2016/679), o responsável pelo tratamento de dados, Miguel Pinheiro Marques, garante que os seus dados pessoais são tratados de forma segura, lícita e transparente.</p>
+		  <p><strong>Dados Recolhidos:</strong> Recolhemos apenas as informações estritamente necessárias para a execução do seu projeto de áudio e para o cumprimento das obrigações fiscais e contabilísticas legais em Portugal. Isto inclui o seu nome, nome artístico, e-mail, morada e NIF/NIPC (quando aplicável).</p>
+		  <p><strong>Armazenamento de Ficheiros de Áudio:</strong> Os seus ficheiros originais (mixes), sessões de projeto e masters finais são armazenados em sistemas de armazenamento locais seguros e cópias de segurança encriptadas na nuvem. Estes ativos são mantidos para permitir revisões ou recuperação de arquivos, podendo ser eliminados definitivamente a qualquer momento mediante pedido expresso.</p>
+		  <p><strong>Os Seus Direitos:</strong> Tem o direito de consultar, retificar, limitar ou solicitar a eliminação definitiva dos seus dados pessoais armazenados. Para exercer estes direitos, contacte diretamente o estúdio por via digital.</p>
+		</section>
+
+		<section class="legal-section">
+		  <h2>Política de Cookies</h2>
+		  <p>Este website foi desenvolvido com foco no desempenho e na privacidade do utilizador. Não utilizamos cookies de rastreio comercial, publicidade comportamental ou ferramentas invasivas de terceiros. Podem ser utilizados apenas cookies técnicos essenciais para garantir o funcionamento correto da página, gestão de cache e retenção das suas preferências de idioma.</p>
+		</section>
+
+		<section class="legal-section complaints-book-section">
+		  <h2>Resolução Alternativa de Litígios e Reclamações</h2>
+		  <p>Em cumprimento da legislação nacional vigente, disponibiliza-se o acesso direto à plataforma digital para submissão de eventuais reclamações formais:</p>
+		  
+		  <div class="portuguese-legal-badges">
+			<a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener noreferrer" class="legal-badge-link">
+			  <img src="/src/images/livro-reclamacoes-badge.png" alt="Livro de Reclamações Eletrónico" class="legal-badge-img">
+			</a>
+			
+			<p class="small-print">
+			  Em caso de litígio de consumo, o consumidor pode recorrer a uma Entidade de Resolução Alternativa de Litígios de Consumo. Para mais informações, consulte o Portal do Consumidor (www.consumidor.gov.pt).
+			</p>
+		  </div>
+		</section>
+	  {% endif %}
+
+	</div>
+  </div>
+</div>
+
+<style>
+/* --- Plain text Trigger Styling --- */
+.legal-trigger-text.overlay-trigger {
+  display: inline;          /* Ensures it sits flat within a text paragraph */
+  background: none;        /* Strips any global button background colors */
+  border: none;            /* Strips any global button borders */
+  padding: 0;              /* Strips any global button padding */
+  margin: 0;               /* Strips any global button margins */
+  border-radius: 0;        /* Strips any global rounded corners */
+  font-size: inherit;      /* Dynamically matches the parent paragraph font size */
+  font-family: inherit;    /* Dynamically matches the parent paragraph font family */
+  font-weight: inherit;    /* Dynamically matches the parent paragraph font weight */
+  color: inherit;          /* Dynamically inherits your paragraph text color */
+  text-decoration: none;   /* Keeps it looking clean by default */
+  cursor: pointer;         /* Keeps the pointer hand so users know it's clickable */
+  box-shadow: none;        /* Strips any global button shadows */
+  transition: text-decoration 0.2s ease;
+}
+
+.legal-trigger-text.overlay-trigger:hover,
+.legal-trigger-text.overlay-trigger:focus {
+  text-decoration: underline; /* The only visual feedback on hover */
+  background: none;          /* Keeps background clean on hover */
+  color: inherit;            /* Prevents text color from changing shifts */
+}
+/* --- Plain text Trigger Styling --- */
+.legal-trigger-text {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit; /* Dynamically inherits your paragraph text color */
+  transition: text-decoration 0.2s ease;
+}
+
+.legal-trigger-text:hover {
+  text-decoration: underline;
+}
+
+/* --- Container & Content Scroller --- */
+.legal-container {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 90px 24px 40px 24px;
+}
+
+.legal-content {
+  width: 100%;
+  max-width: 700px; 
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+  padding-right: 16px;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Custom scrollbar to keep layout premium and minimal */
+.legal-content::-webkit-scrollbar {
+  width: 4px;
+}
+.legal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.legal-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .legal-content::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* --- Typography System --- */
+.legal-section {
+  margin-bottom: 35px;
+}
+
+.legal-section h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  margin-bottom: 14px;
+  color: #1a1a1a;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding-bottom: 6px;
+}
+
+.legal-section p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #4a4a4a;
+  margin-bottom: 12px;
+}
+
+.legal-section strong {
+  color: #000;
+}
+
+/* --- Dark Mode Adjustments --- */
+@media (prefers-color-scheme: dark) {
+  .legal-section h2 {
+	color: #f5f5f5;
+	border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .legal-section p {
+	color: #a0a0a0;
+  }
+  .legal-section strong {
+	color: #fff;
+  }
+}
+
+/* --- PT Compliance Elements --- */
+.portuguese-legal-badges {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legal-badge-link {
+  display: inline-block;
+  width: fit-content;
+  transition: opacity 0.2s ease;
+}
+
+.legal-badge-link:hover {
+  opacity: 0.8;
+}
+
+.legal-badge-img {
+  max-width: 160px;
+  height: auto;
+  display: block;
+}
+
+.small-print {
+  font-size: 0.75rem !important;
+  line-height: 1.4 !important;
+  opacity: 0.65;
+}
+</style>
