@@ -2,39 +2,41 @@
   command = "npm run build"
   publish = "_site"
 
-[[redirects]]
-  from = "/"
-  to = "/llms.txt"
-  status = 200
-  force = true
-  query = { Accept = "text/markdown" }
-
-[[redirects]]
-  from = "/en/"
-  to = "/llms.txt"
-  status = 200
-  force = true
-  query = { Accept = "text/markdown" }
-
-[[redirects]]
-  from = "/pt/"
-  to = "/llms.txt"
-  status = 200
-  force = true
-  query = { Accept = "text/markdown" }
-
+# =========================================================
+# STANDARD HUMAN VISITOR LANGUAGE ROUTING
+# =========================================================
+# 1. Portuguese Language Redirect
 [[redirects]]
   from = "/"
   to = "/pt/"
   status = 302
   conditions = {Language = ["pt", "pt-BR", "pt-PT"]}
 
+# 2. Default English Redirect
 [[redirects]]
   from = "/"
   to = "/en/"
   status = 301
 
+# =========================================================
+# GLOBAL CATCH-ALLS & ERROR HANDLING
+# =========================================================
 [[redirects]]
   from = "/*"
   to = "/404.html"
   status = 404
+  
+  # =========================================================
+  # EDGE FUNCTIONS SPECIFICATION
+  # =========================================================
+  [[edge_functions]]
+    path = "/"
+    function = "markdown-negotiation"
+  
+  [[edge_functions]]
+    path = "/en/"
+    function = "markdown-negotiation"
+  
+  [[edge_functions]]
+    path = "/pt/"
+    function = "markdown-negotiation"
