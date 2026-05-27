@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "knurl-mastering-api",
+      "type": "skill-md",
+      "description": "Interact with the Knurl Mastering portfolio, explore credit catalogs and engineers profiles, or draft and submit user inquiries.",
+      "url": "https://knurlmastering.com/.well-known/agent-skills/knurl-mastering-api.md",
+      "digest": "sha256:80c8769fa291dd0fdd02592ef86ea05ee97c9cd4b90b1b3681834ed2f4f6720f"
+    }
+  ]
+}

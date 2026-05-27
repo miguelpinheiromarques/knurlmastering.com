@@ -105,5 +105,98 @@
 
   {% include "partials/footer.njk" %}
 
+  <script>
+    (async function() {
+      // Find the first matching model context API interface (production or testing)
+      const modelContext = window.navigator.modelContext || window.navigator.modelContextTesting;
+      if (!modelContext || typeof modelContext.provideContext !== 'function') {
+        return;
+      }
+      
+      try {
+        await modelContext.provideContext({
+          tools: [
+            {
+              name: "getStudioInfo",
+              description: "Retrieve Knurl Mastering biography, studio philosophy, engineers profile, location, and legal details.",
+              inputSchema: { type: "object", properties: {} },
+              execute: async () => {
+                return {
+                  studio: "Knurl Mastering",
+                  engineers: ["Miguel Pinheiro Marques", "Clara Araújo"],
+                  location: "Baltar, Porto, Portugal",
+                  biography: "Our name is inspired by the crisp, crosshatched knurls formed through metalworking on a lathe and the organic, unpredictable beauty of wood grain in a natural knurl. Balance between technical accuracy and aesthetic sensibility guides our practice.",
+                  legal: {
+                    nif: "220270694",
+                    operator: "Miguel Pinheiro Marques (Empresário em Nome Individual)"
+                  },
+                  email: "info@knurlmastering.com"
+                };
+              }
+            },
+            {
+              name: "getServices",
+              description: "Retrieve available mastering services, formats, deliverables list, turnaround time guidelines, and pricing rates.",
+              inputSchema: { type: "object", properties: {} },
+              execute: async () => {
+                return {
+                  services: [
+                    { name: "Stereo Mastering", description: "High-end final stereo audio processing optimized for streaming, CD, and high-res digital distribution." },
+                    { name: "Stem Mastering", description: "Advanced mastering working from separated instrument groups (stems) to maximize mix balance." },
+                    { name: "Vinyl Pre-Mastering", description: "Specialized dynamic preparation respecting physical disc-cutting constraints." }
+                  ],
+                  pricing: "€60 to €95 per track ($70 to $110 USD) depending on the track length and choice of engineer.",
+                  deliverables: [
+                    "High-resolution 96kHz/24bit digital masters",
+                    "Video-optimized 48kHz/24bit masters",
+                    "CD manufacturing-ready DDP images",
+                    "Tailored Vinyl pre-masters"
+                  ],
+                  turnaround: "First version within 2-3 business days. Revisions are completed within 1-2 business days."
+                };
+              }
+            },
+            {
+              name: "submitInquiry",
+              description: "Prepare and pre-fill the website contact form with the user's name, email, and inquiry message so they can easily send a booking or quotation request.",
+              inputSchema: {
+                type: "object",
+                properties: {
+                  name: { type: "string", description: "The user's or artist's name" },
+                  email: { type: "string", description: "Contact email address" },
+                  message: { type: "string", description: "Details of the mastering project (e.g. number of tracks, mix type, deadlines)" }
+                },
+                required: ["name", "email", "message"]
+              },
+              execute: async (args) => {
+                const nameInput = document.getElementById("name");
+                const emailInput = document.getElementById("email");
+                const messageInput = document.getElementById("message");
+                
+                if (nameInput) nameInput.value = args.name;
+                if (emailInput) emailInput.value = args.email;
+                if (messageInput) messageInput.value = args.message;
+                
+                // Proactively scroll the form into view
+                const contactSection = document.getElementById("contact");
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: "smooth" });
+                }
+                
+                return {
+                  success: true,
+                  status: "Form pre-filled and scrolled into view. Please instruct the user to verify the fields and click 'Send message'."
+                };
+              }
+            }
+          ]
+        });
+        console.log("WebMCP tools registered successfully.");
+      } catch (err) {
+        console.error("Failed to register WebMCP context tools:", err);
+      }
+    })();
+  </script>
+
 </body>
 </html>

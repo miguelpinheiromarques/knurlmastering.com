@@ -28,6 +28,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/_redirects");    
   
   eleventyConfig.addPassthroughCopy("./src/.well-known/");
+  eleventyConfig.addPassthroughCopy("./src/api/");
+  eleventyConfig.addPassthroughCopy("./src/docs/");
 
   // -----------------------------------------------------------------
   // 2. IMAGE SHORTCODE (With Custom Widths & Eager Loading Logic)

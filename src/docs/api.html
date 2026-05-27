@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knurl Mastering - API Documentation & Agent Integration</title>
+  <style>
+    body {
+      background-color: #1f1f1f;
+      color: #eaeaea;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.5rem;
+      color: #fff;
+    }
+    h2 {
+      margin-top: 2rem;
+      color: #fff;
+    }
+    code {
+      background-color: #2d2d2d;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    pre {
+      background-color: #2d2d2d;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    pre code {
+      background-color: transparent;
+      padding: 0;
+    }
+    a {
+      color: #58a6ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .badge {
+      background-color: #238636;
+      color: white;
+      padding: 0.1rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Knurl Mastering API & Agent Integration Docs</h1>
+    <span class="badge">Agent Ready</span>
+    <p>Welcome! Knurl Mastering is fully compatible with modern agent discovery, capability mapping, and real-time interactive browser tools.</p>
+    
+    <h2>1. RFC 9727 API Discovery</h2>
+    <p>We publish our standardized API Catalog at the well-known path: <a href="/.well-known/api-catalog"><code>/.well-known/api-catalog</code></a>.</p>
+    <p>This allows crawlers and agents to discover our core services, OpenAPI endpoints, and health interfaces natively.</p>
+
+    <h2>2. OpenAPI Description</h2>
+    <p>The machine-readable OpenAPI 3.0 specification is available here: <a href="/api/openapi.json"><code>/api/openapi.json</code></a>.</p>
+
+    <h2>3. WebMCP Site Tools</h2>
+    <p>If you are viewing this page in an agent-enabled browser (supporting the Web Model Context Protocol), the following WebMCP tools are registered dynamically on our homepage:</p>
+    <ul>
+      <li><code>getStudioInfo</code>: Retrieve biography, staff details, and external portfolios.</li>
+      <li><code>getServices</code>: List stereomastering, stem mastering, vinyl preparation capabilities and terms.</li>
+      <li><code>submitInquiry</code>: Helper tool to format and stage service inquiries.</li>
+    </ul>
+
+    <p style="margin-top: 3rem; font-size: 0.9rem; color: #888;">
+      Knurl Mastering Studio &copy; 2026. Baltar, Porto, Portugal.
+    </p>
+  </div>
+</body>
+</html>

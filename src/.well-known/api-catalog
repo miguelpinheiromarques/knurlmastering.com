@@ -1,3 +1,25 @@
 {
-  "linkset": []
+  "linkset": [
+    {
+      "anchor": "https://knurlmastering.com/api",
+      "service-desc": [
+        {
+          "href": "https://knurlmastering.com/api/openapi.json",
+          "type": "application/openapi+json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://knurlmastering.com/docs/api",
+          "type": "text/html"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://knurlmastering.com/api/health",
+          "type": "application/json"
+        }
+      ]
+    }
+  ]
 }

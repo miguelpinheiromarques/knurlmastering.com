@@ -1,0 +1,55 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Knurl Mastering API",
+    "description": "Read-only discovery API providing studio meta-information, engineers portfolios, pricing guidelines, and inquiry instructions.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://knurlmastering.com"
+    }
+  ],
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Check API and Service Health",
+        "description": "Returns the operational status of the Knurl Mastering portfolio services.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "description": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/llms.txt": {
+      "get": {
+        "summary": "Retrieve LLM Context Profile",
+        "description": "Returns a markdown profile summarizing the studio biography, engineers, discography, and contact parameters for automated agent ingestion.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/markdown": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
