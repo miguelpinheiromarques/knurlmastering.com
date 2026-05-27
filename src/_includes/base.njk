@@ -7,10 +7,16 @@
 
   <link rel="preload" href="/css/style.css?v={% version %}" as="style">
 
-  <link rel="canonical" hreflang="en-US" href="https://knurlmastering.com/" />
+  <link rel="canonical" href="https://knurlmastering.com{{ page.url }}" />
+  
+  {% if locale == "pt" %}
+    <link rel="alternate" hreflang="pt" href="https://knurlmastering.com{{ page.url }}" />
+    <link rel="alternate" hreflang="en" href="https://knurlmastering.com{{ page.url | replace('/pt/', '/en/') }}" />
+  {% else %}
+    <link rel="alternate" hreflang="pt" href="https://knurlmastering.com{{ page.url | replace('/en/', '/pt/') }}" />
+    <link rel="alternate" hreflang="en" href="https://knurlmastering.com{{ page.url }}" />
+  {% endif %}
   <link rel="alternate" hreflang="x-default" href="https://knurlmastering.com/" />
-  <link rel="alternate" hreflang="{{ locale }}" href="{{ site_url }}{{ page.url }}" />
-  <link rel="alternate" hreflang="{{ alt_locale }}" href="{{ site_url }}{{ alt_locale }}/" />
 
   
   <meta name="description" content="{{ description }}">
@@ -40,6 +46,53 @@
   <meta name="twitter:title" content="{{ title }}">
   <meta name="twitter:description" content="{{ description }}">
   <meta name="twitter:image" content="https://knurlmastering.com/knurlmastering.jpg">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AudioProductionStudio",
+    "name": "Knurl Mastering",
+    "image": "https://knurlmastering.com/knurlmastering-og.jpg",
+    "description": "{{ 'Knurl Mastering is a music mastering studio founded by engineers Miguel Pinheiro Marques and Clara Araújo, driven by a deep respect for records, sonics, and the pursuit of high fidelity.' if locale != 'pt' else 'Knurl Mastering é um estúdio de masterização fundado por Miguel Pinheiro Marques e Clara Araújo.' }}",
+    "url": "https://knurlmastering.com/{{ locale }}/",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Baltar",
+      "addressRegion": "Porto",
+      "postalCode": "4585",
+      "addressCountry": "PT"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 41.1931,
+      "longitude": -8.3861
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "10:00",
+      "closes": "19:00"
+    },
+    "knowsAbout": [
+      "Audio Mastering",
+      "Stereo Mastering",
+      "Stem Mastering",
+      "Vinyl Pre-Mastering",
+      "Audio Post-Production"
+    ],
+    "sameAs": [
+      "https://www.instagram.com/knurlmastering",
+      "https://www.threads.net/@knurlmastering",
+      "https://www.facebook.com/profile.php?id=61576228155764"
+    ]
+  }
+  </script>  
 
   <link rel="stylesheet" href="/css/style.css?v={% version %}">  
 </head>
