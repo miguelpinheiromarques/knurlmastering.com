@@ -44,26 +44,6 @@
   <link rel="stylesheet" href="/css/style.css?v={% version %}">  
 </head>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LLZNH0P7WX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  // Default: no cookies, no identifiers
-  gtag('config', 'G-LLZNH0P7WX', {
-    'anonymize_ip': true,      // mask IP addresses
-    'storage': 'none',         // do not set cookies
-    'client_storage': 'none'   // GA4-specific: block _ga cookies
-  });
-
-  // Extra privacy: deny all storage just in case
-  gtag('consent', 'default', {
-    'ad_storage': 'denied',
-    'analytics_storage': 'denied'
-  });
-</script>
-
 <body>  
   
   <main>
