@@ -2,3 +2,7 @@
   Link: </llms.txt>; rel="help"; type="text/markdown"
   Link: </sitemap.xml>; rel="sitemap"; type="application/xml"
   Vary: Accept
+  
+  /.well-known/api-catalog
+	Content-Type: application/linkset+json; charset=utf-8
+	Access-Control-Allow-Origin: *

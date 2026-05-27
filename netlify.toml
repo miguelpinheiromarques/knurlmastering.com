@@ -29,16 +29,11 @@
   status = 302
   conditions = {Language = ["pt", "pt-BR", "pt-PT"]}
 
-# 2. Default English Redirect
 [[redirects]]
   from = "/"
   to = "/en/"
   status = 301
 
-# =========================================================
-# PHASE 3: GLOBAL CATCH-ALLS & ERROR HANDLING
-# =========================================================
-# Custom 404 Page (Serves 404.html without mutating the browser URL)
 [[redirects]]
   from = "/*"
   to = "/404.html"
