@@ -1,0 +1,45 @@
+# =========================================================
+# KNURL MASTERING - ROBOTS.TXT
+# =========================================================
+
+# 1. ALLOW GOOD SEARCH ENGINES & CITATION AGENTS
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+
+# 2. BLOCK AI TRAINING SCRAPERS (No referral value, resource drains)
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+
+# 3. GLOBAL DIRECTIVE FOR OTHER SEARCH ENGINES
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+# 4. POINT TO THE AI CONTENT GUIDE
+Sitemap: https://knurlmastering.com/llms.txt

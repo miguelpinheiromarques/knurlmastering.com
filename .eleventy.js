@@ -20,7 +20,9 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/apple-touch-icon.png");
   eleventyConfig.addPassthroughCopy("./src/favicon-96x96.png");
   eleventyConfig.addPassthroughCopy("./src/knurlmastering-og.jpg");
-
+  
+  eleventyConfig.addPassthroughCopy("./src/llms.txt");
+  eleventyConfig.addPassthroughCopy("./src/robots.txt");  
 
   // -----------------------------------------------------------------
   // 2. IMAGE SHORTCODE (With Custom Widths & Eager Loading Logic)

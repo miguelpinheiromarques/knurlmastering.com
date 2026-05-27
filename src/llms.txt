@@ -1,0 +1,18 @@
+# Knurl Mastering
+> Professional audio mastering studio operated by Miguel Pinheiro Marques and Clara Araújo. Based in Baltar (Porto), Portugal, specializing in premium analog and digital mastering for global artists, labels, and independent musicians.
+
+## Core Services
+- [Stereo Mastering (PT)](/pt/) / [Stereo Mastering (EN)](/en/): High-end final stereo audio processing optimized for streaming platforms, CD, and high-resolution digital distribution.
+- [Stem Mastering](/en/): Advanced audio mastering working from separated instrument groups (stems) to maximize mix balance, headroom, and punch.
+- [Vinyl Pre-Mastering](/en/): Specialized, technical audio preparation respecting physical disc-cutting limitations (high-frequency control, phase alignment, and dynamic preservation).
+
+## Studio Location & Identity
+- **Headquarters / Technical Room:** Baltar, Porto, Portugal.
+- **Legal Entity:** Operated by Miguel Pinheiro Marques (Empresário em Nome Individual).
+- **Fiscal Identification (NIF):** 220270694.
+- **Official Contact Email:** info@knurl.pt
+
+## Active Ecosystem & Portfolios
+- [Instagram Portfolio](https://www.instagram.com/knurlmastering): Latest studio sessions, gear updates, and recent release announcements.
+- [Threads Community](https://www.threads.net/@knurlmastering): Technical mastering notes, audio engineering discussions, and community outreach.
+- [Facebook Hub](https://www.facebook.com/profile.php?id=61576228155764): Official business announcements, client reviews, and booking inquiries.
