@@ -1,4 +1,4 @@
-<span class="overlay-trigger legal-trigger-text" data-target="legal-modal">
+<span class="legal-modal-open-btn legal-trigger-text" data-target="legal-modal">
   {{ 'Legal Info & Privacy' if locale != 'pt' else 'Informações Legais e RGPD' }}
 </span>
 
@@ -54,15 +54,32 @@
 		  <p>Este website foi desenvolvido com foco no desempenho e na privacidade do utilizador. Não utilizamos cookies de rastreio comercial, publicidade comportamental ou ferramentas invasivas de terceiros durante a navegação geral pelas páginas.</p>
 		  <p><strong>Portefólio Incorporado (Apple Music, SoundCloud, YouTube):</strong> Para proteger a sua privacidade, os reprodutores de áudio e vídeo no nosso portefólio estão desativados por defeito e não carregam quaisquer scripts ou cookies ao abrir a página. Contudo, se clicar ativamente na capa de um lançamento ou no botão de reprodução para ouvir uma masterização, estará a consentir o carregamento dessa plataforma externa. A partir desse momento, a Apple, o SoundCloud ou a Google/YouTube poderão aplicar os seus próprios cookies de rastreio e registar o seu endereço IP de acordo com as respetivas políticas de privacidade.</p>
 		</section>
+
 		<section class="legal-section complaints-book-section">
 		  <h2>Resolução Alternativa de Litígios e Reclamações</h2>
 		  <p>Em cumprimento da legislação nacional vigente, disponibiliza-se o acesso direto à plataforma digital para submissão de eventuais reclamações formais:</p>
 		  
 		  <div class="portuguese-legal-badges">
-			<a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener noreferrer" class="legal-badge-link">
-			  <img src="/src/images/livro-reclamacoes-badge.png" alt="Livro de Reclamações Eletrónico" class="legal-badge-img">
+			<a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener noreferrer" class="legal-badge-link" aria-label="Livro de Reclamações Eletrónico">
+			  <svg class="legal-badge-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 46" width="160" height="46">
+				<rect width="160" height="46" rx="4" fill="#0D47A1"/>
+				<path d="M 0 0 L 8 0 L 0 23 L 8 46 L 0 46 Z" fill="#1565C0" opacity="0.5"/>
+				<g transform="translate(14, 11)">
+				  <rect x="2" y="1" width="15" height="21" rx="1.5" fill="#FFFFFF"/>
+				  <line x1="5" y1="5" x2="14" y2="5" stroke="#0D47A1" stroke-width="1.5" stroke-linecap="round"/>
+				  <line x1="5" y1="9" x2="14" y2="9" stroke="#0D47A1" stroke-width="1.5" stroke-linecap="round"/>
+				  <circle cx="6" cy="14" r="1" fill="#0D47A1"/>
+				  <circle cx="6" cy="18" r="1" fill="#0D47A1"/>
+				  <line x1="9" y1="14" x2="14" y2="14" stroke="#90CAF9" stroke-width="1.5" stroke-linecap="round"/>
+				  <line x1="9" y1="18" x2="14" y2="18" stroke="#90CAF9" stroke-width="1.5" stroke-linecap="round"/>
+				</g>
+				<g fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+				  <text x="39" y="18" font-size="9" font-weight="800" letter-spacing="0.05em">LIVRO DE</text>
+				  <text x="39" y="28" font-size="9" font-weight="800" letter-spacing="0.05em">RECLAMAÇÕES</text>
+				  <text x="39" y="37" font-size="7.5" font-weight="400" fill="#90CAF9" letter-spacing="0.02em">ELETRÓNICO</text>
+				</g>
+			  </svg>
 			</a>
-			
 			<p class="small-print">
 			  Em caso de litígio de consumo, o consumidor pode recorrer a uma Entidade de Resolução Alternativa de Litígios de Consumo. Para mais informações, consulte o Portal do Consumidor (www.consumidor.gov.pt).
 			</p>
@@ -74,44 +91,54 @@
   </div>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const legalBtn = document.querySelector('.legal-modal-open-btn');
+  const legalModal = document.getElementById('legal-modal');
+  
+  if (legalBtn && legalModal) {
+	legalBtn.addEventListener('click', (e) => {
+	  e.preventDefault();
+	  e.stopPropagation(); // Stops event bubbling up to global scripts
+	  legalModal.classList.add('is-open');
+	  document.body.style.overflow = 'hidden';
+	});
+  }
+});
+</script>
+
 <style>
-/* --- Plain text Trigger Styling --- */
-.legal-trigger-text.overlay-trigger {
-  display: inline;          /* Ensures it sits flat within a text paragraph */
-  background: none;        /* Strips any global button background colors */
-  border: none;            /* Strips any global button borders */
-  padding: 0;              /* Strips any global button padding */
-  margin: 0;               /* Strips any global button margins */
-  border-radius: 0;        /* Strips any global rounded corners */
-  font-size: inherit;      /* Dynamically matches the parent paragraph font size */
-  font-family: inherit;    /* Dynamically matches the parent paragraph font family */
-  font-weight: inherit;    /* Dynamically matches the parent paragraph font weight */
-  color: inherit;          /* Dynamically inherits your paragraph text color */
-  text-decoration: none;   /* Keeps it looking clean by default */
-  cursor: pointer;         /* Keeps the pointer hand so users know it's clickable */
-  box-shadow: none;        /* Strips any global button shadows */
-  transition: text-decoration 0.2s ease;
+/* --- Plain Text Trigger Restructuring (Motionless Resets) --- */
+.legal-modal-open-btn.legal-trigger-text {
+  display: inline !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
+  font-weight: inherit !important;
+  color: inherit !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  
+  /* Hard overrides to kill all scaling, shifting, or translation transitions */
+  transform: none !important;
+  transition: text-decoration 0.2s ease !important;
+  animation: none !important;
 }
 
-.legal-trigger-text.overlay-trigger:hover,
-.legal-trigger-text.overlay-trigger:focus {
-  text-decoration: underline; /* The only visual feedback on hover */
-  background: none;          /* Keeps background clean on hover */
-  color: inherit;            /* Prevents text color from changing shifts */
-}
-/* --- Plain text Trigger Styling --- */
-.legal-trigger-text {
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit; /* Dynamically inherits your paragraph text color */
-  transition: text-decoration 0.2s ease;
+.legal-modal-open-btn.legal-trigger-text:hover,
+.legal-modal-open-btn.legal-trigger-text:focus {
+  text-decoration: underline !important; 
+  background: none !important;
+  color: inherit !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
-.legal-trigger-text:hover {
-  text-decoration: underline;
-}
-
-/* --- Container & Content Scroller --- */
+/* --- Container & Content Scroller Layout --- */
 .legal-container {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -132,7 +159,7 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* Custom scrollbar to keep layout premium and minimal */
+/* Custom Scrollbar System */
 .legal-content::-webkit-scrollbar {
   width: 4px;
 }
@@ -176,7 +203,7 @@
   color: #000;
 }
 
-/* --- Dark Mode Adjustments --- */
+/* Dark Mode Typography Settings */
 @media (prefers-color-scheme: dark) {
   .legal-section h2 {
 	color: #f5f5f5;
@@ -190,7 +217,7 @@
   }
 }
 
-/* --- PT Compliance Elements --- */
+/* --- Portuguese Compliance Badge Options (Completely Static) --- */
 .portuguese-legal-badges {
   margin-top: 18px;
   display: flex;
@@ -199,19 +226,29 @@
 }
 
 .legal-badge-link {
-  display: inline-block;
+  display: inline-block !important;
   width: fit-content;
+  transform: none !important;
+  transition: none !important;
+}
+
+.legal-badge-link:hover,
+.legal-badge-link:focus {
+  transform: none !important;
+}
+
+.legal-badge-svg {
+  display: block;
+  width: 160px;
+  height: 46px;
+  border-radius: 4px;
+  transform: none !important;
   transition: opacity 0.2s ease;
 }
 
-.legal-badge-link:hover {
-  opacity: 0.8;
-}
-
-.legal-badge-img {
-  max-width: 160px;
-  height: auto;
-  display: block;
+/* Soft color transition only - no physical shifts */
+.legal-badge-link:hover .legal-badge-svg rect {
+  fill: #1565C0; 
 }
 
 .small-print {
