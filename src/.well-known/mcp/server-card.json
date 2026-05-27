@@ -1,0 +1,13 @@
+{
+  "serverInfo": {
+	"name": "Knurl Mastering Static Entity",
+	"version": "1.0.0",
+	"description": "Static portfolio entity node. No active programmatic MCP server tools or resources are exposed on this host."
+  },
+  "transports": [],
+  "capabilities": {
+	"resources": {},
+	"prompts": {},
+	"tools": {}
+  }
+}
