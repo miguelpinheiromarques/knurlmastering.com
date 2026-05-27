@@ -3,6 +3,14 @@
   Link: </sitemap.xml>; rel="sitemap"; type="application/xml"
   Vary: Accept
   
-  /.well-known/api-catalog
+/.well-known/api-catalog
 	Content-Type: application/linkset+json; charset=utf-8
 	Access-Control-Allow-Origin: *
+	
+/.well-known/oauth-authorization-server
+	  Content-Type: application/json; charset=utf-8
+	  Access-Control-Allow-Origin: *
+	
+/.well-known/openid-configuration
+	  Content-Type: application/json; charset=utf-8
+	  Access-Control-Allow-Origin: *	
