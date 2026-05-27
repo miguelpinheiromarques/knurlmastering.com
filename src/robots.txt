@@ -10,37 +10,52 @@
 # search: building a search index and providing clickable search hyperlinks.
 # ai-input: inputting content for real-time generative AI search answers (RAG/Grounding).
 # ai-train: training or fine-tuning offline commercial AI models.
+#
+# ANY RESTRICTIONS EXPRESSED VIA CONTENT SIGNALS ARE EXPRESS RESERVATIONS OF
+# RIGHTS UNDER ARTICLE 4 OF THE EUROPEAN UNION DIRECTIVE 2019/790 ON COPYRIGHT
+# AND RELATED RIGHTS IN THE DIGITAL SINGLE MARKET.
 # =========================================================
 
+# Global baseline rule for standard parsers and crawlers
 User-agent: *
 Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 Disallow: /404.html
 
+# =========================================================
 # 1. ALLOW SEARCH AND CITATION AGENTS (Brings client traffic)
+# =========================================================
 User-agent: Googlebot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 User-agent: Bingbot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 User-agent: Applebot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 User-agent: PerplexityBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 User-agent: OAI-SearchBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 User-agent: Claude-SearchBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 User-agent: Claude-User
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
-
+# =========================================================
 # 2. BLOCK DATA HARVESTERS (Aggressive training resource drains)
+# =========================================================
 User-agent: GPTBot
 Disallow: /
 
@@ -56,6 +71,8 @@ Disallow: /
 User-agent: Meta-ExternalAgent
 Disallow: /
 
+# =========================================================
 # 3. POINT TO THE MASTER AI INDEX & SEARCH SITEMAP
+# =========================================================
 Sitemap: https://knurlmastering.com/llms.txt
 Sitemap: https://knurlmastering.com/sitemap.xml
