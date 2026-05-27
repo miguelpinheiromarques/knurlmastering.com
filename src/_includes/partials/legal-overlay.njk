@@ -7,107 +7,132 @@
   <button class="close-overlay" aria-label="Close legal information">&times;</button>
   
   <div class="legal-container">
-	<div class="legal-content">
-	  
-	  {% if locale != 'pt' %}
-		<section class="legal-section">
-		  <h2>Terms of Service & Legal Notice</h2>
-		  <p><strong>Business Identity:</strong> Knurl Mastering is a commercial brand owned and operated by Miguel Pinheiro Marques, registered as an individual entrepreneur (Empresário em Nome Individual) in Portugal, with fiscal identification number (NIF) <strong>220270694</strong>. Registered address: Rua Conselheiro Costa Braga 487 - 4.5, 4450-102 Matosinhos, Portugal.</p>
-		  <p><strong>Services:</strong> Knurl Mastering provides professional audio mastering and related post-production engineering services. By submitting audio material to us, you warrant that you own or control all necessary rights to the material and that it does not infringe on any third-party intellectual property.</p>
-		  <p><strong>Payment & Delivery:</strong> Payment terms are detailed upon project booking. Mastered files are delivered digitally upon full receipt of payment unless stated otherwise in writing. All sales of digital services are final once engineering work has commenced.</p>
-		</section>
+    <div class="legal-content">
+      
+      {% if locale != 'pt' %}
+        <section class="legal-section">
+          <h2>Terms of Service & Legal Notice</h2>
+          <p><strong>Business Identity:</strong> Knurl Mastering is a commercial brand owned and operated by Miguel Pinheiro Marques, registered as an individual entrepreneur (ENI) in Portugal, with fiscal identification number (NIF) <strong>220270694</strong>. Registered address: Rua Conselheiro Costa Braga 487 - 4.5, 4450-102 Matosinhos, Portugal.</p>
+          <p><strong>Services:</strong> Knurl Mastering provides professional audio mastering and related post-production engineering services. By submitting audio material to us, you warrant that you own or control all necessary rights to the material and that it does not infringe on any third-party intellectual property.</p>
+          <p><strong>Payment & Delivery:</strong> Payment terms are detailed upon project booking. Mastered files are delivered digitally upon full receipt of payment unless stated otherwise in writing. All sales of digital services are final once engineering work has commenced.</p>
+        </section>
 
-		<section class="legal-section">
-		  <h2>Privacy Policy & GDPR Compliance</h2>
-		  <p>In accordance with the General Data Protection Regulation (EU 2016/679), data controller Miguel Pinheiro Marques ensures the processing of your personal data is handled securely and transparently.</p>
-		  <p><strong>Data We Collect:</strong> We collect only the information necessary to fulfill your audio project and comply with statutory accounting requirements. This includes your name, artistic name, email address, physical address, and fiscal/VAT number (where applicable).</p>
-		  <p><strong>Audio Asset Storage:</strong> Your uploaded source files, intermediate project sessions, and final mastered files are hosted on secure, private local systems and protected cloud backups. Files are stored to facilitate revisions and long-term project archives, but can be permanently deleted upon verified request.</p>
-		  <p><strong>Third-Party Content & Data Transfers:</strong> When you interact with embedded audio/video players on our site, your data (like your IP address) may be processed by those respective platforms outside the EU/EEA. See our Cookie Policy below for details.</p>
-		  <p><strong>Your Rights:</strong> You retain the absolute right to access, rectify, restrict, or demand the erasure of your personal data. To exercise these rights, or for any queries regarding your data privacy, contact us directly at your studio email.</p>
-		</section>
-		
-		<section class="legal-section">
-		  <h2>Cookie & Embedded Media Policy</h2>
-		  <p>This website does not use intrusive tracking, behavioral advertising, or third-party marketing cookies when you simply browse our pages. We only employ essential, technical, first-party storage solutions purely necessary for secure site navigation.</p>
-		  <p><strong>Embedded Portfolios (Apple Music, SoundCloud, YouTube):</strong> To protect your privacy, audio and video embeds on our portfolio are deactivated by default and will not load scripts or cookies when the page opens. However, if you actively click on a release artwork or player preview to listen to a master, you are consenting to load that third-party platform. At that moment, Apple, SoundCloud, or Google/YouTube may drop their own tracking cookies and log your IP address according to their respective privacy policies.</p>
-		</section>
+        <section class="legal-section">
+          <h2>Privacy Policy & GDPR Compliance</h2>
+          <p>In accordance with the General Data Protection Regulation (EU 2016/679), data controller Miguel Pinheiro Marques ensures the processing of your personal data is handled securely and transparently.</p>
+          <p><strong>Data We Collect:</strong> We collect only the information necessary to fulfill your audio project and comply with statutory accounting requirements. This includes your name, artistic name, email address, physical address, and fiscal/VAT number (where applicable).</p>
+          <p><strong>Audio Asset Storage:</strong> Your uploaded source files, intermediate project sessions, and final mastered files are hosted on secure, private local systems and protected cloud backups. Files are stored to facilitate revisions and long-term project archives, but can be permanently deleted upon verified request.</p>
+          <p><strong>Third-Party Content & Data Transfers:</strong> When you interact with embedded audio/video players on our site, your data (like your IP address) may be processed by those respective platforms outside the EU/EEA. See our Cookie Policy below for details.</p>
+          <p><strong>Your Rights:</strong> You retain the absolute right to access, rectify, restrict, or demand the erasure of your personal data. To exercise these rights, or for any queries regarding your data privacy, contact us directly at: <span class="email-container"></span></p>
+        </section>
+        
+        <section class="legal-section">
+          <h2>Cookie & Embedded Media Policy</h2>
+          <p>This website does not use intrusive tracking, behavioral advertising, or third-party marketing cookies when you simply browse our pages. We only employ essential, technical, first-party storage solutions purely necessary for secure site navigation.</p>
+          <p><strong>Embedded Portfolios (Apple Music, Spotify, SoundCloud, YouTube):</strong> To protect your privacy, audio and video embeds on our portfolio are deactivated by default and will not load scripts or cookies when the page opens. However, if you actively click on a release artwork or player preview to listen to a master, you are consenting to load that third-party platform. At that moment, Apple, Spotify, SoundCloud, or Google/YouTube may drop their own tracking cookies and log your IP address according to their respective privacy policies.</p>
+        </section>
 
-	  {% else %}
-		<section class="legal-section">
-		  <h2>Termos de Serviço e Aviso Legal</h2>
-		  <p><strong>Identidade Comercial:</strong> O Knurl Mastering é uma marca comercial detida e operada por Miguel Pinheiro Marques, registado como Empresário em Nome Individual em Portugal, com o Número de Identificação Fiscal (NIF) <strong>220270694</strong>. Sede e endereço postal: Rua Conselheiro Costa Braga 487 - 4.5, 4450-102 Matosinhos, Portugal.</p>
-		  <p><strong>Serviços:</strong> O Knurl Mastering presta serviços profissionais de masterização de áudio e engenharia de pós-produção. Ao submeter ficheiros de áudio, o cliente garante que possui ou controla todos os direitos necessários sobre o material enviado e que este não viola direitos de propriedade intelectual de terceiros.</p>
-		  <p><strong>Pagamento e Entrega:</strong> As condições de faturação são detalhadas no momento da adjudicação do trabalho. Os ficheiros masterizados finais serão entregues digitalmente após a receção integral do pagamento, salvo acordo em contrário por escrito.</p>
-		</section>
+      {% else %}
+        <section class="legal-section">
+          <h2>Termos de Serviço e Aviso Legal</h2>
+          <p><strong>Identidade Comercial:</strong> O Knurl Mastering é uma marca comercial detida e operada por Miguel Pinheiro Marques, registado como Empresário em Nome Individual em Portugal, com o Número de Identificação Fiscal (NIF) <strong>220270694</strong>. Sede e endereço postal: Rua Conselheiro Costa Braga 487 - 4.5, 4450-102 Matosinhos, Portugal.</p>
+          <p><strong>Serviços:</strong> O Knurl Mastering presta serviços profissionais de masterização de áudio. Ao submeter ficheiros de áudio, o cliente garante que possui ou controla todos os direitos necessários sobre o material enviado e que este não viola direitos de propriedade intelectual de terceiros.</p>
+          <p><strong>Pagamento e Entrega:</strong> As condições de faturação são detalhadas no momento da adjudicação do trabalho. Os ficheiros masterizados finais serão entregues digitalmente após a receção integral do pagamento, salvo acordo em contrário por escrito.</p>
+        </section>
 
-		<section class="legal-section">
-		  <h2>Política de Privacidade e RGPD</h2>
-		  <p>Em conformidade com o Regulamento Geral sobre a Proteção de Dados (UE 2016/679), o responsável pelo tratamento de dados, Miguel Pinheiro Marques, garante que os seus dados pessoais são tratados de forma segura, lícita e transparente.</p>
-		  <p><strong>Dados Recolhidos:</strong> Recolhemos apenas as informações estritamente necessárias para a execução do seu projeto de áudio e para o cumprimento das obrigações fiscais e contabilísticas legais em Portugal. Isto inclui o seu nome, nome artístico, e-mail, morada e NIF/NIPC (quando aplicável).</p>
-		  <p><strong>Armazenamento de Ficheiros de Áudio:</strong> Os seus ficheiros originais (mixes), sessões de projeto e masters finais são armazenados em sistemas de armazenamento locais seguros e cópias de segurança encriptadas na nuvem. Estes ativos são mantidos para permitir revisões ou recuperação de arquivos, podendo ser eliminados definitivamente a qualquer momento mediante pedido expresso.</p>
-		  <p><strong>Conteúdo de Terceiros e Transferência de Dados:</strong> Ao interagir com reprodutores de áudio ou vídeo incorporados na nossa página, os seus dados (como o endereço IP) poderão ser tratados pelas respetivas plataformas fora do espaço da UE/EEE. Consulte a nossa Política de Cookies abaixo para mais detalhes.</p>
-		  <p><strong>Os Seus Direitos:</strong> Tem o direito de consultar, retificar, limitar ou solicitar a eliminação definitiva dos seus dados pessoais armazenados. Para exercer estes direitos, contacte diretamente o estúdio por via digital.</p>
-		</section>
-		
-		<section class="legal-section">
-		  <h2>Política de Cookies e Media Incorporado</h2>
-		  <p>Este website foi desenvolvido com foco no desempenho e na privacidade do utilizador. Não utilizamos cookies de rastreio comercial, publicidade comportamental ou ferramentas invasivas de terceiros durante a navegação geral pelas páginas.</p>
-		  <p><strong>Portefólio Incorporado (Apple Music, SoundCloud, YouTube):</strong> Para proteger a sua privacidade, os reprodutores de áudio e vídeo no nosso portefólio estão desativados por defeito e não carregam quaisquer scripts ou cookies ao abrir a página. Contudo, se clicar ativamente na capa de um lançamento ou no botão de reprodução para ouvir uma masterização, estará a consentir o carregamento dessa plataforma externa. A partir desse momento, a Apple, o SoundCloud ou a Google/YouTube poderão aplicar os seus próprios cookies de rastreio e registar o seu endereço IP de acordo com as respetivas políticas de privacidade.</p>
-		</section>
+        <section class="legal-section">
+          <h2>Política de Privacidade e RGPD</h2>
+          <p>Em conformidade com o Regulamento Geral sobre a Proteção de Dados (UE 2016/679), o responsável pelo tratamento de dados, Miguel Pinheiro Marques, garante que os seus dados pessoais são tratados de forma segura, lícita e transparente.</p>
+          <p><strong>Dados Recolhidos:</strong> Recolhemos apenas as informações estritamente necessárias para a execução do seu projeto de áudio e para o cumprimento das obrigações fiscais e contabilísticas legais em Portugal. Isto inclui o seu nome, nome artístico, e-mail, morada e NIF/NIPC (quando aplicável).</p>
+          <p><strong>Armazenamento de Ficheiros de Áudio:</strong> Os seus ficheiros originais, sessões de projeto e masters finais são armazenados em sistemas de armazenamento locais seguros e cópias de segurança encriptadas na nuvem. Estes ativos são mantidos para permitir revisões ou recuperação de arquivos, podendo ser eliminados definitivamente a qualquer momento mediante pedido expresso.</p>
+          <p><strong>Conteúdo de Terceiros e Transferência de Dados:</strong> Ao interagir com reprodutores de áudio ou vídeo incorporados na nossa página, os seus dados (como o endereço IP) poderão ser tratados pelas respetivas plataformas fora do espaço da UE/EEE. Consulte a nossa Política de Cookies abaixo para mais detalhes.</p>
+          <p><strong>Os Seus Direitos:</strong> Tem o direito de consultar, retificar, limitar ou solicitar a eliminação definitiva dos seus dados pessoais armazenados. Para exercer estes direitos, contacte diretamente o estúdio através do email: <span class="email-container"></span></p>
+        </section>
+        
+        <section class="legal-section">
+          <h2>Política de Cookies e Media Incorporado</h2>
+          <p>Este website foi desenvolvido com foco no desempenho e na privacidade do utilizador. Não utilizamos cookies de rastreio comercial, publicidade comportamental ou ferramentas invasivas de terceiros durante a navegação geral pelas páginas.</p>
+          <p><strong>Portefólio Incorporado (Apple Music, Spotify, SoundCloud, YouTube):</strong> Para proteger a sua privacidade, os reprodutores de áudio e vídeo no nosso portefólio estão desativados por defeito e não carregam quaisquer scripts ou cookies ao abrir a página. Contudo, se clicar ativamente na capa de um lançamento ou no botão de reprodução para ouvir uma masterização, estará a consentir o carregamento dessa plataforma externa. A partir desse momento, a Apple, o Spotify, o SoundCloud ou a Google/YouTube poderão aplicar os seus próprios cookies de rastreio e registar o seu endereço IP de acordo com as respetivas políticas de privacidade.</p>
+        </section>
 
-		<section class="legal-section complaints-book-section">
-		  <h2>Resolução Alternativa de Litígios e Reclamações</h2>
-		  <p>Em cumprimento da legislação nacional vigente, disponibiliza-se o acesso direto à plataforma digital para submissão de eventuais reclamações formais:</p>
-		  
-		  <div class="portuguese-legal-badges">
-			<a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener noreferrer" class="legal-badge-link" aria-label="Livro de Reclamações Eletrónico">
-			  <svg class="legal-badge-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 46" width="160" height="46">
-				<rect width="160" height="46" rx="4" fill="#0D47A1"/>
-				<path d="M 0 0 L 8 0 L 0 23 L 8 46 L 0 46 Z" fill="#1565C0" opacity="0.5"/>
-				<g transform="translate(14, 11)">
-				  <rect x="2" y="1" width="15" height="21" rx="1.5" fill="#FFFFFF"/>
-				  <line x1="5" y1="5" x2="14" y2="5" stroke="#0D47A1" stroke-width="1.5" stroke-linecap="round"/>
-				  <line x1="5" y1="9" x2="14" y2="9" stroke="#0D47A1" stroke-width="1.5" stroke-linecap="round"/>
-				  <circle cx="6" cy="14" r="1" fill="#0D47A1"/>
-				  <circle cx="6" cy="18" r="1" fill="#0D47A1"/>
-				  <line x1="9" y1="14" x2="14" y2="14" stroke="#90CAF9" stroke-width="1.5" stroke-linecap="round"/>
-				  <line x1="9" y1="18" x2="14" y2="18" stroke="#90CAF9" stroke-width="1.5" stroke-linecap="round"/>
-				</g>
-				<g fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
-				  <text x="39" y="18" font-size="9" font-weight="800" letter-spacing="0.05em">LIVRO DE</text>
-				  <text x="39" y="28" font-size="9" font-weight="800" letter-spacing="0.05em">RECLAMAÇÕES</text>
-				  <text x="39" y="37" font-size="7.5" font-weight="400" fill="#90CAF9" letter-spacing="0.02em">ELETRÓNICO</text>
-				</g>
-			  </svg>
-			</a>
-			<p class="small-print">
-			  Em caso de litígio de consumo, o consumidor pode recorrer a uma Entidade de Resolução Alternativa de Litígios de Consumo. Para mais informações, consulte o Portal do Consumidor (www.consumidor.gov.pt).
-			</p>
-		  </div>
-		</section>
-	  {% endif %}
+        <section class="legal-section complaints-book-section">
+          <h2>Resolução Alternativa de Litígios e Reclamações</h2>
+          <p>Em cumprimento da legislação nacional vigente, disponibiliza-se o acesso direto à plataforma digital para submissão de eventuais reclamações formais:</p>
+          
+          <div class="portuguese-legal-badges">
+            <a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener noreferrer" class="legal-badge-link" aria-label="Livro de Reclamações Eletrónico">
+              <svg class="legal-badge-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 46" width="160" height="46">
+                <rect width="160" height="46" rx="4" fill="#0D47A1"/>
+                <path d="M 0 0 L 8 0 L 0 23 L 8 46 L 0 46 Z" fill="#1565C0" opacity="0.5"/>
+                <g transform="translate(14, 11)">
+                  <rect x="2" y="1" width="15" height="21" rx="1.5" fill="#FFFFFF"/>
+                  <line x1="5" y1="5" x2="14" y2="5" stroke="#0D47A1" stroke-width="1.5" stroke-linecap="round"/>
+                  <line x1="5" y1="9" x2="14" y2="9" stroke="#0D47A1" stroke-width="1.5" stroke-linecap="round"/>
+                  <circle cx="6" cy="14" r="1" fill="#0D47A1"/>
+                  <circle cx="6" cy="18" r="1" fill="#0D47A1"/>
+                  <line x1="9" y1="14" x2="14" y2="14" stroke="#90CAF9" stroke-width="1.5" stroke-linecap="round"/>
+                  <line x1="9" y1="18" x2="14" y2="18" stroke="#90CAF9" stroke-width="1.5" stroke-linecap="round"/>
+                </g>
+                <g fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+                  <text x="39" y="18" font-size="9" font-weight="800" letter-spacing="0.05em">LIVRO DE</text>
+                  <text x="39" y="28" font-size="9" font-weight="800" letter-spacing="0.05em">RECLAMAÇÕES</text>
+                  <text x="39" y="37" font-size="7.5" font-weight="400" fill="#90CAF9" letter-spacing="0.02em">ELETRÓNICO</text>
+                </g>
+              </svg>
+            </a>
+            <p class="small-print">
+              Em caso de litígio de consumo, o consumidor pode recorrer a uma Entidade de Resolução Alternativa de Litígios de Consumo. Para mais informações, consulte o Portal do Consumidor (www.consumidor.gov.pt).
+            </p>
+          </div>
+        </section>
+      {% endif %}
 
-	</div>
+    </div>
   </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+  // Modal Engine
   const legalBtn = document.querySelector('.legal-modal-open-btn');
   const legalModal = document.getElementById('legal-modal');
   
   if (legalBtn && legalModal) {
-	legalBtn.addEventListener('click', (e) => {
-	  e.preventDefault();
-	  e.stopPropagation(); // Stops event bubbling up to global scripts
-	  legalModal.classList.add('is-open');
-	  document.body.style.overflow = 'hidden';
-	});
+    legalBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation(); 
+      legalModal.classList.add('is-open');
+      legalModal.style.display = 'block'; // Overrides the 404 hidden defense state
+      document.body.style.overflow = 'hidden';
+    });
   }
+
+  // Antispam Email Obfuscation 
+  const user = "info";
+  const domain = "knurl.pt";
+  const fullEmail = user + "@" + domain;
+  const emailContainers = document.querySelectorAll('.email-container');
+  
+  emailContainers.forEach(container => {
+    container.innerHTML = `<a href="mailto:${fullEmail}" class="legal-email-link">${fullEmail}</a>`;
+  });
 });
 </script>
 
 <style>
+/* --- 404 Page / Global Defense Overrides --- */
+#legal-modal.fullscreen-overlay {
+  display: none;             /* Prevents default layout injection visibility */
+  opacity: 0;
+  visibility: hidden;
+}
+
+#legal-modal.fullscreen-overlay.is-open {
+  display: block !important; /* Safely surfaces when targeted by user click */
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 /* --- Plain Text Trigger Restructuring (Motionless Resets) --- */
 .legal-modal-open-btn.legal-trigger-text {
   display: inline !important;
@@ -123,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
   cursor: pointer !important;
   box-shadow: none !important;
   
-  /* Hard overrides to kill all scaling, shifting, or translation transitions */
   transform: none !important;
   transition: text-decoration 0.2s ease !important;
   animation: none !important;
@@ -136,6 +160,18 @@ document.addEventListener('DOMContentLoaded', () => {
   color: inherit !important;
   transform: none !important;
   box-shadow: none !important;
+}
+
+/* --- Knurl Gold Studio Email Links --- */
+.legal-email-link {
+  color: #EDA40E !important; /* Mapped to Studio Active Theme Accent Color */
+  text-decoration: none !important;
+  transition: opacity 0.2s ease !important;
+}
+.legal-email-link:hover,
+.legal-email-link:focus {
+  text-decoration: underline !important;
+  opacity: 0.8 !important;
 }
 
 /* --- Container & Content Scroller Layout --- */
@@ -173,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 @media (prefers-color-scheme: dark) {
   .legal-content::-webkit-scrollbar-thumb {
-	background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.15);
   }
 }
 
@@ -206,14 +242,14 @@ document.addEventListener('DOMContentLoaded', () => {
 /* Dark Mode Typography Settings */
 @media (prefers-color-scheme: dark) {
   .legal-section h2 {
-	color: #f5f5f5;
-	border-bottom: 1px solid rgba(255,255,255,0.08);
+    color: #f5f5f5;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
   }
   .legal-section p {
-	color: #a0a0a0;
+    color: #a0a0a0;
   }
   .legal-section strong {
-	color: #fff;
+    color: #fff;
   }
 }
 
