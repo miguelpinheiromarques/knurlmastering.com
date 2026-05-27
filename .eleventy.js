@@ -23,6 +23,8 @@ module.exports = function(eleventyConfig) {
   
   eleventyConfig.addPassthroughCopy("./src/llms.txt");
   eleventyConfig.addPassthroughCopy("./src/robots.txt");  
+  
+  eleventyConfig.addPassthroughCopy("./src/_headers");  
 
   // -----------------------------------------------------------------
   // 2. IMAGE SHORTCODE (With Custom Widths & Eager Loading Logic)

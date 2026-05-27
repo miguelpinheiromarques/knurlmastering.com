@@ -1,6 +1,21 @@
 # =========================================================
-# KNURL MASTERING - ROBOTS.TXT (AI Search-Ready)
+# KNURL MASTERING - ROBOTS.TXT (AI Search & Content Signals)
 # =========================================================
+# As a condition of accessing this website, you agree to abide by the
+# following content signals:
+# (a) If a content-signal = yes, you may collect content for the corresponding use.
+# (b) If a content-signal = no, you may not collect content for the corresponding use.
+#
+# The content signals and their meanings are:
+# search: building a search index and providing clickable search hyperlinks.
+# ai-input: inputting content for real-time generative AI search answers (RAG/Grounding).
+# ai-train: training or fine-tuning offline commercial AI models.
+# =========================================================
+
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+Disallow: /404.html
 
 # 1. ALLOW SEARCH AND CITATION AGENTS (Brings client traffic)
 User-agent: Googlebot
@@ -41,11 +56,6 @@ Disallow: /
 User-agent: Meta-ExternalAgent
 Disallow: /
 
-
-# 3. GLOBAL DIRECTIVE FOR OTHER ENGINE TYPES
-User-agent: *
-Allow: /
-Disallow: /404.html
-
-# 4. POINT TO THE MASTER AI INDEX
+# 3. POINT TO THE MASTER AI INDEX & SEARCH SITEMAP
 Sitemap: https://knurlmastering.com/llms.txt
+Sitemap: https://knurlmastering.com/sitemap.xml
