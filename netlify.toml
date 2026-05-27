@@ -2,7 +2,27 @@
   command = "npm run build"
   publish = "_site"
 
-# 1. Portuguese Language Redirect
+[[redirects]]
+  from = "/"
+  to = "/llms.txt"
+  status = 200
+  force = true
+  query = { Accept = "text/markdown" }
+
+[[redirects]]
+  from = "/en/"
+  to = "/llms.txt"
+  status = 200
+  force = true
+  query = { Accept = "text/markdown" }
+
+[[redirects]]
+  from = "/pt/"
+  to = "/llms.txt"
+  status = 200
+  force = true
+  query = { Accept = "text/markdown" }
+
 [[redirects]]
   from = "/"
   to = "/pt/"
@@ -15,8 +35,10 @@
   to = "/en/"
   status = 301
 
-# 3. Custom 404 Page (UPDATED)
-# This serves the 404.html file without changing the URL
+# =========================================================
+# PHASE 3: GLOBAL CATCH-ALLS & ERROR HANDLING
+# =========================================================
+# Custom 404 Page (Serves 404.html without mutating the browser URL)
 [[redirects]]
   from = "/*"
   to = "/404.html"
