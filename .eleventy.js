@@ -1,9 +1,8 @@
-const Image = require("@11ty/eleventy-img");
+module.exports = async function(eleventyConfig) {
+  const { default: Image } = await import("@11ty/eleventy-img");
 
-module.exports = function(eleventyConfig) {
-  
   // -----------------------------------------------------------------
-  // 1. RESTORED CONFIG (CSS, Favicons, Social Images)
+  // 1. CONFIG (CSS, Favicons, Social Images)
   // -----------------------------------------------------------------
   eleventyConfig.addWatchTarget("./src/css/");
   
@@ -11,11 +10,8 @@ module.exports = function(eleventyConfig) {
     return String(Date.now());
   });  
   
-  // Important: If your CSS is just a static file (not Sass/PostCSS), 
-  // you usually need this line too. If your CSS is missing in the 
-  // output folder, uncomment the next line:
+  // Passthrough copies
   eleventyConfig.addPassthroughCopy("./src/css/"); 
-
   eleventyConfig.addPassthroughCopy("./src/favicon.svg");
   eleventyConfig.addPassthroughCopy("./src/apple-touch-icon.png");
   eleventyConfig.addPassthroughCopy("./src/favicon-96x96.png");
@@ -32,7 +28,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/docs/");
 
   // -----------------------------------------------------------------
-  // 2. IMAGE SHORTCODE (With Custom Widths & Eager Loading Logic)
+  // 2. IMAGE SHORTCODE (v3 Async Compatible)
   // -----------------------------------------------------------------
   eleventyConfig.addShortcode("image", async function(src, alt, sizes, className, loading, widthsList) {
     
@@ -47,20 +43,18 @@ module.exports = function(eleventyConfig) {
       formats: ["webp", "jpeg"],
       outputDir: "./_site/img/",
       urlPath: "/img/",
-      // OPTIONAL: Slightly higher quality for professional photography
       sharpWebpOptions: { quality: 85 },
       sharpJpegOptions: { quality: 85 }
     });
 
     let imageAttributes = {
-      class: className || "", // Fix: Empty string if class is undefined
+      class: className || "",
       sizes: sizes,
       loading: loadingStrategy,
       decoding: "async",
       alt: alt
     };
 
-    // If it's eager (hero image), set priority to high
     if (loadingStrategy === "eager") {
       imageAttributes.fetchpriority = "high";
     }
