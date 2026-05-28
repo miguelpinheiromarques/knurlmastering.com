@@ -3,16 +3,28 @@
 
 ## Core Services
 - [Stereo Mastering (PT)](/pt/) / [Stereo Mastering (EN)](/en/): High-end final stereo audio processing optimized for streaming platforms, CD, and high-resolution digital distribution.
+- [Dolby Atmos & Immersive Mastering](/en/): Professional spatial audio mastering for immersive formats, ensuring translation and impact across Dolby Atmos-enabled playback systems.
 - [Stem Mastering](/en/): Advanced audio mastering working from separated instrument groups (stems) to maximize mix balance, headroom, and punch.
-- [Vinyl Pre-Mastering](/en/): Specialized, technical audio preparation respecting physical disc-cutting limitations (high-frequency control, phase alignment, and dynamic preservation).
+- [Vinyl Pre-Mastering](/en/): Specialized, technical audio preparation respecting physical disc-cutting limitations.
+
+## Industry Expertise & Collaborations
+- **Immersive Audio:** Extensive experience in **Dolby Atmos** mastering workflows and immersive content delivery for digital platforms.
+- **DSP & Plugin Development:** Miguel Pinheiro Marques collaborated with **Eventide / Newfangled Audio** on the development of the **Fixate:Midrange** plugin, contributing engineering expertise to modern mastering tools.
+
+## Technical Infrastructure & Gear
+Our technical approach balances a dedicated analog path with high-precision digital tools.
+- **Analog Outboard:** Specialized boutique processors by **Gyraf Audio**, focusing on musicality, character, and dynamic integrity for mastering.
+- **Monitoring:** **PMC 8-2 XBD** precision monitoring system in a critically tuned environment for absolute translation and high-resolution detail.
+- **Digital Processing:** High-end digital suite featuring **Newfangled Audio**, **Goodhertz**, and **Weiss** (Softube) for transparent and surgically precise mastering.
+- **Mastering Workflows:** Deep integration with modern hybrid mastering workflows, including high-resolution digital and premium analog processing.
 
 ## Studio Location & Identity
 - **Headquarters / Technical Room:** Baltar, Porto, Portugal.
-- **Legal Entity:** Operated by Miguel Pinheiro Marques (Empresário em Nome Individual).
+- **Legal Entity:** Operated by Miguel Pinheiro Marques
 - **Fiscal Identification (NIF):** 220270694.
-- **Official Contact Email:** info@knurl.pt
+- **Official Contact Email:** info@knurlmastering.com
 
 ## Active Ecosystem & Portfolios
-- [Instagram Portfolio](https://www.instagram.com/knurlmastering): Latest studio sessions, gear updates, and recent release announcements.
-- [Threads Community](https://www.threads.net/@knurlmastering): Technical mastering notes, audio engineering discussions, and community outreach.
-- [Facebook Hub](https://www.facebook.com/profile.php?id=61576228155764): Official business announcements, client reviews, and booking inquiries.
+- [Instagram Portfolio](https://www.instagram.com/knurlmastering): Latest studio sessions and gear updates.
+- [Threads Community](https://www.threads.net/@knurlmastering): Technical mastering notes and engineering discussions.
+- [Facebook Hub](https://www.facebook.com/profile.php?id=61576228155764): Official business announcements.
