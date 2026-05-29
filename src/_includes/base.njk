@@ -6,9 +6,10 @@
   <title>{{ title }}</title>
 
   <link rel="preload" href="/css/style.css?v={% version %}" as="style">
+  <link rel="preconnect" href="https://api.web3forms.com">
 
   <link rel="canonical" href="https://knurlmastering.com{{ page.url }}" />
-  
+
   {% if locale == "pt" %}
     <link rel="alternate" hreflang="pt" href="https://knurlmastering.com{{ page.url }}" />
     <link rel="alternate" hreflang="en" href="https://knurlmastering.com{{ page.url | replace('/pt/', '/en/') }}" />
@@ -18,11 +19,9 @@
   {% endif %}
   <link rel="alternate" hreflang="x-default" href="https://knurlmastering.com/" />
 
-  
   <meta name="description" content="{{ description }}">
   <meta name="keywords" content="{{ keywords }}">
   <meta name="author" content="Knurl Mastering">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <meta name="google" content="notranslate">  
   
@@ -34,19 +33,23 @@
   <link rel="manifest" href="/manifest.json" />
   <meta name="apple-mobile-web-app-title" content="Knurl" />
   
-  <meta property="og:url" content="{{ site_url }}">
+  <meta property="og:url" content="https://knurlmastering.com{{ page.url }}">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ title }}">
   <meta property="og:description" content="{{ description }}">
   <meta property="og:image" content="https://knurlmastering.com/knurlmastering-og.jpg">
   <meta property="og:image:width" content="1024">
   <meta property="og:image:height" content="683">
+  <meta property="og:image:alt" content="Knurl Mastering studio">
+  <meta property="og:locale" content="{{ 'pt_PT' if locale == 'pt' else 'en_GB' }}">
+  <meta property="og:locale:alternate" content="{{ 'en_GB' if locale == 'pt' else 'pt_PT' }}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta property="twitter:domain" content="{{ site_url }}">
-  <meta property="twitter:url" content="{{ site_url }}">
+  <meta property="twitter:domain" content="knurlmastering.com">
+  <meta property="twitter:url" content="https://knurlmastering.com{{ page.url }}">
   <meta name="twitter:title" content="{{ title }}">
   <meta name="twitter:description" content="{{ description }}">
-  <meta name="twitter:image" content="https://knurlmastering.com/knurlmastering.jpg">
+  <meta name="twitter:image" content="https://knurlmastering.com/knurlmastering-og.jpg">
+  <meta name="twitter:image:alt" content="Knurl Mastering studio">
   
   <script type="application/ld+json">
   {
@@ -80,6 +83,7 @@
       "opens": "10:00",
       "closes": "19:00"
     },
+    "priceRange": "€€",
     "knowsAbout": [
       "Audio Mastering",
       "Stereo Mastering",
