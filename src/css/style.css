@@ -695,8 +695,8 @@ img.bio-hero-image {
   .mobile-bio-btn {
     flex: 1; /* Makes both buttons equal width */
     background-color: transparent;
-    color: #EDA40E;
-    border: 1px solid #EDA40E;
+    color: #C98A0A;
+    border: 1px solid #C98A0A;
     padding: 10px 0;
     border-radius: 4px;
     font-size: 0.9rem;
@@ -707,7 +707,7 @@ img.bio-hero-image {
   }
   
   .mobile-bio-btn:active {
-    background-color: #EDA40E;
+    background-color: #C98A0A;
     color: #ffffff;
   }
 
