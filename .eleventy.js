@@ -1,5 +1,7 @@
 module.exports = async function(eleventyConfig) {
   const { default: Image } = await import("@11ty/eleventy-img");
+  const { minify } = await import("html-minifier-terser");
+  const { default: CleanCSS } = await import("clean-css");
 
   // -----------------------------------------------------------------
   // 1. CONFIG (CSS, Favicons, Social Images)
@@ -10,8 +12,7 @@ module.exports = async function(eleventyConfig) {
     return String(Date.now());
   });  
   
-  // Passthrough copies
-  eleventyConfig.addPassthroughCopy("./src/css/"); 
+  // Passthrough copies (except CSS which is minified)
   eleventyConfig.addPassthroughCopy("./src/favicon.svg");
   eleventyConfig.addPassthroughCopy("./src/apple-touch-icon.png");
   eleventyConfig.addPassthroughCopy("./src/favicon-96x96.png");
@@ -64,7 +65,44 @@ module.exports = async function(eleventyConfig) {
 
 
   // -----------------------------------------------------------------
-  // 3. FINAL RETURN
+  // 3. MINIFICATION (CSS & HTML)
+  // -----------------------------------------------------------------
+  eleventyConfig.addTemplateFormats("css");
+  eleventyConfig.addExtension("css", {
+    outputFileExtension: "css",
+    compile: async function(inputContent, inputPath) {
+      return async () => {
+        const minified = new CleanCSS({}).minify(inputContent);
+        if (minified.errors.length) {
+          console.error("CSS Minification Errors:", minified.errors);
+          return inputContent;
+        }
+        return minified.styles;
+      };
+    }
+  });
+
+  eleventyConfig.addTransform("htmlmin", async function(content) {
+    if (this.page.outputPath && this.page.outputPath.endsWith(".html")) {
+      try {
+        let minified = await minify(content, {
+          useShortDoctype: true,
+          removeComments: true,
+          collapseWhitespace: true,
+          minifyJS: true,
+          minifyCSS: true
+        });
+        return minified;
+      } catch (err) {
+        console.error("HTML minification error: ", err);
+        return content;
+      }
+    }
+    return content;
+  });
+
+  // -----------------------------------------------------------------
+  // 4. FINAL RETURN
   // -----------------------------------------------------------------
   return {
     dir: {
