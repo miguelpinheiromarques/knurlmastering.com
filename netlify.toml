@@ -19,6 +19,70 @@
   status = 301
 
 # =========================================================
+# LEGAL / PRIVACY / TERMS DEEP-LINKS
+# These have no standalone page: the content lives in the
+# legal overlay on the single-page site. Each alias 301s to
+# the localized home with ?legal, and client JS opens the
+# overlay on load (see partials/legal-overlay.njk).
+# =========================================================
+# Language-prefixed aliases (EN)
+[[redirects]]
+  from = "/en/privacy"
+  to = "/en/?legal"
+  status = 301
+[[redirects]]
+  from = "/en/terms"
+  to = "/en/?legal"
+  status = 301
+[[redirects]]
+  from = "/en/cookies"
+  to = "/en/?legal"
+  status = 301
+
+# Language-prefixed aliases (PT)
+[[redirects]]
+  from = "/pt/privacidade"
+  to = "/pt/?legal"
+  status = 301
+[[redirects]]
+  from = "/pt/termos"
+  to = "/pt/?legal"
+  status = 301
+[[redirects]]
+  from = "/pt/cookies"
+  to = "/pt/?legal"
+  status = 301
+
+# Bare shortcuts — language-detected (PT speakers first, EN fallback)
+[[redirects]]
+  from = "/privacy"
+  to = "/pt/?legal"
+  status = 301
+  conditions = {Language = ["pt", "pt-BR", "pt-PT"]}
+[[redirects]]
+  from = "/privacy"
+  to = "/en/?legal"
+  status = 301
+[[redirects]]
+  from = "/terms"
+  to = "/pt/?legal"
+  status = 301
+  conditions = {Language = ["pt", "pt-BR", "pt-PT"]}
+[[redirects]]
+  from = "/terms"
+  to = "/en/?legal"
+  status = 301
+[[redirects]]
+  from = "/cookies"
+  to = "/pt/?legal"
+  status = 301
+  conditions = {Language = ["pt", "pt-BR", "pt-PT"]}
+[[redirects]]
+  from = "/cookies"
+  to = "/en/?legal"
+  status = 301
+
+# =========================================================
 # GLOBAL CATCH-ALLS & ERROR HANDLING
 # =========================================================
 [[redirects]]

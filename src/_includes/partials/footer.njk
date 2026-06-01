@@ -1,6 +1,6 @@
 <footer>
 
-<div class="language">
+<nav class="language" aria-label="{{ 'Language' if locale == 'en' else 'Idioma' }}">
   <p>
     {% if locale == "en" %}
       <a href="/pt/" hreflang="pt-PT">
@@ -15,8 +15,8 @@
         English </a>
     {% endif %}
   </p>
-</div>
-  
+</nav>
+
   <p class="copyright">&copy; 2025-<span id="copyright-year"></span> KNURL MASTERING. {% if locale == "en" %}All rights reserved.{% else %}Todos os direitos reservados.{% endif %} {% include "partials/legal-overlay.njk" %}</p>
   <p class="knoll"><a href="https://youtu.be/49p1JVLHUos?t=933" target="_blank" rel="noopener noreferrer"># always be knurling</a></p>
 

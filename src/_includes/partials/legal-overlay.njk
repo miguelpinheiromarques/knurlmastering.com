@@ -1,8 +1,8 @@
-<span class="legal-modal-open-btn legal-trigger-text" data-target="legal-modal">
+<button type="button" class="legal-modal-open-btn legal-trigger-text" data-target="legal-modal" aria-haspopup="dialog" aria-controls="legal-modal">
   {{ 'Legal Info & Privacy' if locale != 'pt' else 'Informações Legais e RGPD' }}
-</span>
+</button>
 
-<div id="legal-modal" class="fullscreen-overlay">
+<div id="legal-modal" class="fullscreen-overlay" role="dialog" aria-modal="true" aria-label="{{ 'Legal information and privacy policy' if locale != 'pt' else 'Informações legais e política de privacidade' }}">
   <div class="overlay-bg"></div>
   <button class="close-overlay" aria-label="Close legal information">&times;</button>
   
@@ -128,14 +128,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const legalBtn = document.querySelector('.legal-modal-open-btn');
   const legalModal = document.getElementById('legal-modal');
   
+  const openLegal = () => {
+    if (!legalModal) return;
+    legalModal.classList.add('is-open');
+    legalModal.style.display = 'block'; // Overrides the 404 hidden defense state
+    document.body.style.overflow = 'hidden';
+  };
+
   if (legalBtn && legalModal) {
     legalBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      e.stopPropagation(); 
-      legalModal.classList.add('is-open');
-      legalModal.style.display = 'block'; // Overrides the 404 hidden defense state
-      document.body.style.overflow = 'hidden';
+      e.stopPropagation();
+      openLegal();
     });
+  }
+
+  // Deep-link support: /privacy, /terms, /cookies (and localized aliases)
+  // 301 to the home page with ?legal — open the overlay on arrival.
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('legal') || window.location.hash === '#legal') {
+    openLegal();
   }
 
   // Antispam Email Obfuscation 
