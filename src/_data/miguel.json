@@ -285,7 +285,16 @@
     "date": "October 2024",
     "image": "covers/dora_morelenbaum_pique.jpg",
     "link": "https://music.apple.com/pt/album/pique/1758717876?l=en-GB",
-    "featured": true
+    "featured": true,
+    "grammy": true,
+    "grammyLabel": {
+      "en": "Latin Grammy–nominated: Best MPB Album (2025)",
+      "pt": "Nomeado para o Latin Grammy: Melhor Álbum de MPB (2025)"
+    },
+    "alt": {
+      "en": "Pique by Dora Morelenbaum — Latin Grammy–nominated album for Best MPB Album (2025), mastered by Miguel Pinheiro Marques",
+      "pt": "Pique de Dora Morelenbaum — álbum nomeado para o Latin Grammy de Melhor Álbum de MPB (2025), masterizado por Miguel Pinheiro Marques"
+    }
   },
   {
     "artist": "Líquen",
@@ -357,7 +366,16 @@
     "date": "March 2024",
     "image": "covers/ojm_musicas_brasileiras_musicos_portugueses.jpg",
     "link": "https://music.apple.com/pt/album/m%C3%BAsicas-brasileiras-m%C3%BAsicos-portugueses/1735752446?l=en-GB",
-    "featured": true
+    "featured": true,
+    "grammy": true,
+    "grammyLabel": {
+      "en": "Latin Grammy–nominated: Best Arrangement (2024)",
+      "pt": "Nomeado para o Latin Grammy: Melhor Arranjo (2024)"
+    },
+    "alt": {
+      "en": "Músicas Brasileiras, Músicos Portugueses by Orquestra Jazz de Matosinhos — album featuring the Latin Grammy–nominated track 'Linha de Passe' for Best Arrangement (2024), mastered by Miguel Pinheiro Marques",
+      "pt": "Músicas Brasileiras, Músicos Portugueses da Orquestra Jazz de Matosinhos — álbum com o tema 'Linha de Passe', nomeado para o Latin Grammy de Melhor Arranjo (2024), masterizado por Miguel Pinheiro Marques"
+    }
   },
   {
     "artist": "Diogo Piçarra",
