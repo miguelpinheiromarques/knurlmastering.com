@@ -1,0 +1,189 @@
+{%- set t = ddpStrings[locale] -%}
+<!DOCTYPE html>
+<html lang="{{ t.lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ t.title }}</title>
+
+  <meta name="description" content="{{ t.description }}">
+  <meta name="author" content="Knurl Mastering">
+  <meta name="theme-color" content="#383838">
+
+  <link rel="canonical" href="{{ t.canonical }}" />
+  <link rel="alternate" hreflang="en" href="https://knurlmastering.com/en/ddp/" />
+  <link rel="alternate" hreflang="pt" href="https://knurlmastering.com/pt/ddp/" />
+  <link rel="alternate" hreflang="x-default" href="https://knurlmastering.com/en/ddp/" />
+
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <meta property="og:url" content="{{ t.canonical }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ t.ogTitle }}">
+  <meta property="og:description" content="{{ t.ogDescription }}">
+  <meta property="og:image" content="https://knurlmastering.com/knurlmastering-og.jpg">
+  <meta property="og:locale" content="{{ t.ogLocale }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ t.ogTitle }}">
+  <meta name="twitter:description" content="{{ t.ogDescription }}">
+  <meta name="twitter:image" content="https://knurlmastering.com/knurlmastering-og.jpg">
+
+  <link rel="stylesheet" href="/ddp/ddp.css?v={% version %}">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Knurl DDP Player",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any (web browser)",
+    "browserRequirements": "Requires JavaScript and the Web Audio API",
+    "inLanguage": "{{ t.lang }}",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "featureList": [
+      "Play a DDP CD master in the browser",
+      "Read PQ codes, track times and pre-gaps",
+      "Show ISRC codes and the UPC/EAN barcode",
+      "Display CD-Text titles and performers",
+      "Export a PQ sheet",
+      "Fully client-side — no upload"
+    ],
+    "description": "{{ t.ogDescription }}",
+    "url": "{{ t.canonical }}",
+    "publisher": { "@type": "Organization", "name": "Knurl Mastering", "url": "https://knurlmastering.com/" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "inLanguage": "{{ t.lang }}",
+    "mainEntity": [
+      {%- for item in t.faq %}
+      {
+        "@type": "Question",
+        "name": {{ item.q | dump | safe }},
+        "acceptedAnswer": { "@type": "Answer", "text": {{ item.a | dump | safe }} }
+      }{{ "," if not loop.last }}
+      {%- endfor %}
+    ]
+  }
+  </script>
+</head>
+
+<body class="ddp-body">
+  <div class="ddp-wrap">
+
+    <div class="ddp-top">
+      <a href="{{ t.studioUrl }}" aria-label="Knurl Mastering">
+        <img class="brand-word" src="/images/knurl-wordmark.svg" alt="Knurl Mastering" width="534" height="213">
+      </a>
+      <span class="ddp-mark" aria-hidden="true">
+        <img class="brand-mark-img" src="/images/knurl-mark.svg" alt="" width="1024" height="1024">
+      </span>
+    </div>
+
+    <header class="ddp-intro">
+      <h1>{{ t.h1Pre }} <span class="accent">{{ t.h1Accent }}</span></h1>
+      <p>{{ t.intro1 }}</p>
+      <p class="small">{{ t.intro2 }}</p>
+    </header>
+
+    <!-- Loader -->
+    <section id="ddp-dropzone" class="ddp-dropzone" aria-label="{{ t.dzTitle }}">
+      <p class="dz-text"><strong>{{ t.dzTitle }}</strong><br>{{ t.dzOr }}</p>
+      <div class="dz-actions">
+        <button type="button" class="btn primary" onclick="document.getElementById('ddp-folder-input').click()">{{ t.chooseFolder }}</button>
+        <button type="button" class="btn" onclick="document.getElementById('ddp-file-input').click()">{{ t.chooseFiles }}</button>
+      </div>
+      <p class="dz-hint">{{ t.dzHintPre }} <code>DDPID</code>, <code>DDPMS</code>, <code>PQDESCR</code>, {{ t.dzHintPost }}</p>
+      <input id="ddp-folder-input" type="file" webkitdirectory directory multiple hidden>
+      <input id="ddp-file-input" type="file" multiple hidden>
+    </section>
+
+    <div id="ddp-status" class="ddp-status" role="status" aria-live="polite"></div>
+
+    <!-- Player -->
+    <section id="ddp-player" class="ddp-player" hidden>
+      <div class="ddp-header">
+        <div>
+          <h2 id="ddp-disc-title"></h2>
+          <p id="ddp-disc-perf"></p>
+        </div>
+        <div class="dz-actions">
+          <button type="button" id="ddp-export" class="btn ghost">{{ t.exportBtn }}</button>
+          <button type="button" id="ddp-reset" class="btn ghost">{{ t.loadAnother }}</button>
+        </div>
+      </div>
+
+      <div id="ddp-meta" class="ddp-meta"></div>
+
+      <div class="ddp-deck">
+        <div class="ddp-now">
+          <span id="ddp-np-title"></span>
+          <span id="ddp-np-sub"></span>
+        </div>
+
+        <canvas id="ddp-wave" class="ddp-wave" aria-label="Waveform — click or drag to seek"></canvas>
+
+        <div class="ddp-timeline">
+          <span id="ddp-cur">00:00:00</span>
+          <span id="ddp-tot">00:00:00</span>
+        </div>
+
+        <div class="ddp-controls">
+          <button type="button" id="ddp-prev" class="ctrl skip" aria-label="Previous track">
+            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+          </button>
+          <button type="button" id="ddp-play" class="ctrl play" aria-label="Play">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+          </button>
+          <button type="button" id="ddp-next" class="ctrl skip" aria-label="Next track">
+            <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zm-2 6L5.5 6v12z"/></svg>
+          </button>
+          <span class="ddp-vol-wrap">
+            <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg>
+            <input id="ddp-vol" class="ddp-vol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+          </span>
+        </div>
+      </div>
+
+      <div class="ddp-list-head">
+        <h2>{{ t.tracklist }}</h2>
+      </div>
+      <table class="ddp-table">
+        <tbody id="ddp-tracklist"></tbody>
+      </table>
+    </section>
+
+    <!-- SEO / informational content -->
+    <section class="ddp-seo">
+      <h2>{{ t.seoH2 }}</h2>
+      {%- for para in t.seoBody %}
+      <p>{{ para | safe }}</p>
+      {%- endfor %}
+
+      <h3 class="ddp-faq-title">{{ t.faqTitle }}</h3>
+      <dl class="ddp-faq">
+        {%- for item in t.faq %}
+        <dt>{{ item.q }}</dt>
+        <dd>{{ item.a }}</dd>
+        {%- endfor %}
+      </dl>
+    </section>
+
+    <footer class="ddp-foot">
+      <span>{{ t.footerBuilt | replace(t.footerStudioLink, '<a href="' + t.studioUrl + '">' + t.footerStudioLink + '</a>') | safe }}</span>
+      <span>{{ t.footerFree }}</span>
+    </footer>
+
+  </div>
+
+  <script src="/ddp/ddp.js?v={% version %}" defer></script>
+</body>
+</html>

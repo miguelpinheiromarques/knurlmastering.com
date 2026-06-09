@@ -14,6 +14,8 @@ module.exports = async function(eleventyConfig) {
   
   // Passthrough copies (except CSS which is minified)
   eleventyConfig.addPassthroughCopy("./src/favicon.svg");
+  eleventyConfig.addPassthroughCopy("./src/images/knurl-wordmark.svg");
+  eleventyConfig.addPassthroughCopy("./src/images/knurl-mark.svg");
   eleventyConfig.addPassthroughCopy("./src/apple-touch-icon.png");
   eleventyConfig.addPassthroughCopy("./src/favicon-96x96.png");
   eleventyConfig.addPassthroughCopy("./src/knurlmastering-og.jpg");
@@ -27,6 +29,10 @@ module.exports = async function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/.well-known/");
   eleventyConfig.addPassthroughCopy("./src/api/");
   eleventyConfig.addPassthroughCopy("./src/docs/");
+
+  // DDP Player: the page is a .njk, ddp.css is minified by the css extension,
+  // and the player script is copied as-is.
+  eleventyConfig.addPassthroughCopy("./src/ddp/ddp.js");
 
   // -----------------------------------------------------------------
   // 2. IMAGE SHORTCODE (v3 Async Compatible)

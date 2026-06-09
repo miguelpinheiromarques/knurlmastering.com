@@ -18,6 +18,7 @@
 </nav>
 
   <p class="copyright">&copy; 2025-<span id="copyright-year"></span> KNURL MASTERING. {% if locale == "en" %}All rights reserved.{% else %}Todos os direitos reservados.{% endif %} {% include "partials/legal-overlay.njk" %}</p>
+  <p class="knoll"><a href="{{ '/pt/ddp/' if locale == 'pt' else '/en/ddp/' }}">{{ 'Leitor DDP grátis' if locale == 'pt' else 'Free DDP Player' }}</a></p>
   <p class="knoll"><a href="https://youtu.be/49p1JVLHUos?t=933" target="_blank" rel="noopener noreferrer"># always be knurling</a></p>
 
   <script>
