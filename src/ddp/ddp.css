@@ -95,7 +95,7 @@ a:hover { color: var(--gold-soft); }
 /* ---- intro -------------------------------------------------------------- */
 .ddp-intro { padding: 1rem 0 1.75rem; border-top: 1px solid var(--line); }
 .ddp-intro h1 {
-  font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.35rem);
+  font-size: clamp(1.2rem, 0.9rem + 1.3vw, 1.7rem);
   font-weight: 600;
   margin: .4rem 0 .5rem;
   letter-spacing: -0.02em;

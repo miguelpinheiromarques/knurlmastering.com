@@ -379,7 +379,7 @@
         num: num,
         startAbs: startAbs,
         pregapAbs: pregapAbs,
-        isrc: startEntry.isrc || null,
+        isrc: startEntry.isrc || (pregapEntry && pregapEntry.isrc) || null,
         title: (cdt.title && cdt.title[num]) || null,
         performer: (cdt.performer && cdt.performer[num]) || null
       });
