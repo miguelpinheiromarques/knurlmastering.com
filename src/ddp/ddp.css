@@ -63,9 +63,18 @@ a:hover { color: var(--gold-soft); }
 
 .ddp-wrap {
   width: 100%;
-  max-width: 60em;
+  max-width: 48em; /* reading width, like the main site */
   margin: 0 auto;
   padding: 0 1.25rem 4rem;
+}
+
+/* The player and upload box break out wider than the reading column,
+   staying centred on the page. */
+.ddp-dropzone,
+.ddp-player {
+  width: min(60em, calc(100vw - 2.5rem));
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
 /* ---- top bar ------------------------------------------------------------ */
@@ -78,12 +87,10 @@ a:hover { color: var(--gold-soft); }
 }
 .ddp-top a, .ddp-top .ddp-mark { display: block; line-height: 0; }
 .ddp-top img { display: block; width: auto; }
-.brand-word { height: 80px; }
-.brand-mark-img { height: 90px; }
-@media (max-width: 560px) {
-  .brand-word { height: 48px; }
-  .brand-mark-img { height: 54px; }
-}
+/* Match the main-site header exactly: border-box + top padding/margin makes
+   the wordmark render at 72px and gives both a little headroom. */
+.brand-word { height: 80px; padding-top: 8px; }
+.brand-mark-img { height: 90px; margin-top: 3px; padding: 0 0 1px 2px; }
 
 /* ---- intro -------------------------------------------------------------- */
 .ddp-intro { padding: 1rem 0 1.75rem; border-top: 1px solid var(--line); }
@@ -231,7 +238,8 @@ input[type="range"].ddp-vol { width: 92px; accent-color: var(--gold); }
 .t-dur { color: var(--ink); }
 
 /* ---- SEO / informational content --------------------------------------- */
-.ddp-seo { margin-top: 3.5rem; max-width: 48ch; }
+.ddp-seo { margin-top: 3.5rem; }
+.ddp-bug { margin: 2.5rem 0 0; font-size: .85rem; color: var(--muted); }
 .ddp-seo h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 .75rem; }
 .ddp-seo p { font-weight: 400; margin: 0 0 1rem; color: var(--ink); }
 .ddp-seo em { font-style: italic; color: var(--muted); }

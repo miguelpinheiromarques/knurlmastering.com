@@ -49,7 +49,7 @@
       "Show ISRC codes and the UPC/EAN barcode",
       "Display CD-Text titles and performers",
       "Export a PQ sheet",
-      "Fully client-side — no upload"
+      "Fully client-side, no upload"
     ],
     "description": "{{ t.ogDescription }}",
     "url": "{{ t.canonical }}",
@@ -128,7 +128,7 @@
           <span id="ddp-np-sub"></span>
         </div>
 
-        <canvas id="ddp-wave" class="ddp-wave" aria-label="Waveform — click or drag to seek"></canvas>
+        <canvas id="ddp-wave" class="ddp-wave" aria-label="{{ t.waveformLabel }}"></canvas>
 
         <div class="ddp-timeline">
           <span id="ddp-cur">00:00:00</span>
@@ -176,6 +176,8 @@
         {%- endfor %}
       </dl>
     </section>
+
+    <p class="ddp-bug">{{ t.bugText }} <a href="{{ t.contactUrl }}">{{ t.bugLink }}</a></p>
 
     <footer class="ddp-foot">
       <span>{{ t.footerBuilt | replace(t.footerStudioLink, '<a href="' + t.studioUrl + '">' + t.footerStudioLink + '</a>') | safe }}</span>

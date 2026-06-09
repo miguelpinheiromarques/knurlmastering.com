@@ -24,6 +24,7 @@ module.exports = {
     exportBtn: "Download PQ sheet",
     loadAnother: "Load another",
     tracklist: "Tracklist",
+    waveformLabel: "Waveform. Click or drag to seek.",
     footerBuilt: "Built by Knurl Mastering.",
     footerStudioLink: "Knurl Mastering",
     footerFree: "Free & private. DDP is a trademark of DCA, Inc.",
@@ -40,8 +41,9 @@ module.exports = {
       { q: "What can I check with it?", a: "Track titles and performers (CD-Text), track start times and durations, pre-gaps, ISRC codes per track, the UPC/EAN barcode, the DDP level and the total programme time. You can also play the audio and export a PQ sheet." },
       { q: "Which DDP versions are supported?", a: "Red Book audio DDP 2.00 and 1.01 — the versions used for audio CD manufacturing. CD-Text is read when present." }
     ],
-    ctaText: "Need a CD master, vinyl pre-master or a DDP for your next release?",
-    ctaLink: "Work with Knurl Mastering →"
+    contactUrl: "https://knurlmastering.com/en/#contact",
+    bugText: "Found a bug?",
+    bugLink: "Get in touch"
   },
 
   pt: {
@@ -50,41 +52,43 @@ module.exports = {
     altUrl: "https://knurlmastering.com/en/ddp/",
     canonical: "https://knurlmastering.com/pt/ddp/",
     ogLocale: "pt_PT",
-    title: "Leitor de DDP Online Grátis — Ouça e Verifique Masters de CD | Knurl Mastering",
-    description: "Um leitor de DDP gratuito e privado, no seu navegador. Carregue um conjunto DDP para ouvir o master de CD, percorrer o alinhamento e ler os códigos PQ, ISRC, UPC/EAN e CD-Text. Nada é enviado para servidores — por Knurl Mastering.",
-    ogTitle: "Leitor de DDP Online Grátis — Knurl Mastering",
-    ogDescription: "Ouça e verifique um master de CD em DDP no seu navegador. PQ, ISRC, UPC e CD-Text. Gratuito e privado — nada é enviado.",
+    title: "Leitor de DDP online grátis: ouça e verifique masters de CD | Knurl Mastering",
+    description: "Um leitor de DDP gratuito e privado, que corre no seu navegador. Carregue um conjunto DDP para ouvir o master de CD, percorrer o alinhamento e ver os códigos PQ, ISRC, UPC/EAN e o CD-Text. Nada é enviado para servidores. Um projeto da Knurl Mastering.",
+    ogTitle: "Leitor de DDP online grátis | Knurl Mastering",
+    ogDescription: "Ouça e verifique um master de CD em DDP no seu navegador. PQ, ISRC, UPC e CD-Text. Gratuito e privado, sem enviar nada para lado nenhum.",
     studioBack: "← Estúdio",
     h1Pre: "Leitor",
     h1Accent: "DDP",
-    intro1: "Carregue um conjunto DDP para ouvir o master, percorrer o alinhamento e ler os códigos PQ, ISRC, UPC/EAN e CD-Text.",
-    intro2: "Tudo corre no seu navegador — os seus ficheiros nunca são enviados. Gratuito para todos.",
-    dzTitle: "Arraste para aqui uma pasta DDP, os seus ficheiros, ou um .zip",
-    dzOr: "ou escolha abaixo",
+    intro1: "Carregue um conjunto DDP para ouvir o master, percorrer o alinhamento e ver os códigos PQ, ISRC, UPC/EAN e o CD-Text.",
+    intro2: "Tudo acontece no seu navegador e os seus ficheiros nunca saem do computador. É gratuito para toda a gente.",
+    dzTitle: "Arraste para aqui uma pasta DDP, os seus ficheiros ou um .zip",
+    dzOr: "ou escolha em baixo",
     chooseFolder: "Escolher pasta",
     chooseFiles: "Escolher ficheiros / .zip",
-    dzHintPre: "Espera o conjunto DDP habitual:",
-    dzHintPost: "a imagem de áudio (.DAT) e, opcionalmente, CDTEXT.BIN.",
+    dzHintPre: "Precisa do conjunto DDP habitual:",
+    dzHintPost: "a imagem de áudio (.DAT) e, se existir, o CDTEXT.BIN.",
     exportBtn: "Descarregar folha PQ",
     loadAnother: "Carregar outro",
     tracklist: "Alinhamento",
-    footerBuilt: "Criado por Knurl Mastering.",
+    waveformLabel: "Forma de onda. Clique ou arraste para mover.",
+    footerBuilt: "Feito pela Knurl Mastering.",
     footerStudioLink: "Knurl Mastering",
     footerFree: "Gratuito e privado. DDP é uma marca registada da DCA, Inc.",
+    contactUrl: "https://knurlmastering.com/pt/#contact",
+    bugText: "Encontrou algum erro?",
+    bugLink: "Fale connosco",
     seoH2: "Um leitor de DDP gratuito e privado",
     seoBody: [
-      "Uma <strong>imagem DDP</strong> (Disc Description Protocol) é o formato de master que as fábricas de CD usam para produzir um CD áudio. Contém o áudio juntamente com o subcódigo PQ — tempos de início das faixas, pré-gaps, códigos ISRC, o código de barras UPC/EAN e o CD-Text. Este leitor permite abrir um conjunto DDP e confirmar que está tudo correto <em>antes</em> de seguir para fabrico.",
-      "Corre inteiramente no seu navegador. O seu master nunca sai do computador — nada é enviado para nenhum servidor — pelo que é seguro usar com material por editar."
+      "Uma <strong>imagem DDP</strong> (Disc Description Protocol) é o formato de master que as fábricas usam para produzir um CD áudio. Junta o áudio ao subcódigo PQ, ou seja, os tempos de início das faixas, os pré-gaps, os códigos ISRC, o código de barras UPC/EAN e o CD-Text. Com este leitor pode abrir um conjunto DDP e confirmar que está tudo certo <em>antes</em> de o disco seguir para fabrico.",
+      "Corre por inteiro no seu navegador. O seu master nunca sai do computador e nada é enviado para nenhum servidor, por isso pode usá-lo à vontade com material ainda inédito."
     ],
     faqTitle: "Perguntas frequentes",
     faq: [
-      { q: "O que é um ficheiro DDP?", a: "Um conjunto DDP (Disc Description Protocol) é o formato padrão de entrega de um master de CD terminado. Inclui normalmente os descritores DDPID, DDPMS e PQDESCR, a imagem de áudio (um ficheiro .DAT) e, opcionalmente, CDTEXT.BIN. As fábricas usam-no para produzir o disco exatamente como o engenheiro de masterização pretendeu." },
-      { q: "Este leitor de DDP é mesmo gratuito?", a: "Sim — é totalmente gratuito e sem registo. Criámo-lo para a comunidade e para os nossos clientes na Knurl Mastering, para que qualquer pessoa possa ouvir e verificar um master DDP." },
-      { q: "Os meus ficheiros são enviados para algum lado?", a: "Não. O leitor lê e descodifica o seu DDP inteiramente dentro do navegador, com a Web Audio API. Nada é enviado para um servidor, o que o torna seguro para discos por editar." },
-      { q: "O que posso verificar?", a: "Títulos e intérpretes das faixas (CD-Text), tempos de início e durações, pré-gaps, códigos ISRC por faixa, o código de barras UPC/EAN, o nível DDP e a duração total do programa. Pode ainda reproduzir o áudio e exportar uma folha PQ." },
-      { q: "Que versões de DDP são suportadas?", a: "DDP 2.00 e 1.01 de áudio Red Book — as versões usadas no fabrico de CD áudio. O CD-Text é lido quando está presente." }
-    ],
-    ctaText: "Precisa de um master de CD, pré-master de vinil ou um DDP para o seu próximo lançamento?",
-    ctaLink: "Trabalhe com a Knurl Mastering →"
+      { q: "O que é um ficheiro DDP?", a: "Um conjunto DDP (Disc Description Protocol) é a forma habitual de entregar um master de CD terminado. Costuma incluir os descritores DDPID, DDPMS e PQDESCR, a imagem de áudio (um ficheiro .DAT) e, quando existe, o CDTEXT.BIN. É com ele que as fábricas produzem o disco tal como o engenheiro de masterização o deixou." },
+      { q: "Este leitor de DDP é mesmo grátis?", a: "É, sim. É totalmente gratuito e não precisa de registo. Fizemo-lo para a comunidade e para os nossos clientes na Knurl Mastering, para que qualquer pessoa possa ouvir e verificar um master DDP." },
+      { q: "Os meus ficheiros vão para algum lado?", a: "Não vão. O leitor lê e descodifica o DDP inteiramente dentro do navegador, com a Web Audio API. Não há nada a enviar para servidores, por isso é seguro usar com discos ainda inéditos." },
+      { q: "O que posso verificar?", a: "Os títulos e intérpretes das faixas (CD-Text), os tempos de início e as durações, os pré-gaps, os códigos ISRC de cada faixa, o código de barras UPC/EAN, o nível de DDP e a duração total do programa. Pode também ouvir o áudio e exportar uma folha PQ." },
+      { q: "Que versões de DDP funcionam?", a: "As de áudio Red Book, DDP 2.00 e 1.01, que são as usadas no fabrico de CD áudio. Quando o CD-Text está presente, também é lido." }
+    ]
   }
 };
