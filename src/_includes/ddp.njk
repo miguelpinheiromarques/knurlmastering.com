@@ -93,19 +93,18 @@
       <p class="small">{{ t.intro2 }}</p>
     </header>
 
+    <div id="ddp-status" class="ddp-status" role="status" aria-live="polite"></div>
+
     <!-- Loader -->
     <section id="ddp-dropzone" class="ddp-dropzone" aria-label="{{ t.dzTitle }}">
       <p class="dz-text"><strong>{{ t.dzTitle }}</strong><br>{{ t.dzOr }}</p>
       <div class="dz-actions">
-        <button type="button" class="btn primary" onclick="document.getElementById('ddp-folder-input').click()">{{ t.chooseFolder }}</button>
-        <button type="button" class="btn" onclick="document.getElementById('ddp-file-input').click()">{{ t.chooseFiles }}</button>
+        <button type="button" class="btn primary" id="ddp-choose" data-alt="{{ t.chooseFiles }}">{{ t.chooseFolder }}</button>
       </div>
       <p class="dz-hint">{{ t.dzHintPre }} <code>DDPID</code>, <code>DDPMS</code>, <code>PQDESCR</code>, {{ t.dzHintPost }}</p>
       <input id="ddp-folder-input" type="file" webkitdirectory directory multiple hidden>
       <input id="ddp-file-input" type="file" multiple hidden>
     </section>
-
-    <div id="ddp-status" class="ddp-status" role="status" aria-live="polite"></div>
 
     <!-- Player -->
     <section id="ddp-player" class="ddp-player" hidden>
@@ -147,10 +146,41 @@
             <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zm-2 6L5.5 6v12z"/></svg>
           </button>
           <span class="ddp-vol-wrap">
-            <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg>
+            <button type="button" id="ddp-mute" class="ddp-mute" aria-label="Mute">
+              <svg class="icon-vol" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+              <svg class="icon-mute" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg>
+            </button>
             <input id="ddp-vol" class="ddp-vol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volume">
           </span>
         </div>
+      </div>
+
+      <!-- True-peak meter, measured live during playback. Click to reset peak hold. -->
+      <div id="ddp-meter" class="ddp-meter" role="button" tabindex="0" hidden>
+        <div class="ddp-tp">
+          <div class="tp-row">
+            <span class="tp-k" id="tp-label">True Peak</span>
+            <span class="tp-max"><span class="tp-max-v" id="tp-max">—</span><span class="tp-max-u">dBTP&nbsp;max</span></span>
+          </div>
+          <div class="tp-bar" aria-hidden="true">
+            <div class="tp-fill" id="tp-fill"></div>
+            <span class="tp-tick" style="left:25%"></span>
+            <span class="tp-tick" style="left:50%"></span>
+            <span class="tp-tick" style="left:70%"></span>
+            <span class="tp-tick" style="left:85%"></span>
+            <span class="tp-tick" style="left:92.5%"></span>
+            <i class="tp-hold" id="tp-hold"></i>
+          </div>
+          <div class="tp-scale" aria-hidden="true">
+            <span style="left:0%">-40</span>
+            <span style="left:25%">-30</span>
+            <span style="left:50%">-20</span>
+            <span style="left:70%">-12</span>
+            <span style="left:85%">-6</span>
+            <span style="left:100%">0</span>
+          </div>
+        </div>
+        <p class="mtr-note" id="mtr-note"></p>
       </div>
 
       <div class="ddp-list-head">

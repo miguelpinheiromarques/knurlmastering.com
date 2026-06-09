@@ -24,7 +24,11 @@
       yes: "Yes", cPQ: "PQ", notFound: "Not found", trackWord: "Track", play: "Play", pause: "Pause",
       pqHeading: "KNURL MASTERING — DDP PQ SHEET", pqGenerated: "Generated ",
       pqTitle: "Title", pqPerformer: "Performer", pqUpc: "UPC/EAN", pqFormat: "Format", pqTotal: "Total",
-      pqTr: "TR", pqStart: "START", pqDur: "DURATION", pqIsrc: "ISRC", pqTrackTitle: "TITLE"
+      pqTr: "TR", pqStart: "START", pqDur: "DURATION", pqIsrc: "ISRC", pqTrackTitle: "TITLE",
+      composerLabel: "Composer",
+      meterTP: "True Peak",
+      meterNote: "4× oversampled true-peak, measured live as the disc plays. Click to reset.",
+      meterReset: "Click to reset peak hold"
     },
     pt: {
       reading: "A ler ficheiros…", noFiles: "Nenhum ficheiro encontrado.", building: "A construir a forma de onda…",
@@ -37,7 +41,11 @@
       yes: "Sim", cPQ: "PQ", notFound: "Ausente", trackWord: "Faixa", play: "Reproduzir", pause: "Pausa",
       pqHeading: "KNURL MASTERING — FOLHA PQ DDP", pqGenerated: "Gerado a ",
       pqTitle: "Título", pqPerformer: "Intérprete", pqUpc: "UPC/EAN", pqFormat: "Formato", pqTotal: "Total",
-      pqTr: "FX", pqStart: "INÍCIO", pqDur: "DURAÇÃO", pqIsrc: "ISRC", pqTrackTitle: "TÍTULO"
+      pqTr: "FX", pqStart: "INÍCIO", pqDur: "DURAÇÃO", pqIsrc: "ISRC", pqTrackTitle: "TÍTULO",
+      composerLabel: "Compositor",
+      meterTP: "Pico real",
+      meterNote: "Pico real com sobreamostragem 4×, medido em tempo real durante a reprodução. Clique para repor.",
+      meterReset: "Clique para repor o pico máximo"
     }
   };
   var T = I18N[(document.documentElement.lang || "en").slice(0, 2)] || I18N.en;
@@ -381,7 +389,8 @@
         pregapAbs: pregapAbs,
         isrc: startEntry.isrc || (pregapEntry && pregapEntry.isrc) || null,
         title: (cdt.title && cdt.title[num]) || null,
-        performer: (cdt.performer && cdt.performer[num]) || null
+        performer: (cdt.performer && cdt.performer[num]) || null,
+        composer: (cdt.composer && cdt.composer[num]) || null
       });
     });
 
@@ -389,7 +398,8 @@
       // no usable PQ — present the whole image as one track
       tracks.push({ num: 1, startAbs: 0, pregapAbs: 0, isrc: null,
         title: (cdt.title && cdt.title[1]) || null,
-        performer: (cdt.performer && cdt.performer[1]) || null });
+        performer: (cdt.performer && cdt.performer[1]) || null,
+        composer: (cdt.composer && cdt.composer[1]) || null });
       leadOutSec = imageDuration;
     }
 
@@ -416,8 +426,9 @@
       level: (parsed.id && parsed.id.level) || (parsed.levelGuess || null),
       discTitle: (cdt.title && cdt.title[0]) || (parsed.id && parsed.id.userText) || null,
       discPerformer: (cdt.performer && cdt.performer[0]) || null,
+      discComposer: (cdt.composer && cdt.composer[0]) || null,
       masterId: (parsed.id && parsed.id.masterId) || null,
-      hasCdText: !!(cdt.title || cdt.performer),
+      hasCdText: !!(cdt.title || cdt.performer || cdt.composer),
       hasPQ: pq.length > 0
     };
   }
@@ -635,6 +646,12 @@
       meta.appendChild(chip);
     });
 
+    if (meterSupported()) {
+      initMeterLabels();
+      revealMeter();
+      if (meter.ready) resetMeterStats();
+    }
+
     drawWaveform();
     renderTrackList(model);
     updateTransport();
@@ -653,10 +670,8 @@
       var tt = el("div", "t-title", tk.title || (T.trackWord + " " + tk.num));
       info.appendChild(tt);
       if (tk.performer) info.appendChild(el("div", "t-perf", tk.performer));
-      if (tk.isrc) {
-        var isrc = el("div", "t-isrc", tk.isrc);
-        info.appendChild(isrc);
-      }
+      if (tk.composer && tk.composer !== tk.performer) info.appendChild(el("div", "t-comp", T.composerLabel + ": " + tk.composer));
+      if (tk.isrc) info.appendChild(el("div", "t-isrc", "ISRC: " + tk.isrc));
       var start = el("td", "t-start", fmtMSF(tk.start));
       var dur = el("td", "t-dur", fmtTime(tk.duration));
       tr.appendChild(num); tr.appendChild(info); tr.appendChild(start); tr.appendChild(dur);
@@ -682,7 +697,8 @@
     for (var i = 0; i < rows.length; i++) rows[i].classList.toggle("active", i === index);
     if (state.audio) {
       state.audio.currentTime = model.tracks[index].start;
-      if (play) state.audio.play();
+      meterSettle();
+      if (play) playAudio();
     }
     updateNowPlaying();
     drawWaveform();
@@ -698,7 +714,7 @@
   // ---- transport -----------------------------------------------------------
   function togglePlay() {
     if (!state.audio) return;
-    if (state.audio.paused) state.audio.play();
+    if (state.audio.paused) playAudio();
     else state.audio.pause();
   }
   function updatePlayButton(playing) {
@@ -800,6 +816,7 @@
     var playing = state.audio && !state.audio.paused;
     var phase = reducedMotion ? 0 : (Date.now() % 1100 < 620 ? 1 : 0);
     if (playing || phase !== lastPhase) { lastPhase = phase; drawWaveform(); }
+    updateMeterDisplay(Date.now());
     requestAnimationFrame(animate);
   }
   function startAnimate() { if (!animating) { animating = true; requestAnimationFrame(animate); } }
@@ -811,8 +828,214 @@
     var frac = Math.max(0, Math.min(1, x / rect.width));
     if (state.audio && state.model) {
       state.audio.currentTime = frac * state.model.total;
+      meterSettle();
       drawWaveform();
     }
+  }
+
+  /* ========================================================================
+     True-peak meter
+
+     The disc's <audio> output is tapped through the Web Audio graph. Audio
+     plays straight from source → gain → destination (untouched); a parallel
+     ScriptProcessor branch reads the same samples for analysis and emits
+     silence so it never colours playback. 4× polyphase oversampling catches
+     inter-sample peaks, giving a live true-peak level and a max-hold readout.
+     ======================================================================== */
+  var meter = {
+    ctx: null, source: null, proc: null, gain: null, ready: false, active: false,
+    osH: null, osL: 4, osT: 16, dlL: null, dlR: null, dlPos: 0,
+    tpInst: 0, tpMax: 0, dispDb: -Infinity, settleUntil: 0
+  };
+
+  var TP_FLOOR = -40; // bottom of the meter scale, dBTP
+
+  function meterSupported() { return !!(window.AudioContext || window.webkitAudioContext); }
+
+  // Hann-windowed-sinc interpolation filter, stored polyphase as h[k*L + p]
+  // and normalised per phase to unity DC gain (so peak magnitude is preserved).
+  // Cutoff is nudged just past Nyquist (1.03×) to flatten the passband so the
+  // meter never *under*-reads inter-sample peaks (<0.01 dB error to 21 kHz).
+  function designOversampler(L, T) {
+    var N = L * T, center = (N - 1) / 2, cutoff = 1.03, raw = new Float32Array(N), i;
+    for (i = 0; i < N; i++) {
+      var x = i - center;
+      var s = x === 0 ? cutoff : Math.sin(Math.PI * cutoff * x / L) / (Math.PI * x / L);
+      var w = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (N - 1));
+      raw[i] = s * w;
+    }
+    var h = new Float32Array(N);
+    for (var p = 0; p < L; p++) {
+      var sum = 0, k;
+      for (k = 0; k < T; k++) sum += raw[k * L + p];
+      for (k = 0; k < T; k++) h[k * L + p] = raw[k * L + p] / (sum || 1);
+    }
+    return h;
+  }
+
+  function resetMeterStats() {
+    meter.tpInst = 0; meter.tpMax = 0; meter.dispDb = -Infinity; meter.dlPos = 0;
+    if (meter.dlL) { meter.dlL.fill(0); meter.dlR.fill(0); }
+  }
+
+  function initMeterDSP() {
+    meter.osH = designOversampler(meter.osL, meter.osT);
+    meter.dlL = new Float32Array(meter.osT);
+    meter.dlR = new Float32Array(meter.osT);
+    resetMeterStats();
+  }
+
+  function onAudioProcess(e) {
+    var inBuf = e.inputBuffer, outBuf = e.outputBuffer, len = inBuf.length;
+    var L = inBuf.getChannelData(0);
+    var R = inBuf.numberOfChannels > 1 ? inBuf.getChannelData(1) : L;
+    // analysis branch only — emit silence so it never doubles/colours playback
+    for (var ch = 0; ch < outBuf.numberOfChannels; ch++) {
+      var o = outBuf.getChannelData(ch);
+      for (var z = 0; z < len; z++) o[z] = 0;
+    }
+    if (!meter.ready) return;
+
+    // Don't measure across transport discontinuities: a hard start / seek / stop
+    // is a step, and the band-limited reconstruction rings on a step (a false
+    // over-0 dBTP). We still feed the delay line during the settle window so it
+    // is primed with valid samples by the time measurement resumes.
+    var track = !!(state.audio && !state.audio.paused) && meter.ctx.currentTime >= meter.settleUntil;
+
+    var h = meter.osH, T = meter.osT, Lf = meter.osL, dlL = meter.dlL, dlR = meter.dlR;
+    var buf = 0; // peak magnitude within this buffer
+    for (var i = 0; i < len; i++) {
+      var pos = meter.dlPos;
+      dlL[pos] = L[i]; dlR[pos] = R[i];
+      if (track) {
+        // true peak: 4× oversample via the circular delay line, track max magnitude
+        for (var p = 0; p < Lf; p++) {
+          var accL = 0, accR = 0, idx = pos, k;
+          for (k = 0; k < T; k++) {
+            var coef = h[k * Lf + p];
+            accL += dlL[idx] * coef; accR += dlR[idx] * coef;
+            idx--; if (idx < 0) idx += T;
+          }
+          var aL = accL < 0 ? -accL : accL; if (aL > buf) buf = aL;
+          var aR = accR < 0 ? -accR : accR; if (aR > buf) buf = aR;
+        }
+      }
+      meter.dlPos = pos + 1 >= T ? 0 : pos + 1;
+    }
+    if (track) {
+      if (buf > meter.tpInst) meter.tpInst = buf; // drained + decayed in the UI loop
+      if (buf > meter.tpMax) meter.tpMax = buf;
+    }
+  }
+
+  // Mute the meter briefly around a transport change and flush the oversampler,
+  // so step-edge ring-out never registers as a peak.
+  function meterSettle() {
+    if (!meter.ctx) return;
+    meter.settleUntil = meter.ctx.currentTime + 0.15;
+    if (meter.dlL) { meter.dlL.fill(0); meter.dlR.fill(0); meter.dlPos = 0; }
+    meter.tpInst = 0;
+  }
+
+  function resetPeakHold() {
+    meter.tpMax = 0;
+    var hold = $("tp-hold"); if (hold) hold.style.display = "none";
+    var mx = $("tp-max"); if (mx) { mx.textContent = "—"; mx.classList.remove("over", "warn"); }
+  }
+
+  function ensureMeterGraph() {
+    if (meter.ctx || !meterSupported() || !state.audio) return;
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      meter.ctx = new AC();
+      meter.source = meter.ctx.createMediaElementSource(state.audio);
+      initMeterDSP();
+      meter.proc = meter.ctx.createScriptProcessor(4096, 2, 2);
+      meter.proc.onaudioprocess = onAudioProcess;
+      // Monitor volume lives on a GainNode so the meter taps the source *before*
+      // it, reading true file loudness regardless of the listening level.
+      meter.gain = meter.ctx.createGain();
+      var vv = parseFloat($("ddp-vol").value);
+      meter.gain.gain.value = isNaN(vv) ? 1 : vv;
+      state.audio.volume = 1;
+      meter.source.connect(meter.gain);                 // monitoring path…
+      meter.gain.connect(meter.ctx.destination);        // …with volume applied
+      meter.source.connect(meter.proc);                 // analysis tap (pre-gain)…
+      meter.proc.connect(meter.ctx.destination);        // …kept alive (emits silence)
+      meter.ready = true; meter.active = true;
+      revealMeter();
+    } catch (err) {
+      console.warn("meter", err);
+      meter.ctx = null; meter.ready = false;
+    }
+  }
+
+  function revealMeter() {
+    if (!meterSupported()) return;
+    var box = $("ddp-meter");
+    if (box) box.hidden = false;
+  }
+
+  function initMeterLabels() {
+    var label = $("tp-label");
+    if (label) label.textContent = T.meterTP;
+    var note = $("mtr-note");
+    if (note) note.textContent = T.meterNote;
+    var box = $("ddp-meter");
+    if (box) { box.title = T.meterReset; box.setAttribute("aria-label", T.meterReset); }
+  }
+
+  function dbToPct(db) {
+    if (!isFinite(db)) return 0;
+    return Math.max(0, Math.min(1, (db - TP_FLOOR) / (0 - TP_FLOOR)));
+  }
+  function fmtDb(v) { return v == null || !isFinite(v) ? "—" : (v >= 0 ? "+" : "") + v.toFixed(1); }
+
+  var lastMeterPaint = 0;
+  function updateMeterDisplay(now) {
+    if (!meter.active) return;
+    var dt = (now - lastMeterPaint) / 1000;
+    if (dt < 0.03) return; // cap UI to ~30 fps
+    lastMeterPaint = now;
+
+    // Live level: instant attack to the loudest sample since the last paint,
+    // then a steady release so the bar falls smoothly toward silence.
+    var instDb = meter.tpInst > 0 ? 20 * Math.log10(meter.tpInst) : -Infinity;
+    meter.tpInst = 0;
+    if (instDb > meter.dispDb || !isFinite(meter.dispDb)) meter.dispDb = instDb;
+    else meter.dispDb -= 20 * dt; // ~20 dB/s release
+
+    var fill = $("tp-fill");
+    if (fill) {
+      // reveal the fixed zone gradient from the left up to the current level
+      var pct = dbToPct(meter.dispDb) * 100;
+      fill.style.clipPath = "inset(0 " + (100 - pct).toFixed(1) + "% 0 0)";
+    }
+
+    var maxDb = meter.tpMax > 0 ? 20 * Math.log10(meter.tpMax) : null;
+    var hold = $("tp-hold");
+    if (hold) {
+      hold.style.display = maxDb == null ? "none" : "block";
+      if (maxDb != null) hold.style.left = (dbToPct(maxDb) * 100).toFixed(1) + "%";
+    }
+    var mx = $("tp-max");
+    if (mx) {
+      mx.textContent = fmtDb(maxDb);
+      mx.classList.toggle("over", maxDb != null && maxDb > 0);
+      mx.classList.toggle("warn", maxDb != null && maxDb > -1 && maxDb <= 0);
+    }
+  }
+
+  function setVolume(v) {
+    if (meter.gain) meter.gain.gain.value = v;
+    else if (state.audio) state.audio.volume = v;
+  }
+
+  function playAudio() {
+    ensureMeterGraph();
+    if (meter.ctx && meter.ctx.state === "suspended") meter.ctx.resume();
+    meterSettle();
+    if (state.audio) state.audio.play();
   }
 
   /* ========================================================================
@@ -856,6 +1079,9 @@
     if (state.audioURL) URL.revokeObjectURL(state.audioURL);
     state.model = null; state.peaks = null; state.audioURL = null; state.currentTrack = 0;
     $("ddp-player").hidden = true;
+    var meterBox = $("ddp-meter");
+    if (meterBox) meterBox.hidden = true;
+    if (meter.ready) resetMeterStats();
     $("ddp-dropzone").classList.remove("loaded");
     setStatus("");
   }
@@ -866,14 +1092,24 @@
   function init() {
     var dz = $("ddp-dropzone");
 
-    $("ddp-folder-input").addEventListener("change", function (e) {
+    var folderInput = $("ddp-folder-input");
+    var fileInput = $("ddp-file-input");
+    folderInput.addEventListener("change", function (e) {
       if (e.target.files.length) handleFiles(e.target.files);
       e.target.value = "";
     });
-    $("ddp-file-input").addEventListener("change", function (e) {
+    fileInput.addEventListener("change", function (e) {
       if (e.target.files.length) handleFiles(e.target.files);
       e.target.value = "";
     });
+
+    // One picker: choose a folder where supported, else fall back to files/.zip
+    // (e.g. iOS Safari, which can't pick directories). Drag-and-drop covers
+    // folders, loose files and .zip everywhere.
+    var chooseBtn = $("ddp-choose");
+    var supportsDir = "webkitdirectory" in folderInput;
+    if (!supportsDir && chooseBtn.dataset.alt) chooseBtn.textContent = chooseBtn.dataset.alt;
+    chooseBtn.addEventListener("click", function () { (supportsDir ? folderInput : fileInput).click(); });
 
     ["dragenter", "dragover"].forEach(function (ev) {
       dz.addEventListener(ev, function (e) { e.preventDefault(); dz.classList.add("dragover"); });
@@ -894,8 +1130,30 @@
     $("ddp-reset").addEventListener("click", reset);
     $("ddp-export").addEventListener("click", downloadPQSheet);
 
+    var meterBox = $("ddp-meter");
+    meterBox.addEventListener("click", resetPeakHold);
+    meterBox.addEventListener("keydown", function (e) {
+      if (e.code === "Enter" || e.code === "Space") { e.preventDefault(); resetPeakHold(); }
+    });
+
     var vol = $("ddp-vol");
-    vol.addEventListener("input", function () { if (state.audio) state.audio.volume = parseFloat(vol.value); });
+    var muteBtn = $("ddp-mute");
+    var lastVol = parseFloat(vol.value) || 1;
+    function applyVolume(v) {
+      setVolume(v);
+      var muted = v <= 0;
+      muteBtn.classList.toggle("muted", muted);
+      muteBtn.setAttribute("aria-label", muted ? "Unmute" : "Mute");
+    }
+    vol.addEventListener("input", function () {
+      var v = parseFloat(vol.value);
+      if (v > 0) lastVol = v;
+      applyVolume(v);
+    });
+    muteBtn.addEventListener("click", function () {
+      if (parseFloat(vol.value) > 0) { vol.value = 0; applyVolume(0); }
+      else { var nv = lastVol > 0 ? lastVol : 1; vol.value = nv; applyVolume(nv); }
+    });
 
     var wave = $("ddp-wave");
     var dragging = false;

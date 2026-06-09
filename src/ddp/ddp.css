@@ -65,9 +65,9 @@ a:hover { color: var(--gold-soft); }
 
 .ddp-wrap {
   width: 100%;
-  max-width: 48em; /* reading width, like the main site */
+  max-width: 48em;
   margin: 0 auto;
-  padding: 0 1.25rem 4rem;
+  padding: 0 1.5rem 4rem;
 }
 
 /* The player and upload box break out wider than the reading column,
@@ -103,7 +103,7 @@ a:hover { color: var(--gold-soft); }
   letter-spacing: -0.02em;
 }
 .ddp-intro h1 .accent { color: inherit; }
-.ddp-intro p { margin: 0; max-width: 46ch; color: var(--ink); font-weight: 400; }
+.ddp-intro p { margin: 0; color: var(--ink); font-weight: 400; }
 .ddp-intro .small { color: var(--muted); font-size: .82rem; margin-top: .6rem; }
 
 /* ---- dropzone ----------------------------------------------------------- */
@@ -114,6 +114,8 @@ a:hover { color: var(--gold-soft); }
   padding: 2.75rem 1.5rem;
   text-align: center;
   transition: border-color .2s, background .2s;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 .ddp-dropzone.dragover { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 8%, var(--panel)); }
 .ddp-dropzone.loaded { display: none; }
@@ -151,8 +153,8 @@ a:hover { color: var(--gold-soft); }
 .ddp-player[hidden] { display: none; }
 .ddp-player {
   margin-top: 2rem;
-  border-top: 1px solid var(--divider);
-  border-bottom: 1px solid var(--divider);
+  border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
   padding: 1.75rem 0 2rem;
 }
 
@@ -212,8 +214,68 @@ a:hover { color: var(--gold-soft); }
 .ctrl.skip:hover { color: var(--ink); }
 
 .ddp-vol-wrap { margin-left: auto; display: flex; align-items: center; gap: .5rem; color: var(--muted); }
-.ddp-vol-wrap svg { width: 18px; height: 18px; fill: currentColor; }
+.ddp-mute {
+  appearance: none; border: none; background: transparent; cursor: pointer;
+  padding: 0; color: inherit; display: inline-flex; transition: color .2s;
+}
+.ddp-mute svg { width: 18px; height: 18px; fill: currentColor; display: block; }
+.ddp-mute:hover { color: var(--ink); }
+.ddp-mute.muted { color: var(--gold); }
+.ddp-mute .icon-mute { display: none; }
+.ddp-mute.muted .icon-vol { display: none; }
+.ddp-mute.muted .icon-mute { display: block; }
 input[type="range"].ddp-vol { width: 92px; accent-color: var(--gold); }
+
+/* ---- true-peak meter --------------------------------------------------- */
+.ddp-meter { margin-top: 1.25rem; cursor: pointer; border-radius: 8px; }
+.ddp-meter[hidden] { display: none; }
+
+.tp-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: .45rem; }
+.tp-k {
+  color: var(--muted); text-transform: uppercase; letter-spacing: .07em;
+  font-size: .62rem; white-space: nowrap;
+}
+.tp-max { display: inline-flex; align-items: baseline; gap: .3rem; font-variant-numeric: tabular-nums; }
+.tp-max-v {
+  font-weight: 600; font-size: 1.05rem; min-width: 3.4ch; text-align: right;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+.tp-max-v.warn { color: var(--gold); }
+.tp-max-v.over { color: #c0392b; }
+.tp-max-u { color: var(--muted); font-size: .6rem; letter-spacing: .04em; }
+
+/* The bar: a fixed zone gradient revealed left-to-right by clip-path, with
+   graduation ticks and a peak-hold marker — reads like a hardware PPM. */
+.tp-bar {
+  position: relative; height: 13px; border-radius: 3px;
+  background: var(--wave-bg); overflow: hidden;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 8%, transparent);
+}
+.tp-fill {
+  position: absolute; inset: 0; clip-path: inset(0 100% 0 0);
+  background: linear-gradient(90deg,
+    var(--gold) 0%, var(--gold) 82%, #e0801a 91%, #c0392b 100%);
+  transition: clip-path .05s linear;
+}
+.tp-tick {
+  position: absolute; top: 0; bottom: 0; width: 1px; margin-left: -0.5px;
+  background: var(--wave-tick); pointer-events: none;
+}
+.tp-hold {
+  position: absolute; top: -1px; bottom: -1px; width: 2px; margin-left: -1px;
+  background: var(--ink); display: none;
+}
+.ddp-meter:hover .tp-hold { background: var(--gold); }
+
+.tp-scale {
+  position: relative; height: .9em; margin-top: .3rem;
+  font-size: .58rem; color: var(--muted); font-variant-numeric: tabular-nums;
+}
+.tp-scale span { position: absolute; transform: translateX(-50%); }
+.tp-scale span:first-child { transform: none; }
+.tp-scale span:last-child { transform: translateX(-100%); }
+
+.mtr-note { color: var(--muted); font-size: .66rem; margin: .6rem 0 0; }
 
 /* ---- tracklist ---------------------------------------------------------- */
 .ddp-list-head {
@@ -234,6 +296,7 @@ input[type="range"].ddp-vol { width: 92px; accent-color: var(--gold); }
 }
 .t-title { font-weight: 600; }
 .t-perf { color: var(--muted); font-size: .82rem; margin-top: .1rem; }
+.t-comp { color: var(--muted); font-size: .82rem; margin-top: .1rem; }
 .t-isrc {
   color: var(--muted); font-size: .72rem; margin-top: .2rem;
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: .02em;
