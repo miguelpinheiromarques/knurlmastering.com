@@ -490,6 +490,23 @@
     return peaks;
   }
 
+  // Triangle-kernel smoothing — softens spiky raw peaks without blurring structure
+  function smoothPeaks(peaks, radius) {
+    var out = new Float32Array(peaks.length);
+    for (var i = 0; i < peaks.length; i++) {
+      var sum = 0, w = 0;
+      for (var j = -radius; j <= radius; j++) {
+        var k = i + j;
+        if (k < 0 || k >= peaks.length) continue;
+        var weight = 1 - Math.abs(j) / (radius + 1);
+        sum += peaks[k] * weight;
+        w += weight;
+      }
+      out[i] = sum / w;
+    }
+    return out;
+  }
+
   /* ========================================================================
      Player UI
      ======================================================================== */
@@ -747,12 +764,14 @@
     var progress = state.audio ? (state.audio.currentTime / (model.total || 1)) : 0;
     var px = Math.floor(progress * w);
 
-    for (var x = 0; x < w; x++) {
-      var bi = Math.floor(x / w * n);
-      var amp = Math.pow(peaks[bi] || 0, 0.7); // perceptual lift
-      var bar = Math.max(1, amp * (h * 0.92));
-      ctx.fillStyle = x <= px ? gold : unplayed;
-      ctx.fillRect(x, mid - bar / 2, 1, bar);
+    var smoothed = smoothPeaks(peaks, 6);
+    var step = 3, bw = 2;
+    for (var x = 0; x < w; x += step) {
+      var bi = Math.floor((x + 1) / w * n);
+      var amp = Math.pow(smoothed[bi] || 0, 0.7);
+      var bar = Math.max(2, amp * (h * 0.9));
+      ctx.fillStyle = x < px ? gold : unplayed;
+      ctx.fillRect(x, mid - bar / 2, bw, bar);
     }
 
     // track boundary ticks

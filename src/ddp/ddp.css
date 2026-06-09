@@ -9,6 +9,7 @@
   --muted: #777;
   --line: #e2e2e2;
   --line-strong: #ddd;
+  --divider: #f0f0f0;
   --panel: #f9f9f9;
   --gold: #EDA40E;
   --gold-soft: #E6C16A;
@@ -24,6 +25,7 @@
     --muted: #8c8c8c;
     --line: #282828;
     --line-strong: #303030;
+    --divider: #282828;
     --panel: #1c1c1c;
     --wave-bg: #3a3a3a;
     --wave-tick: rgba(180, 180, 180, 0.35);
@@ -147,7 +149,12 @@ a:hover { color: var(--gold-soft); }
 
 /* ---- player ------------------------------------------------------------- */
 .ddp-player[hidden] { display: none; }
-.ddp-player { margin-top: 1.5rem; }
+.ddp-player {
+  margin-top: 2rem;
+  border-top: 1px solid var(--divider);
+  border-bottom: 1px solid var(--divider);
+  padding: 1.75rem 0 2rem;
+}
 
 .ddp-header {
   display: flex; align-items: flex-end; justify-content: space-between;
@@ -238,7 +245,7 @@ input[type="range"].ddp-vol { width: 92px; accent-color: var(--gold); }
 .t-dur { color: var(--ink); }
 
 /* ---- SEO / informational content --------------------------------------- */
-.ddp-seo { margin-top: 3.5rem; }
+.ddp-seo { margin-top: 2.5rem; }
 .ddp-bug { margin: 2.5rem 0 0; font-size: .85rem; color: var(--muted); }
 .ddp-seo h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 .75rem; }
 .ddp-seo p { font-weight: 400; margin: 0 0 1rem; color: var(--ink); }
