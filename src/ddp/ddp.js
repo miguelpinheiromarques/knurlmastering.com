@@ -892,12 +892,42 @@
     }
   }
 
+  // Short de-click fade on playback start. Starting playback after a seek jumps
+  // from silence to a mid-waveform sample (CD track boundaries aren't at zero
+  // crossings), which clicks. We can't ramp an AudioParam without re-introducing
+  // the Web Audio graph, so we ramp the element's volume from 0 to the current
+  // level over a few ms: the onset is muted, masking the step.
+  var FADE_MS = 18;
+  var fadeTimer = null;
+  function cancelFade() {
+    if (fadeTimer) { clearTimeout(fadeTimer); fadeTimer = null; }
+  }
+  function currentVolume() {
+    var v = parseFloat($("ddp-vol").value);
+    return isNaN(v) ? 1 : Math.max(0, Math.min(1, v));
+  }
+
   function setVolume(v) {
+    cancelFade();                 // a manual volume change overrides any fade
     if (state.audio) state.audio.volume = v;
   }
 
   function playAudio() {
-    if (state.audio) state.audio.play();
+    var a = state.audio;
+    if (!a) return;
+    cancelFade();
+    var target = currentVolume();
+    a.volume = 0;                 // mute the onset before audio starts
+    a.play();
+    if (target <= 0) return;      // muted: nothing to ramp up to
+    var start = performance.now();
+    var step = function () {
+      var t = (performance.now() - start) / FADE_MS;
+      if (t >= 1) { a.volume = target; fadeTimer = null; return; }
+      a.volume = target * t;      // linear ramp from silence
+      fadeTimer = setTimeout(step, 3);
+    };
+    fadeTimer = setTimeout(step, 3);
   }
 
   /* ========================================================================
