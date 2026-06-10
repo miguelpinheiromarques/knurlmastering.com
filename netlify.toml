@@ -83,6 +83,15 @@
   status = 301
 
 # =========================================================
+# LEGACY URLS
+# =========================================================
+# The DDP player launched at /ddp/ before going bilingual.
+[[redirects]]
+  from = "/ddp"
+  to = "/en/ddp/"
+  status = 301
+
+# =========================================================
 # GLOBAL CATCH-ALLS & ERROR HANDLING
 # =========================================================
 [[redirects]]

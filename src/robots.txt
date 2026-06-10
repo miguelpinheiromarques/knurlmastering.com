@@ -72,7 +72,9 @@ User-agent: Meta-ExternalAgent
 Disallow: /
 
 # =========================================================
-# 3. POINT TO THE MASTER AI INDEX & SEARCH SITEMAP
+# 3. SEARCH SITEMAP
 # =========================================================
-Sitemap: https://knurlmastering.com/llms.txt
+# AI index: https://knurlmastering.com/llms.txt (also advertised
+# via the Link: rel="help" response header — the Sitemap: directive
+# only accepts XML sitemaps, so it must not be listed here.)
 Sitemap: https://knurlmastering.com/sitemap.xml
