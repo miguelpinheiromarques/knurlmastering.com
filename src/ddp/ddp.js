@@ -612,7 +612,7 @@
   function wireAudio(audio) {
     audio.ontimeupdate = onTimeUpdate;
     audio.onplay = function () { updatePlayButton(true); };
-    audio.onpause = function () { updatePlayButton(false); };
+    audio.onpause = function () { updatePlayButton(false); meterSettle(); };
     audio.onended = function () { updatePlayButton(false); };
     audio.onerror = function () { setStatus(T.audioError, true); };
   }
@@ -836,107 +836,48 @@
 
      The disc's <audio> output is tapped through the Web Audio graph. Audio
      plays straight from source → gain → destination (untouched); a parallel
-     ScriptProcessor branch reads the same samples for analysis and emits
-     silence so it never colours playback. 4× polyphase oversampling catches
-     inter-sample peaks, giving a live true-peak level and a max-hold readout.
+     AudioWorklet branch reads the same samples for analysis on the audio render
+     thread (off the main thread) and emits silence so it never colours
+     playback. 4× polyphase oversampling catches inter-sample peaks, giving a
+     live true-peak level and a max-hold readout. The DSP itself lives in
+     ddp-meter-worklet.js; here we only set up the graph and the UI.
      ======================================================================== */
   var meter = {
-    ctx: null, source: null, proc: null, gain: null, ready: false, active: false,
-    osH: null, osL: 4, osT: 16, dlL: null, dlR: null, dlPos: 0,
-    tpInst: 0, tpMax: 0, dispDb: -Infinity, settleUntil: 0
+    ctx: null, source: null, node: null, gain: null, ready: false, active: false,
+    osL: 4, osT: 16, tpInst: 0, tpMax: 0, dispDb: -Infinity
   };
 
   var TP_FLOOR = -40; // bottom of the meter scale, dBTP
 
-  function meterSupported() { return !!(window.AudioContext || window.webkitAudioContext); }
+  function meterSupported() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    return !!(AC && AC.prototype && "audioWorklet" in AC.prototype);
+  }
 
-  // Hann-windowed-sinc interpolation filter, stored polyphase as h[k*L + p]
-  // and normalised per phase to unity DC gain (so peak magnitude is preserved).
-  // Cutoff is nudged just past Nyquist (1.03×) to flatten the passband so the
-  // meter never *under*-reads inter-sample peaks (<0.01 dB error to 21 kHz).
-  function designOversampler(L, T) {
-    var N = L * T, center = (N - 1) / 2, cutoff = 1.03, raw = new Float32Array(N), i;
-    for (i = 0; i < N; i++) {
-      var x = i - center;
-      var s = x === 0 ? cutoff : Math.sin(Math.PI * cutoff * x / L) / (Math.PI * x / L);
-      var w = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (N - 1));
-      raw[i] = s * w;
-    }
-    var h = new Float32Array(N);
-    for (var p = 0; p < L; p++) {
-      var sum = 0, k;
-      for (k = 0; k < T; k++) sum += raw[k * L + p];
-      for (k = 0; k < T; k++) h[k * L + p] = raw[k * L + p] / (sum || 1);
-    }
-    return h;
+  // Load the worklet module with the same ?v= cache-buster as ddp.js so the two
+  // stay in lockstep across deploys.
+  function meterWorkletURL() {
+    var s = document.querySelector('script[src*="/ddp/ddp.js"]');
+    var v = "";
+    if (s) { var m = (s.getAttribute("src") || "").match(/[?&]v=([^&]*)/); if (m) v = "?v=" + m[1]; }
+    return "/ddp/ddp-meter-worklet.js" + v;
   }
 
   function resetMeterStats() {
-    meter.tpInst = 0; meter.tpMax = 0; meter.dispDb = -Infinity; meter.dlPos = 0;
-    if (meter.dlL) { meter.dlL.fill(0); meter.dlR.fill(0); }
-  }
-
-  function initMeterDSP() {
-    meter.osH = designOversampler(meter.osL, meter.osT);
-    meter.dlL = new Float32Array(meter.osT);
-    meter.dlR = new Float32Array(meter.osT);
-    resetMeterStats();
-  }
-
-  function onAudioProcess(e) {
-    var inBuf = e.inputBuffer, outBuf = e.outputBuffer, len = inBuf.length;
-    var L = inBuf.getChannelData(0);
-    var R = inBuf.numberOfChannels > 1 ? inBuf.getChannelData(1) : L;
-    // analysis branch only — emit silence so it never doubles/colours playback
-    for (var ch = 0; ch < outBuf.numberOfChannels; ch++) {
-      var o = outBuf.getChannelData(ch);
-      for (var z = 0; z < len; z++) o[z] = 0;
-    }
-    if (!meter.ready) return;
-
-    // Don't measure across transport discontinuities: a hard start / seek / stop
-    // is a step, and the band-limited reconstruction rings on a step (a false
-    // over-0 dBTP). We still feed the delay line during the settle window so it
-    // is primed with valid samples by the time measurement resumes.
-    var track = !!(state.audio && !state.audio.paused) && meter.ctx.currentTime >= meter.settleUntil;
-
-    var h = meter.osH, T = meter.osT, Lf = meter.osL, dlL = meter.dlL, dlR = meter.dlR;
-    var buf = 0; // peak magnitude within this buffer
-    for (var i = 0; i < len; i++) {
-      var pos = meter.dlPos;
-      dlL[pos] = L[i]; dlR[pos] = R[i];
-      if (track) {
-        // true peak: 4× oversample via the circular delay line, track max magnitude
-        for (var p = 0; p < Lf; p++) {
-          var accL = 0, accR = 0, idx = pos, k;
-          for (k = 0; k < T; k++) {
-            var coef = h[k * Lf + p];
-            accL += dlL[idx] * coef; accR += dlR[idx] * coef;
-            idx--; if (idx < 0) idx += T;
-          }
-          var aL = accL < 0 ? -accL : accL; if (aL > buf) buf = aL;
-          var aR = accR < 0 ? -accR : accR; if (aR > buf) buf = aR;
-        }
-      }
-      meter.dlPos = pos + 1 >= T ? 0 : pos + 1;
-    }
-    if (track) {
-      if (buf > meter.tpInst) meter.tpInst = buf; // drained + decayed in the UI loop
-      if (buf > meter.tpMax) meter.tpMax = buf;
-    }
+    meter.tpInst = 0; meter.tpMax = 0; meter.dispDb = -Infinity;
+    if (meter.node) meter.node.port.postMessage({ type: "resetAll" });
   }
 
   // Mute the meter briefly around a transport change and flush the oversampler,
   // so step-edge ring-out never registers as a peak.
   function meterSettle() {
-    if (!meter.ctx) return;
-    meter.settleUntil = meter.ctx.currentTime + 0.15;
-    if (meter.dlL) { meter.dlL.fill(0); meter.dlR.fill(0); meter.dlPos = 0; }
     meter.tpInst = 0;
+    if (meter.node) meter.node.port.postMessage({ type: "settle", seconds: 0.15 });
   }
 
   function resetPeakHold() {
     meter.tpMax = 0;
+    if (meter.node) meter.node.port.postMessage({ type: "resetMax" });
     var hold = $("tp-hold"); if (hold) hold.style.display = "none";
     var mx = $("tp-max"); if (mx) { mx.textContent = "—"; mx.classList.remove("over", "warn"); }
   }
@@ -947,9 +888,6 @@
       var AC = window.AudioContext || window.webkitAudioContext;
       meter.ctx = new AC();
       meter.source = meter.ctx.createMediaElementSource(state.audio);
-      initMeterDSP();
-      meter.proc = meter.ctx.createScriptProcessor(4096, 2, 2);
-      meter.proc.onaudioprocess = onAudioProcess;
       // Monitor volume lives on a GainNode so the meter taps the source *before*
       // it, reading true file loudness regardless of the listening level.
       meter.gain = meter.ctx.createGain();
@@ -958,14 +896,37 @@
       state.audio.volume = 1;
       meter.source.connect(meter.gain);                 // monitoring path…
       meter.gain.connect(meter.ctx.destination);        // …with volume applied
-      meter.source.connect(meter.proc);                 // analysis tap (pre-gain)…
-      meter.proc.connect(meter.ctx.destination);        // …kept alive (emits silence)
-      meter.ready = true; meter.active = true;
+      meter.active = true;
       revealMeter();
+      loadMeterWorklet();                               // analysis tap (async)
     } catch (err) {
       console.warn("meter", err);
-      meter.ctx = null; meter.ready = false;
+      meter.ctx = null; meter.ready = false; meter.active = false;
     }
+  }
+
+  // Add the worklet module, then wire the analysis tap. Audio is already routed
+  // through the gain path above, so playback never waits on this.
+  function loadMeterWorklet() {
+    var ctx = meter.ctx;
+    if (!ctx || !ctx.audioWorklet) return;
+    ctx.audioWorklet.addModule(meterWorkletURL()).then(function () {
+      if (meter.ctx !== ctx) return;                    // reset/teardown meanwhile
+      var node = new AudioWorkletNode(ctx, "knurl-true-peak", {
+        numberOfInputs: 1, numberOfOutputs: 1, outputChannelCount: [2],
+        processorOptions: { L: meter.osL, T: meter.osT }
+      });
+      node.port.onmessage = function (e) {
+        var d = e.data;
+        if (d.inst > meter.tpInst) meter.tpInst = d.inst; // drained in the UI loop
+        meter.tpMax = d.max;
+      };
+      meter.source.connect(node);                       // analysis tap (pre-gain)…
+      node.connect(ctx.destination);                    // …kept alive (emits silence)
+      meter.node = node;
+      meter.ready = true;
+      meterSettle();                                    // ignore the entry step
+    }).catch(function (err) { console.warn("worklet", err); });
   }
 
   function revealMeter() {
