@@ -275,8 +275,6 @@ input[type="range"].ddp-vol { width: 92px; accent-color: var(--gold); }
 .tp-scale span:first-child { transform: none; }
 .tp-scale span:last-child { transform: translateX(-100%); }
 
-.mtr-note { color: var(--muted); font-size: .66rem; margin: .6rem 0 0; }
-
 /* ---- tracklist ---------------------------------------------------------- */
 .ddp-list-head {
   display: flex; align-items: center; justify-content: space-between;

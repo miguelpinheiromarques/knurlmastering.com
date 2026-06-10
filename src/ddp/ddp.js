@@ -27,7 +27,6 @@
       pqTr: "TR", pqStart: "START", pqDur: "DURATION", pqIsrc: "ISRC", pqTrackTitle: "TITLE",
       composerLabel: "Composer",
       meterTP: "True Peak",
-      meterNote: "4× oversampled true-peak, measured live as the disc plays. Click to reset.",
       meterReset: "Click to reset peak hold"
     },
     pt: {
@@ -44,7 +43,6 @@
       pqTr: "FX", pqStart: "INÍCIO", pqDur: "DURAÇÃO", pqIsrc: "ISRC", pqTrackTitle: "TÍTULO",
       composerLabel: "Compositor",
       meterTP: "Pico real",
-      meterNote: "Pico real com sobreamostragem 4×, medido em tempo real durante a reprodução. Clique para repor.",
       meterReset: "Clique para repor o pico máximo"
     }
   };
@@ -979,8 +977,6 @@
   function initMeterLabels() {
     var label = $("tp-label");
     if (label) label.textContent = T.meterTP;
-    var note = $("mtr-note");
-    if (note) note.textContent = T.meterNote;
     var box = $("ddp-meter");
     if (box) { box.title = T.meterReset; box.setAttribute("aria-label", T.meterReset); }
   }
@@ -1050,21 +1046,43 @@
     lines.push("");
     if (model.discTitle) lines.push((T.pqTitle + ":").padEnd(11) + model.discTitle);
     if (model.discPerformer) lines.push((T.pqPerformer + ":").padEnd(11) + model.discPerformer);
+    if (model.discComposer) lines.push((T.composerLabel + ":").padEnd(11) + model.discComposer);
     if (model.upcEan) lines.push((T.pqUpc + ":").padEnd(11) + model.upcEan);
     if (model.level) lines.push((T.pqFormat + ":").padEnd(11) + model.level);
     lines.push((T.pqTotal + ":").padEnd(11) + fmtMSF(model.total));
     lines.push("");
-    lines.push(T.pqTr.padEnd(4) + T.pqStart.padEnd(13) + T.pqDur.padEnd(11) + T.pqIsrc.padEnd(14) + T.pqTrackTitle);
-    lines.push("--  -----------  ---------  ------------  -----------------------------");
-    model.tracks.forEach(function (tk) {
-      lines.push(
-        String(tk.num).padStart(2, "0") + "  " +
-        fmtMSF(tk.start).padEnd(11) + "  " +
-        fmtMSF(tk.duration).padEnd(9) + "  " +
-        (tk.isrc || "—").padEnd(12) + "  " +
-        (tk.title || (T.trackWord + " " + tk.num))
-      );
+
+    // Per-track table with one column per field, auto-sized to its contents so
+    // everything stays aligned regardless of how long titles/names are.
+    var dash = "—";
+    var headers = [T.pqTr, T.pqStart, T.pqDur, T.pqIsrc, T.pqTrackTitle,
+      T.pqPerformer.toUpperCase(), T.composerLabel.toUpperCase()];
+    var rows = model.tracks.map(function (tk) {
+      return [
+        String(tk.num).padStart(2, "0"),
+        fmtMSF(tk.start),
+        fmtMSF(tk.duration),
+        tk.isrc || dash,
+        tk.title || (T.trackWord + " " + tk.num),
+        tk.performer || model.discPerformer || dash,
+        tk.composer || model.discComposer || dash
+      ];
     });
+    var widths = headers.map(function (h, i) {
+      var w = h.length;
+      rows.forEach(function (r) { if (r[i].length > w) w = r[i].length; });
+      return w;
+    });
+    var gap = "  ";
+    function renderRow(cells) {
+      return cells.map(function (c, i) {
+        // leave the final column unpadded to avoid trailing whitespace
+        return i === cells.length - 1 ? c : c.padEnd(widths[i]);
+      }).join(gap).replace(/\s+$/, "");
+    }
+    lines.push(renderRow(headers));
+    lines.push(widths.map(function (w) { return "-".repeat(w); }).join(gap));
+    rows.forEach(function (r) { lines.push(renderRow(r)); });
     var blob = new Blob([lines.join("\n")], { type: "text/plain" });
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
