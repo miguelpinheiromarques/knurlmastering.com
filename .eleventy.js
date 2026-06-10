@@ -33,7 +33,6 @@ module.exports = async function(eleventyConfig) {
   // DDP Player: the page is a .njk, ddp.css is minified by the css extension,
   // and the player script is copied as-is.
   eleventyConfig.addPassthroughCopy("./src/ddp/ddp.js");
-  eleventyConfig.addPassthroughCopy("./src/ddp/ddp-meter-worklet.js");
 
   // -----------------------------------------------------------------
   // 2. IMAGE SHORTCODE (v3 Async Compatible)

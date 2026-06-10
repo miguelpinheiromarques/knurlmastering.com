@@ -228,55 +228,6 @@ a:hover { color: var(--gold-soft); }
 .ddp-mute.muted .icon-mute { display: block; }
 input[type="range"].ddp-vol { width: 92px; accent-color: var(--gold); }
 
-/* ---- true-peak meter --------------------------------------------------- */
-.ddp-meter { margin-top: 1.25rem; cursor: pointer; border-radius: 8px; }
-.ddp-meter[hidden] { display: none; }
-
-.tp-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: .45rem; }
-.tp-k {
-  color: var(--muted); text-transform: uppercase; letter-spacing: .07em;
-  font-size: .62rem; white-space: nowrap;
-}
-.tp-max { display: inline-flex; align-items: baseline; gap: .3rem; font-variant-numeric: tabular-nums; }
-.tp-max-v {
-  font-weight: 600; font-size: 1.05rem; min-width: 3.4ch; text-align: right;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-}
-.tp-max-v.warn { color: var(--gold); }
-.tp-max-v.over { color: #c0392b; }
-.tp-max-u { color: var(--muted); font-size: .6rem; letter-spacing: .04em; }
-
-/* The bar: a fixed zone gradient revealed left-to-right by clip-path, with
-   graduation ticks and a peak-hold marker — reads like a hardware PPM. */
-.tp-bar {
-  position: relative; height: 13px; border-radius: 3px;
-  background: var(--wave-bg); overflow: hidden;
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 8%, transparent);
-}
-.tp-fill {
-  position: absolute; inset: 0; clip-path: inset(0 100% 0 0);
-  background: linear-gradient(90deg,
-    var(--gold) 0%, var(--gold) 82%, #e0801a 91%, #c0392b 100%);
-  transition: clip-path .05s linear;
-}
-.tp-tick {
-  position: absolute; top: 0; bottom: 0; width: 1px; margin-left: -0.5px;
-  background: var(--wave-tick); pointer-events: none;
-}
-.tp-hold {
-  position: absolute; top: -1px; bottom: -1px; width: 2px; margin-left: -1px;
-  background: var(--ink); display: none;
-}
-.ddp-meter:hover .tp-hold { background: var(--gold); }
-
-.tp-scale {
-  position: relative; height: .9em; margin-top: .3rem;
-  font-size: .58rem; color: var(--muted); font-variant-numeric: tabular-nums;
-}
-.tp-scale span { position: absolute; transform: translateX(-50%); }
-.tp-scale span:first-child { transform: none; }
-.tp-scale span:last-child { transform: translateX(-100%); }
-
 /* ---- tracklist ---------------------------------------------------------- */
 .ddp-list-head {
   display: flex; align-items: center; justify-content: space-between;

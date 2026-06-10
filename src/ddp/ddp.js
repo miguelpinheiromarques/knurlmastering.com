@@ -27,9 +27,7 @@
       pqTr: "TR", pqStart: "START", pqDur: "DURATION", pqIsrc: "ISRC", pqTrackTitle: "TITLE",
       composerLabel: "Composer",
       songwriterLabel: "Songwriter", arrangerLabel: "Arranger", messageLabel: "Message",
-      genreLabel: "Genre", discIdLabel: "Disc ID",
-      meterTP: "True Peak",
-      meterReset: "Click to reset peak hold"
+      genreLabel: "Genre", discIdLabel: "Disc ID"
     },
     pt: {
       reading: "A ler ficheiros…", noFiles: "Nenhum ficheiro encontrado.", building: "A construir a forma de onda…",
@@ -45,9 +43,7 @@
       pqTr: "FX", pqStart: "INÍCIO", pqDur: "DURAÇÃO", pqIsrc: "ISRC", pqTrackTitle: "TÍTULO",
       composerLabel: "Compositor",
       songwriterLabel: "Letrista", arrangerLabel: "Arranjador", messageLabel: "Mensagem",
-      genreLabel: "Género", discIdLabel: "ID do disco",
-      meterTP: "Pico real",
-      meterReset: "Clique para repor o pico máximo"
+      genreLabel: "Género", discIdLabel: "ID do disco"
     }
   };
   var T = I18N[(document.documentElement.lang || "en").slice(0, 2)] || I18N.en;
@@ -664,9 +660,8 @@
   function wireAudio(audio) {
     audio.ontimeupdate = onTimeUpdate;
     audio.onplay = function () { updatePlayButton(true); };
-    audio.onpause = function () { if (hardSeeking) return; updatePlayButton(false); meterSettle(); };
+    audio.onpause = function () { updatePlayButton(false); };
     audio.onended = function () { updatePlayButton(false); };
-    audio.onseeked = onAudioSeeked;
     audio.onerror = function () { setStatus(T.audioError, true); };
   }
 
@@ -709,12 +704,6 @@
       meta.appendChild(chip);
     });
 
-    if (meterSupported()) {
-      initMeterLabels();
-      revealMeter();
-      if (meter.ready) resetMeterStats();
-    }
-
     drawWaveform();
     renderTrackList(model);
     updateTransport();
@@ -754,51 +743,11 @@
     return 0;
   }
 
-  function monitorGainValue() {
-    var v = parseFloat($("ddp-vol").value);
-    return isNaN(v) ? 1 : v;
-  }
-
-  // Seek the <audio> element reliably. Setting currentTime while the element
-  // plays through a MediaElementSource is unreliable in WebKit: the element can
-  // keep emitting the *old* position — you hear the previous track continue —
-  // until the next pause. A pause → set → play cycle, kept inside the original
-  // user gesture, forces the seek to land. The monitor gain is muted across the
-  // seek and restored once the element reports 'seeked', so the brief flush of
-  // stale buffered samples is never heard. `hard` requests the pause/play cycle
-  // (track jumps, scrub release); soft seeks (mid-drag) just move the position.
-  var seekRestoreTimer = null;
-  var seekTarget = 0;
-  var hardSeeking = false;
-  function restoreMonitor() {
-    if (seekRestoreTimer) { clearTimeout(seekRestoreTimer); seekRestoreTimer = null; }
-    if (meter.gain) meter.gain.gain.value = monitorGainValue();
-  }
-  function onAudioSeeked() {
-    // let any samples queued just past the seek point drain silently, then unmute
-    if (seekRestoreTimer) clearTimeout(seekRestoreTimer);
-    seekRestoreTimer = setTimeout(restoreMonitor, 90);
-  }
-  function seekAudio(time, hard) {
+  // The <audio> element plays straight to the speakers, so setting currentTime
+  // seeks natively and flushes instantly.
+  function seekAudio(time) {
     var a = state.audio;
-    if (!a) return;
-    if (meter.gain) meter.gain.gain.value = 0;
-    if (seekRestoreTimer) clearTimeout(seekRestoreTimer);
-    seekRestoreTimer = setTimeout(restoreMonitor, 800); // fallback if 'seeked' never fires
-    meterSettle();
-    if (hard && !a.paused) {
-      hardSeeking = true;                 // suppress the transient pause-event UI flip
-      a.pause();
-      a.currentTime = time;
-      var pr = a.play();
-      if (pr && pr.then) pr.then(function () { hardSeeking = false; }, function () { hardSeeking = false; });
-      else hardSeeking = false;
-    } else {
-      a.currentTime = time;
-    }
-  }
-  function finalizeSeek() {
-    if (state.audio && state.model) seekAudio(seekTarget, true);
+    if (a) a.currentTime = time;
   }
 
   function selectTrack(index, play) {
@@ -809,7 +758,7 @@
     var rows = $("ddp-tracklist").children;
     for (var i = 0; i < rows.length; i++) rows[i].classList.toggle("active", i === index);
     if (state.audio) {
-      seekAudio(model.tracks[index].start, true);
+      seekAudio(model.tracks[index].start);
       if (play) playAudio();
     }
     updateNowPlaying();
@@ -928,184 +877,26 @@
     var playing = state.audio && !state.audio.paused;
     var phase = reducedMotion ? 0 : (Date.now() % 1100 < 620 ? 1 : 0);
     if (playing || phase !== lastPhase) { lastPhase = phase; drawWaveform(); }
-    updateMeterDisplay(Date.now());
     requestAnimationFrame(animate);
   }
   function startAnimate() { if (!animating) { animating = true; requestAnimationFrame(animate); } }
 
-  function seekFromEvent(e, hard) {
+  function seekFromEvent(e) {
     var canvas = $("ddp-wave");
     var rect = canvas.getBoundingClientRect();
     var x = (e.touches && e.touches[0] ? e.touches[0].clientX : e.clientX) - rect.left;
     var frac = Math.max(0, Math.min(1, x / rect.width));
     if (state.audio && state.model) {
-      seekTarget = frac * state.model.total;
-      seekAudio(seekTarget, hard);
+      seekAudio(frac * state.model.total);
       drawWaveform();
     }
   }
 
-  /* ========================================================================
-     True-peak meter
-
-     The disc's <audio> output is tapped through the Web Audio graph. Audio
-     plays straight from source → gain → destination (untouched); a parallel
-     AudioWorklet branch reads the same samples for analysis on the audio render
-     thread (off the main thread) and emits silence so it never colours
-     playback. 4× polyphase oversampling catches inter-sample peaks, giving a
-     live true-peak level and a max-hold readout. The DSP itself lives in
-     ddp-meter-worklet.js; here we only set up the graph and the UI.
-     ======================================================================== */
-  var meter = {
-    ctx: null, source: null, node: null, gain: null, ready: false, active: false,
-    osL: 4, osT: 16, tpInst: 0, tpMax: 0, dispDb: -Infinity
-  };
-
-  var TP_FLOOR = -40; // bottom of the meter scale, dBTP
-
-  function meterSupported() {
-    var AC = window.AudioContext || window.webkitAudioContext;
-    return !!(AC && AC.prototype && "audioWorklet" in AC.prototype);
-  }
-
-  // Load the worklet module with the same ?v= cache-buster as ddp.js so the two
-  // stay in lockstep across deploys.
-  function meterWorkletURL() {
-    var s = document.querySelector('script[src*="/ddp/ddp.js"]');
-    var v = "";
-    if (s) { var m = (s.getAttribute("src") || "").match(/[?&]v=([^&]*)/); if (m) v = "?v=" + m[1]; }
-    return "/ddp/ddp-meter-worklet.js" + v;
-  }
-
-  function resetMeterStats() {
-    meter.tpInst = 0; meter.tpMax = 0; meter.dispDb = -Infinity;
-    if (meter.node) meter.node.port.postMessage({ type: "resetAll" });
-  }
-
-  // Mute the meter briefly around a transport change and flush the oversampler,
-  // so step-edge ring-out never registers as a peak.
-  function meterSettle() {
-    meter.tpInst = 0;
-    if (meter.node) meter.node.port.postMessage({ type: "settle", seconds: 0.15 });
-  }
-
-  function resetPeakHold() {
-    meter.tpMax = 0;
-    if (meter.node) meter.node.port.postMessage({ type: "resetMax" });
-    var hold = $("tp-hold"); if (hold) hold.style.display = "none";
-    var mx = $("tp-max"); if (mx) { mx.textContent = "—"; mx.classList.remove("over", "warn"); }
-  }
-
-  function ensureMeterGraph() {
-    if (meter.ctx || !meterSupported() || !state.audio) return;
-    try {
-      var AC = window.AudioContext || window.webkitAudioContext;
-      meter.ctx = new AC();
-      meter.source = meter.ctx.createMediaElementSource(state.audio);
-      // Monitor volume lives on a GainNode so the meter taps the source *before*
-      // it, reading true file loudness regardless of the listening level.
-      meter.gain = meter.ctx.createGain();
-      var vv = parseFloat($("ddp-vol").value);
-      meter.gain.gain.value = isNaN(vv) ? 1 : vv;
-      state.audio.volume = 1;
-      meter.source.connect(meter.gain);                 // monitoring path…
-      meter.gain.connect(meter.ctx.destination);        // …with volume applied
-      meter.active = true;
-      revealMeter();
-      loadMeterWorklet();                               // analysis tap (async)
-    } catch (err) {
-      console.warn("meter", err);
-      meter.ctx = null; meter.ready = false; meter.active = false;
-    }
-  }
-
-  // Add the worklet module, then wire the analysis tap. Audio is already routed
-  // through the gain path above, so playback never waits on this.
-  function loadMeterWorklet() {
-    var ctx = meter.ctx;
-    if (!ctx || !ctx.audioWorklet) return;
-    ctx.audioWorklet.addModule(meterWorkletURL()).then(function () {
-      if (meter.ctx !== ctx) return;                    // reset/teardown meanwhile
-      var node = new AudioWorkletNode(ctx, "knurl-true-peak", {
-        numberOfInputs: 1, numberOfOutputs: 1, outputChannelCount: [2],
-        processorOptions: { L: meter.osL, T: meter.osT }
-      });
-      node.port.onmessage = function (e) {
-        var d = e.data;
-        if (d.inst > meter.tpInst) meter.tpInst = d.inst; // drained in the UI loop
-        meter.tpMax = d.max;
-      };
-      meter.source.connect(node);                       // analysis tap (pre-gain)…
-      node.connect(ctx.destination);                    // …kept alive (emits silence)
-      meter.node = node;
-      meter.ready = true;
-      meterSettle();                                    // ignore the entry step
-    }).catch(function (err) { console.warn("worklet", err); });
-  }
-
-  function revealMeter() {
-    if (!meterSupported()) return;
-    var box = $("ddp-meter");
-    if (box) box.hidden = false;
-  }
-
-  function initMeterLabels() {
-    var label = $("tp-label");
-    if (label) label.textContent = T.meterTP;
-    var box = $("ddp-meter");
-    if (box) { box.title = T.meterReset; box.setAttribute("aria-label", T.meterReset); }
-  }
-
-  function dbToPct(db) {
-    if (!isFinite(db)) return 0;
-    return Math.max(0, Math.min(1, (db - TP_FLOOR) / (0 - TP_FLOOR)));
-  }
-  function fmtDb(v) { return v == null || !isFinite(v) ? "—" : (v >= 0 ? "+" : "") + v.toFixed(1); }
-
-  var lastMeterPaint = 0;
-  function updateMeterDisplay(now) {
-    if (!meter.active) return;
-    var dt = (now - lastMeterPaint) / 1000;
-    if (dt < 0.03) return; // cap UI to ~30 fps
-    lastMeterPaint = now;
-
-    // Live level: instant attack to the loudest sample since the last paint,
-    // then a steady release so the bar falls smoothly toward silence.
-    var instDb = meter.tpInst > 0 ? 20 * Math.log10(meter.tpInst) : -Infinity;
-    meter.tpInst = 0;
-    if (instDb > meter.dispDb || !isFinite(meter.dispDb)) meter.dispDb = instDb;
-    else meter.dispDb -= 20 * dt; // ~20 dB/s release
-
-    var fill = $("tp-fill");
-    if (fill) {
-      // reveal the fixed zone gradient from the left up to the current level
-      var pct = dbToPct(meter.dispDb) * 100;
-      fill.style.clipPath = "inset(0 " + (100 - pct).toFixed(1) + "% 0 0)";
-    }
-
-    var maxDb = meter.tpMax > 0 ? 20 * Math.log10(meter.tpMax) : null;
-    var hold = $("tp-hold");
-    if (hold) {
-      hold.style.display = maxDb == null ? "none" : "block";
-      if (maxDb != null) hold.style.left = (dbToPct(maxDb) * 100).toFixed(1) + "%";
-    }
-    var mx = $("tp-max");
-    if (mx) {
-      mx.textContent = fmtDb(maxDb);
-      mx.classList.toggle("over", maxDb != null && maxDb > 0);
-      mx.classList.toggle("warn", maxDb != null && maxDb > -1 && maxDb <= 0);
-    }
-  }
-
   function setVolume(v) {
-    if (meter.gain) meter.gain.gain.value = v;
-    else if (state.audio) state.audio.volume = v;
+    if (state.audio) state.audio.volume = v;
   }
 
   function playAudio() {
-    ensureMeterGraph();
-    if (meter.ctx && meter.ctx.state === "suspended") meter.ctx.resume();
-    meterSettle();
     if (state.audio) state.audio.play();
   }
 
@@ -1186,9 +977,6 @@
     if (state.audioURL) URL.revokeObjectURL(state.audioURL);
     state.model = null; state.peaks = null; state.audioURL = null; state.currentTrack = 0;
     $("ddp-player").hidden = true;
-    var meterBox = $("ddp-meter");
-    if (meterBox) meterBox.hidden = true;
-    if (meter.ready) resetMeterStats();
     $("ddp-dropzone").classList.remove("loaded");
     setStatus("");
   }
@@ -1237,12 +1025,6 @@
     $("ddp-reset").addEventListener("click", reset);
     $("ddp-export").addEventListener("click", downloadPQSheet);
 
-    var meterBox = $("ddp-meter");
-    meterBox.addEventListener("click", resetPeakHold);
-    meterBox.addEventListener("keydown", function (e) {
-      if (e.code === "Enter" || e.code === "Space") { e.preventDefault(); resetPeakHold(); }
-    });
-
     var vol = $("ddp-vol");
     var muteBtn = $("ddp-mute");
     var lastVol = parseFloat(vol.value) || 1;
@@ -1264,12 +1046,11 @@
 
     var wave = $("ddp-wave");
     var dragging = false;
-    wave.addEventListener("mousedown", function (e) { dragging = true; seekFromEvent(e, true); });
-    window.addEventListener("mousemove", function (e) { if (dragging) seekFromEvent(e, false); });
-    window.addEventListener("mouseup", function () { if (dragging) { dragging = false; finalizeSeek(); } });
-    wave.addEventListener("touchstart", function (e) { seekFromEvent(e, true); }, { passive: true });
-    wave.addEventListener("touchmove", function (e) { seekFromEvent(e, false); }, { passive: true });
-    wave.addEventListener("touchend", function () { finalizeSeek(); }, { passive: true });
+    wave.addEventListener("mousedown", function (e) { dragging = true; seekFromEvent(e); });
+    window.addEventListener("mousemove", function (e) { if (dragging) seekFromEvent(e); });
+    window.addEventListener("mouseup", function () { dragging = false; });
+    wave.addEventListener("touchstart", function (e) { seekFromEvent(e); }, { passive: true });
+    wave.addEventListener("touchmove", function (e) { seekFromEvent(e); }, { passive: true });
 
     window.addEventListener("resize", function () { if (state.model) drawWaveform(); });
 
