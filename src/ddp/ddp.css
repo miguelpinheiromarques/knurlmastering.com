@@ -164,6 +164,8 @@ a:hover { color: var(--gold-soft); }
 }
 #ddp-disc-title { font-size: 1.5rem; font-weight: 600; margin: 0; letter-spacing: -0.02em; }
 #ddp-disc-perf { color: var(--muted); margin: .15rem 0 0; font-weight: 400; }
+.ddp-disc-credits { margin: .3rem 0 0; }
+.ddp-disc-credits .ddp-credit { color: var(--muted); font-size: .82rem; line-height: 1.45; }
 
 .ddp-meta { display: flex; flex-wrap: wrap; gap: .4rem; margin: .9rem 0 1.25rem; }
 .ddp-chip {

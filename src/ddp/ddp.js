@@ -664,8 +664,9 @@
   function wireAudio(audio) {
     audio.ontimeupdate = onTimeUpdate;
     audio.onplay = function () { updatePlayButton(true); };
-    audio.onpause = function () { updatePlayButton(false); meterSettle(); };
+    audio.onpause = function () { if (hardSeeking) return; updatePlayButton(false); meterSettle(); };
     audio.onended = function () { updatePlayButton(false); };
+    audio.onseeked = onAudioSeeked;
     audio.onerror = function () { setStatus(T.audioError, true); };
   }
 
@@ -678,6 +679,16 @@
     $("ddp-disc-title").textContent = title;
     $("ddp-disc-perf").textContent = model.discPerformer || "";
     $("ddp-disc-perf").style.display = model.discPerformer ? "" : "none";
+
+    // disc-level credits (composer / songwriter / arranger / message), each
+    // shown only when present at the album level
+    var credits = $("ddp-disc-credits");
+    credits.innerHTML = "";
+    [[T.composerLabel, model.discComposer], [T.songwriterLabel, model.discSongwriter],
+     [T.arrangerLabel, model.discArranger], [T.messageLabel, model.discMessage]]
+      .forEach(function (c) {
+        if (c[1]) credits.appendChild(el("div", "ddp-credit", c[0] + ": " + c[1]));
+      });
 
     // meta chips
     var meta = $("ddp-meta");
@@ -748,26 +759,46 @@
     return isNaN(v) ? 1 : v;
   }
 
-  // Seek the <audio> element. When the meter graph is active, audio flows
-  // through a MediaElementSource, and WebKit (notably on recent macOS) can emit
-  // a burst of stale, already-buffered samples — the tail of the previous
-  // position — at the moment of a seek. Muting the monitor gain across the seek
-  // and restoring it shortly after (debounced, so scrubbing stays clean)
-  // suppresses that bleed without affecting the analysis tap.
+  // Seek the <audio> element reliably. Setting currentTime while the element
+  // plays through a MediaElementSource is unreliable in WebKit: the element can
+  // keep emitting the *old* position — you hear the previous track continue —
+  // until the next pause. A pause → set → play cycle, kept inside the original
+  // user gesture, forces the seek to land. The monitor gain is muted across the
+  // seek and restored once the element reports 'seeked', so the brief flush of
+  // stale buffered samples is never heard. `hard` requests the pause/play cycle
+  // (track jumps, scrub release); soft seeks (mid-drag) just move the position.
   var seekRestoreTimer = null;
-  function seekAudio(time) {
+  var seekTarget = 0;
+  var hardSeeking = false;
+  function restoreMonitor() {
+    if (seekRestoreTimer) { clearTimeout(seekRestoreTimer); seekRestoreTimer = null; }
+    if (meter.gain) meter.gain.gain.value = monitorGainValue();
+  }
+  function onAudioSeeked() {
+    // let any samples queued just past the seek point drain silently, then unmute
+    if (seekRestoreTimer) clearTimeout(seekRestoreTimer);
+    seekRestoreTimer = setTimeout(restoreMonitor, 90);
+  }
+  function seekAudio(time, hard) {
     var a = state.audio;
     if (!a) return;
-    a.currentTime = time;
+    if (meter.gain) meter.gain.gain.value = 0;
+    if (seekRestoreTimer) clearTimeout(seekRestoreTimer);
+    seekRestoreTimer = setTimeout(restoreMonitor, 800); // fallback if 'seeked' never fires
     meterSettle();
-    if (meter.gain) {
-      meter.gain.gain.value = 0;
-      if (seekRestoreTimer) clearTimeout(seekRestoreTimer);
-      seekRestoreTimer = setTimeout(function () {
-        seekRestoreTimer = null;
-        if (meter.gain) meter.gain.gain.value = monitorGainValue();
-      }, 160);
+    if (hard && !a.paused) {
+      hardSeeking = true;                 // suppress the transient pause-event UI flip
+      a.pause();
+      a.currentTime = time;
+      var pr = a.play();
+      if (pr && pr.then) pr.then(function () { hardSeeking = false; }, function () { hardSeeking = false; });
+      else hardSeeking = false;
+    } else {
+      a.currentTime = time;
     }
+  }
+  function finalizeSeek() {
+    if (state.audio && state.model) seekAudio(seekTarget, true);
   }
 
   function selectTrack(index, play) {
@@ -778,7 +809,7 @@
     var rows = $("ddp-tracklist").children;
     for (var i = 0; i < rows.length; i++) rows[i].classList.toggle("active", i === index);
     if (state.audio) {
-      seekAudio(model.tracks[index].start);
+      seekAudio(model.tracks[index].start, true);
       if (play) playAudio();
     }
     updateNowPlaying();
@@ -902,13 +933,14 @@
   }
   function startAnimate() { if (!animating) { animating = true; requestAnimationFrame(animate); } }
 
-  function seekFromEvent(e) {
+  function seekFromEvent(e, hard) {
     var canvas = $("ddp-wave");
     var rect = canvas.getBoundingClientRect();
-    var x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    var x = (e.touches && e.touches[0] ? e.touches[0].clientX : e.clientX) - rect.left;
     var frac = Math.max(0, Math.min(1, x / rect.width));
     if (state.audio && state.model) {
-      seekAudio(frac * state.model.total);
+      seekTarget = frac * state.model.total;
+      seekAudio(seekTarget, hard);
       drawWaveform();
     }
   }
@@ -1232,11 +1264,12 @@
 
     var wave = $("ddp-wave");
     var dragging = false;
-    wave.addEventListener("mousedown", function (e) { dragging = true; seekFromEvent(e); });
-    window.addEventListener("mousemove", function (e) { if (dragging) seekFromEvent(e); });
-    window.addEventListener("mouseup", function () { dragging = false; });
-    wave.addEventListener("touchstart", function (e) { seekFromEvent(e); }, { passive: true });
-    wave.addEventListener("touchmove", function (e) { seekFromEvent(e); }, { passive: true });
+    wave.addEventListener("mousedown", function (e) { dragging = true; seekFromEvent(e, true); });
+    window.addEventListener("mousemove", function (e) { if (dragging) seekFromEvent(e, false); });
+    window.addEventListener("mouseup", function () { if (dragging) { dragging = false; finalizeSeek(); } });
+    wave.addEventListener("touchstart", function (e) { seekFromEvent(e, true); }, { passive: true });
+    wave.addEventListener("touchmove", function (e) { seekFromEvent(e, false); }, { passive: true });
+    wave.addEventListener("touchend", function () { finalizeSeek(); }, { passive: true });
 
     window.addEventListener("resize", function () { if (state.model) drawWaveform(); });
 
