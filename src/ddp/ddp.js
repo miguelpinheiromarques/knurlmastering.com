@@ -26,6 +26,8 @@
       pqTitle: "Title", pqPerformer: "Performer", pqUpc: "UPC/EAN", pqFormat: "Format", pqTotal: "Total",
       pqTr: "TR", pqStart: "START", pqDur: "DURATION", pqIsrc: "ISRC", pqTrackTitle: "TITLE",
       composerLabel: "Composer",
+      songwriterLabel: "Songwriter", arrangerLabel: "Arranger", messageLabel: "Message",
+      genreLabel: "Genre", discIdLabel: "Disc ID",
       meterTP: "True Peak",
       meterReset: "Click to reset peak hold"
     },
@@ -42,6 +44,8 @@
       pqTitle: "Título", pqPerformer: "Intérprete", pqUpc: "UPC/EAN", pqFormat: "Formato", pqTotal: "Total",
       pqTr: "FX", pqStart: "INÍCIO", pqDur: "DURAÇÃO", pqIsrc: "ISRC", pqTrackTitle: "TÍTULO",
       composerLabel: "Compositor",
+      songwriterLabel: "Letrista", arrangerLabel: "Arranjador", messageLabel: "Mensagem",
+      genreLabel: "Género", discIdLabel: "ID do disco",
       meterTP: "Pico real",
       meterReset: "Clique para repor o pico máximo"
     }
@@ -295,19 +299,40 @@
   /* ========================================================================
      CD-TEXT parsing (18-byte lead-in packs)
      ======================================================================== */
-  var CDT_TYPE = { 0x80: "title", 0x81: "performer", 0x82: "songwriter", 0x83: "composer", 0x84: "arranger", 0x85: "message" };
+  // Text pack types (each carries 12 ASCII/Latin-1 bytes). Genre (0x87) is
+  // handled separately because it leads with a 2-byte binary code.
+  var CDT_TYPE = {
+    0x80: "title", 0x81: "performer", 0x82: "songwriter", 0x83: "composer",
+    0x84: "arranger", 0x85: "message", 0x86: "discId"
+  };
+
+  // Standard CD-TEXT genre codes (Sony/Philips spec); the genre pack may also
+  // carry a free-text description after the code.
+  var GENRE_CODES = {
+    2: "Adult Contemporary", 3: "Alternative Rock", 4: "Children's", 5: "Classical",
+    6: "Contemporary Christian", 7: "Country", 8: "Dance", 9: "Easy Listening",
+    10: "Erotic", 11: "Folk", 12: "Gospel", 13: "Hip-Hop", 14: "Jazz", 15: "Latin",
+    16: "Musical", 17: "New Age", 18: "Opera", 19: "Operetta", 20: "Pop Music",
+    21: "Rap", 22: "Reggae", 23: "Rock Music", 24: "Rhythm & Blues",
+    25: "Sound Effects", 26: "Soundtrack", 27: "Spoken Word", 28: "World Music"
+  };
 
   function parseCDText(bytes) {
     var start = 0;
     if (bytes.length % 18 === 4 && (bytes.length - 4) % 18 === 0) start = 4; // size header
     var fields = {}; // type -> array of byte arrays per pack (block 0)
+    var genreBytes = []; // raw 0x87 payload, accumulated across packs
     for (var p = start; p + 18 <= bytes.length; p += 18) {
       var type = bytes[p];
-      if (!CDT_TYPE[type]) continue;
       var trackBase = bytes[p + 1] & 0x7f;
       var blockPos = bytes[p + 3];
       var block = (blockPos & 0x70) >> 4;
       if (block !== 0) continue; // only the first (typically English) block
+      if (type === 0x87) { // GENRE: 2-byte code + ASCII text, disc-level
+        for (var g = 0; g < 12; g++) genreBytes.push(bytes[p + 4 + g]);
+        continue;
+      }
+      if (!CDT_TYPE[type]) continue;
       var key = CDT_TYPE[type];
       if (!fields[key]) fields[key] = { base: trackBase, bytes: [] };
       for (var d = 0; d < 12; d++) fields[key].bytes.push(bytes[p + 4 + d]);
@@ -338,6 +363,21 @@
       }
       result[key] = map;
     });
+    // Genre: 2-byte code + optional free-text description, disc-level (track 0).
+    if (genreBytes.length >= 2) {
+      var code = (genreBytes[0] << 8) | genreBytes[1];
+      var desc = "";
+      for (var gi = 2; gi < genreBytes.length; gi++) {
+        if (genreBytes[gi] === 0) break;
+        desc += String.fromCharCode(genreBytes[gi]);
+      }
+      desc = desc.trim();
+      var name = GENRE_CODES[code] || null;
+      var text;
+      if (name && desc && name.toLowerCase() !== desc.toLowerCase()) text = name + " / " + desc;
+      else text = desc || name || (code > 1 ? "Genre " + code : null);
+      if (text) result.genre = { 0: text };
+    }
     return result;
   }
 
@@ -388,7 +428,10 @@
         isrc: startEntry.isrc || (pregapEntry && pregapEntry.isrc) || null,
         title: (cdt.title && cdt.title[num]) || null,
         performer: (cdt.performer && cdt.performer[num]) || null,
-        composer: (cdt.composer && cdt.composer[num]) || null
+        composer: (cdt.composer && cdt.composer[num]) || null,
+        songwriter: (cdt.songwriter && cdt.songwriter[num]) || null,
+        arranger: (cdt.arranger && cdt.arranger[num]) || null,
+        message: (cdt.message && cdt.message[num]) || null
       });
     });
 
@@ -397,7 +440,10 @@
       tracks.push({ num: 1, startAbs: 0, pregapAbs: 0, isrc: null,
         title: (cdt.title && cdt.title[1]) || null,
         performer: (cdt.performer && cdt.performer[1]) || null,
-        composer: (cdt.composer && cdt.composer[1]) || null });
+        composer: (cdt.composer && cdt.composer[1]) || null,
+        songwriter: (cdt.songwriter && cdt.songwriter[1]) || null,
+        arranger: (cdt.arranger && cdt.arranger[1]) || null,
+        message: (cdt.message && cdt.message[1]) || null });
       leadOutSec = imageDuration;
     }
 
@@ -425,8 +471,14 @@
       discTitle: (cdt.title && cdt.title[0]) || (parsed.id && parsed.id.userText) || null,
       discPerformer: (cdt.performer && cdt.performer[0]) || null,
       discComposer: (cdt.composer && cdt.composer[0]) || null,
+      discSongwriter: (cdt.songwriter && cdt.songwriter[0]) || null,
+      discArranger: (cdt.arranger && cdt.arranger[0]) || null,
+      discMessage: (cdt.message && cdt.message[0]) || null,
+      discId: (cdt.discId && cdt.discId[0]) || null,
+      genre: (cdt.genre && cdt.genre[0]) || null,
       masterId: (parsed.id && parsed.id.masterId) || null,
-      hasCdText: !!(cdt.title || cdt.performer || cdt.composer),
+      hasCdText: !!(cdt.title || cdt.performer || cdt.composer || cdt.songwriter ||
+        cdt.arranger || cdt.message || cdt.genre || cdt.discId),
       hasPQ: pq.length > 0
     };
   }
@@ -635,6 +687,8 @@
     chips.push([T.cTracks, String(model.tracks.length)]);
     chips.push([T.cTotal, fmtMSF(model.total)]);
     if (model.upcEan) chips.push([T.cUpc, model.upcEan]);
+    if (model.genre) chips.push([T.genreLabel, model.genre]);
+    if (model.discId) chips.push([T.discIdLabel, model.discId]);
     if (model.hasCdText) chips.push([T.cCdText, T.yes]);
     if (!model.hasPQ) chips.push([T.cPQ, T.notFound]);
     chips.forEach(function (c) {
@@ -669,6 +723,9 @@
       info.appendChild(tt);
       if (tk.performer) info.appendChild(el("div", "t-perf", tk.performer));
       if (tk.composer && tk.composer !== tk.performer) info.appendChild(el("div", "t-comp", T.composerLabel + ": " + tk.composer));
+      if (tk.songwriter && tk.songwriter !== tk.composer) info.appendChild(el("div", "t-comp", T.songwriterLabel + ": " + tk.songwriter));
+      if (tk.arranger) info.appendChild(el("div", "t-comp", T.arrangerLabel + ": " + tk.arranger));
+      if (tk.message) info.appendChild(el("div", "t-comp", T.messageLabel + ": " + tk.message));
       if (tk.isrc) info.appendChild(el("div", "t-isrc", "ISRC: " + tk.isrc));
       var start = el("td", "t-start", fmtMSF(tk.start));
       var dur = el("td", "t-dur", fmtTime(tk.duration));
@@ -686,6 +743,33 @@
     return 0;
   }
 
+  function monitorGainValue() {
+    var v = parseFloat($("ddp-vol").value);
+    return isNaN(v) ? 1 : v;
+  }
+
+  // Seek the <audio> element. When the meter graph is active, audio flows
+  // through a MediaElementSource, and WebKit (notably on recent macOS) can emit
+  // a burst of stale, already-buffered samples — the tail of the previous
+  // position — at the moment of a seek. Muting the monitor gain across the seek
+  // and restoring it shortly after (debounced, so scrubbing stays clean)
+  // suppresses that bleed without affecting the analysis tap.
+  var seekRestoreTimer = null;
+  function seekAudio(time) {
+    var a = state.audio;
+    if (!a) return;
+    a.currentTime = time;
+    meterSettle();
+    if (meter.gain) {
+      meter.gain.gain.value = 0;
+      if (seekRestoreTimer) clearTimeout(seekRestoreTimer);
+      seekRestoreTimer = setTimeout(function () {
+        seekRestoreTimer = null;
+        if (meter.gain) meter.gain.gain.value = monitorGainValue();
+      }, 160);
+    }
+  }
+
   function selectTrack(index, play) {
     var model = state.model;
     if (!model) return;
@@ -694,8 +778,7 @@
     var rows = $("ddp-tracklist").children;
     for (var i = 0; i < rows.length; i++) rows[i].classList.toggle("active", i === index);
     if (state.audio) {
-      state.audio.currentTime = model.tracks[index].start;
-      meterSettle();
+      seekAudio(model.tracks[index].start);
       if (play) playAudio();
     }
     updateNowPlaying();
@@ -825,8 +908,7 @@
     var x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
     var frac = Math.max(0, Math.min(1, x / rect.width));
     if (state.audio && state.model) {
-      state.audio.currentTime = frac * state.model.total;
-      meterSettle();
+      seekAudio(frac * state.model.total);
       drawWaveform();
     }
   }
@@ -1005,29 +1087,43 @@
     lines.push(T.pqHeading);
     lines.push(T.pqGenerated + new Date().toISOString().slice(0, 10));
     lines.push("");
-    if (model.discTitle) lines.push((T.pqTitle + ":").padEnd(11) + model.discTitle);
-    if (model.discPerformer) lines.push((T.pqPerformer + ":").padEnd(11) + model.discPerformer);
-    if (model.discComposer) lines.push((T.composerLabel + ":").padEnd(11) + model.discComposer);
-    if (model.upcEan) lines.push((T.pqUpc + ":").padEnd(11) + model.upcEan);
-    if (model.level) lines.push((T.pqFormat + ":").padEnd(11) + model.level);
-    lines.push((T.pqTotal + ":").padEnd(11) + fmtMSF(model.total));
+    var L = 13; // label column width for the disc header
+    if (model.discTitle) lines.push((T.pqTitle + ":").padEnd(L) + model.discTitle);
+    if (model.discPerformer) lines.push((T.pqPerformer + ":").padEnd(L) + model.discPerformer);
+    if (model.discComposer) lines.push((T.composerLabel + ":").padEnd(L) + model.discComposer);
+    if (model.discSongwriter) lines.push((T.songwriterLabel + ":").padEnd(L) + model.discSongwriter);
+    if (model.discArranger) lines.push((T.arrangerLabel + ":").padEnd(L) + model.discArranger);
+    if (model.genre) lines.push((T.genreLabel + ":").padEnd(L) + model.genre);
+    if (model.discId) lines.push((T.discIdLabel + ":").padEnd(L) + model.discId);
+    if (model.upcEan) lines.push((T.pqUpc + ":").padEnd(L) + model.upcEan);
+    if (model.level) lines.push((T.pqFormat + ":").padEnd(L) + model.level);
+    lines.push((T.pqTotal + ":").padEnd(L) + fmtMSF(model.total));
+    if (model.discMessage) lines.push((T.messageLabel + ":").padEnd(L) + model.discMessage);
     lines.push("");
 
     // Per-track table with one column per field, auto-sized to its contents so
-    // everything stays aligned regardless of how long titles/names are.
+    // everything stays aligned regardless of how long titles/names are. Optional
+    // columns (ISRC, credits, message) are dropped entirely when no track uses
+    // them, so the sheet only carries the fields actually present on the disc.
     var dash = "—";
-    var headers = [T.pqTr, T.pqStart, T.pqDur, T.pqIsrc, T.pqTrackTitle,
-      T.pqPerformer.toUpperCase(), T.composerLabel.toUpperCase()];
+    var colDefs = [
+      { h: T.pqTr, always: true, get: function (tk) { return String(tk.num).padStart(2, "0"); } },
+      { h: T.pqStart, always: true, get: function (tk) { return fmtMSF(tk.start); } },
+      { h: T.pqDur, always: true, get: function (tk) { return fmtTime(tk.duration); } },
+      { h: T.pqIsrc, get: function (tk) { return tk.isrc || dash; } },
+      { h: T.pqTrackTitle, always: true, get: function (tk) { return tk.title || (T.trackWord + " " + tk.num); } },
+      { h: T.pqPerformer.toUpperCase(), get: function (tk) { return tk.performer || model.discPerformer || dash; } },
+      { h: T.composerLabel.toUpperCase(), get: function (tk) { return tk.composer || model.discComposer || dash; } },
+      { h: T.songwriterLabel.toUpperCase(), get: function (tk) { return tk.songwriter || model.discSongwriter || dash; } },
+      { h: T.arrangerLabel.toUpperCase(), get: function (tk) { return tk.arranger || model.discArranger || dash; } },
+      { h: T.messageLabel.toUpperCase(), get: function (tk) { return tk.message || dash; } }
+    ];
+    var cols = colDefs.filter(function (c) {
+      return c.always || model.tracks.some(function (tk) { return c.get(tk) !== dash; });
+    });
+    var headers = cols.map(function (c) { return c.h; });
     var rows = model.tracks.map(function (tk) {
-      return [
-        String(tk.num).padStart(2, "0"),
-        fmtMSF(tk.start),
-        fmtMSF(tk.duration),
-        tk.isrc || dash,
-        tk.title || (T.trackWord + " " + tk.num),
-        tk.performer || model.discPerformer || dash,
-        tk.composer || model.discComposer || dash
-      ];
+      return cols.map(function (c) { return c.get(tk); });
     });
     var widths = headers.map(function (h, i) {
       var w = h.length;
