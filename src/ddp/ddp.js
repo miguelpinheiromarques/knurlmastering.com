@@ -443,7 +443,15 @@
       leadOutSec = imageDuration;
     }
 
-    t0 = tracks[0].startAbs;
+    // Anchor PQ absolute times onto the audio image. The image starts at track 1
+    // INDEX 0 (pregap), not INDEX 1 — anchoring on INDEX 1 shifted every seek
+    // early by the pregap length (typically 2s). When lead-out time and image
+    // size are both known, the image's first sample is exactly leadOut - duration.
+    t0 = tracks[0].pregapAbs;
+    if (leadOutSec != null && imageDuration > 0) {
+      var inferred = leadOutSec - imageDuration;
+      if (inferred > -0.05 && inferred <= tracks[0].startAbs + 0.05) t0 = Math.max(0, inferred);
+    }
     var total = imageDuration > 0 ? imageDuration : (leadOutSec != null ? leadOutSec - t0 : 0);
 
     tracks.forEach(function (tk, i) {
@@ -744,10 +752,23 @@
   }
 
   // The <audio> element plays straight to the speakers, so setting currentTime
-  // seeks natively and flushes instantly.
+  // seeks natively and flushes instantly. While playing, wrap the splice in a
+  // fade-out / fade-in so neither cut point clicks.
+  var seekedHandler = null;
   function seekAudio(time) {
     var a = state.audio;
-    if (a) a.currentTime = time;
+    if (!a) return;
+    if (seekedHandler) { a.removeEventListener("seeked", seekedHandler); seekedHandler = null; }
+    if (a.paused) { a.currentTime = time; return; }
+    fadeTo(0, function () {
+      seekedHandler = function () {
+        a.removeEventListener("seeked", seekedHandler);
+        seekedHandler = null;
+        fadeTo(currentVolume());
+      };
+      a.addEventListener("seeked", seekedHandler);
+      a.currentTime = time;
+    });
   }
 
   function selectTrack(index, play) {
@@ -759,7 +780,8 @@
     for (var i = 0; i < rows.length; i++) rows[i].classList.toggle("active", i === index);
     if (state.audio) {
       seekAudio(model.tracks[index].start);
-      if (play) playAudio();
+      // if already playing, seekAudio fades through the splice itself
+      if (play && state.audio.paused) playAudio();
     }
     updateNowPlaying();
     drawWaveform();
@@ -776,7 +798,7 @@
   function togglePlay() {
     if (!state.audio) return;
     if (state.audio.paused) playAudio();
-    else state.audio.pause();
+    else pauseAudio();
   }
   function updatePlayButton(playing) {
     $("ddp-play").classList.toggle("playing", playing);
@@ -892,11 +914,10 @@
     }
   }
 
-  // Short de-click fade on playback start. Starting playback after a seek jumps
-  // from silence to a mid-waveform sample (CD track boundaries aren't at zero
-  // crossings), which clicks. We can't ramp an AudioParam without re-introducing
-  // the Web Audio graph, so we ramp the element's volume from 0 to the current
-  // level over a few ms: the onset is muted, masking the step.
+  // Short de-click fades. CD track boundaries aren't at zero crossings, so an
+  // abrupt start, stop, or splice steps mid-waveform and clicks. We can't ramp
+  // an AudioParam without re-introducing the Web Audio graph, so we ramp the
+  // element's volume over a few ms instead: out before pause/seek, in on start.
   var FADE_MS = 18;
   var fadeTimer = null;
   function cancelFade() {
@@ -907,6 +928,26 @@
     return isNaN(v) ? 1 : Math.max(0, Math.min(1, v));
   }
 
+  function fadeTo(target, done) {
+    var a = state.audio;
+    cancelFade();
+    if (!a) return;
+    var from = a.volume;
+    if (Math.abs(target - from) < 0.001) {
+      a.volume = target;
+      if (done) done();
+      return;
+    }
+    var start = performance.now();
+    var step = function () {
+      var t = (performance.now() - start) / FADE_MS;
+      if (t >= 1) { a.volume = target; fadeTimer = null; if (done) done(); return; }
+      a.volume = from + (target - from) * t;
+      fadeTimer = setTimeout(step, 3);
+    };
+    fadeTimer = setTimeout(step, 3);
+  }
+
   function setVolume(v) {
     cancelFade();                 // a manual volume change overrides any fade
     if (state.audio) state.audio.volume = v;
@@ -915,19 +956,15 @@
   function playAudio() {
     var a = state.audio;
     if (!a) return;
-    cancelFade();
-    var target = currentVolume();
     a.volume = 0;                 // mute the onset before audio starts
     a.play();
-    if (target <= 0) return;      // muted: nothing to ramp up to
-    var start = performance.now();
-    var step = function () {
-      var t = (performance.now() - start) / FADE_MS;
-      if (t >= 1) { a.volume = target; fadeTimer = null; return; }
-      a.volume = target * t;      // linear ramp from silence
-      fadeTimer = setTimeout(step, 3);
-    };
-    fadeTimer = setTimeout(step, 3);
+    fadeTo(currentVolume());
+  }
+
+  function pauseAudio() {
+    var a = state.audio;
+    if (!a || a.paused) return;
+    fadeTo(0, function () { a.pause(); });
   }
 
   /* ========================================================================
