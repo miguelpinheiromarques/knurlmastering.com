@@ -1,5 +1,14 @@
 [
   {
+    "artist": "Alex Paton",
+    "work": "When the Water Came",
+    "service": "digital mastering",
+    "date": "June 2026",
+    "image": "covers/alex_paton_when_the_water_came.jpg",
+    "link": "https://alexpaton.bandcamp.com/album/when-the-water-came",
+    "featured": false
+  }, 
+  {
     "artist": "emmy Curl",
     "work": "Lembra-me Um Sonho Lindo",
     "service": "digital mastering",
